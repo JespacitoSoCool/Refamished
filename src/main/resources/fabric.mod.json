@@ -1,0 +1,38 @@
+{
+  "schemaVersion": 1,
+  "id": "refamished",
+  "version": "0.075",
+  "name": "Refamished",
+  "description": "H",
+  "authors": [
+    "Idk"
+  ],
+  "contact": {
+    "homepage": "https://legacyfabric.net/",
+    "sources": "https://github.com/Legacy-Fabric/fabric-example-mod"
+  },
+  "license": "CC0-1.0",
+  "icon": "assets/refamished/icon.png",
+  "environment": "*",
+  "entrypoints": {
+    "main": [
+      "net.fabricmc.refamished.RefamishedMod"
+    ],
+    "btw:addon": [
+      "btw.community.refamished.RefamishedAddon"
+    ],
+    "emi": [
+      "net.fabricmc.refamished.misc.EMIfamished.EmiRefamishedPlugin"
+    ]
+  },
+  "custom": {
+    "btw:addon_prefix": "RE"
+  },
+  "mixins": [
+    "refamishit.mixins.json"
+  ],
+  "depends": {
+    "fabricloader": ">=0.14.19",
+    "minecraft": "1.6.4"
+  }
+}
