@@ -10,3 +10,9 @@ What this addon does?
 
 .
 yes
+
+
+
+the fucking wiki :
+
+https://github.com/JespacitoSoCool/Refamished/wiki/0.-Home,-Sweet-home
