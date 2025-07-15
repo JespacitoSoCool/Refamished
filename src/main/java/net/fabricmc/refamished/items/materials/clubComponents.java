@@ -25,6 +25,11 @@ public class clubComponents extends Item
         setCreativeTab( CreativeTabs.tabMaterials );
     }
 
+    @Override
+    public int getFurnaceBurnTime(int iItemDamage) {
+        return iItemDamage == 4 ? 0 : iItemDamage == 5 ? 100 : 50;
+    }
+
     private String[] nameExtensionsBySubtype = new String[]{"oak", "spruce", "birch", "jungle", "bone", "handle"};
     @Override
     public String getUnlocalizedName(ItemStack stack) {

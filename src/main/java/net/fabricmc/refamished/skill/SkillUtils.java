@@ -26,7 +26,7 @@ public class SkillUtils {
 				return skillData.level; // Return the skill's level
 			}
 		}
-		return 0; // Default if skill isn't found
+		return 0;
 	}
 
 	public static int getPlayerSkillExperience(EntityPlayer player, String skillName) {
@@ -34,15 +34,14 @@ public class SkillUtils {
 		if (persistentState != null) {
 			SkillData skillData = persistentState.getSkillData(player.getUniqueID());
 			if (skillData != null && SkillData.skills.containsKey(skillName)) {
-				return skillData.experience; // Return the skill's experience
+				return skillData.experience;
 			}
 		}
-		return 0; // Default if skill isn't found
+		return 0;
 	}
 
 	public static void syncSkillToClient(EntityPlayerMP player, String skillName, int experience, int level) {
 		try {
-			// Check if the player is fully initialized
 			if (player.playerNetServerHandler != null) {
 				String payload = skillName + ";" + experience + ";" + level;
 				byte[] data = payload.getBytes(StandardCharsets.UTF_8);

@@ -19,10 +19,10 @@ public class hempCropMixin {
     @Inject(method = "harvestBlock",at = @At("RETURN"), cancellable = true)
     private void canUseBlade(World world, EntityPlayer player, int i, int j, int k, int iMetadata, CallbackInfo ci) {
         HempCropBlock this_ = (HempCropBlock)(Object)this;
-        if (!(world.isRemote || player.getCurrentEquippedItem() != null && player.getCurrentEquippedItem().getItem() instanceof bladeIron || !world.getDifficulty().doesHempRequireShears() || world.getBlockId(i, j - 1, k) != this_.blockID)) {
+        if (!(world.isRemote || player.getCurrentEquippedItem() != null && !(player.getCurrentEquippedItem().getItem() instanceof bladeIron) || !world.getDifficulty().doesHempRequireShears() || world.getBlockId(i, j - 1, k) != this_.blockID)) {
             this_.dropBlockAsItem(world, i, j - 1, k, world.getBlockMetadata(i, j - 1, k), 0);
             world.setBlockToAir(i, j - 1, k);
-            ci.cancel();
         }
+        ci.cancel();
     }
 }

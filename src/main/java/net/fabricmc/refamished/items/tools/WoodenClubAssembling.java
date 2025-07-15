@@ -3,6 +3,8 @@ package net.fabricmc.refamished.items.tools;
 import btw.item.items.ProgressiveCraftingItem;
 import net.fabricmc.refamished.RefamishedItems;
 import net.fabricmc.refamished.misc.Utils.UtilItem;
+import net.fabricmc.refamished.quality.ToolQuality;
+import net.fabricmc.refamished.skill.SkillManager;
 import net.minecraft.src.*;
 
 public class WoodenClubAssembling extends ProgressiveCraftingItem {
@@ -27,8 +29,17 @@ public class WoodenClubAssembling extends ProgressiveCraftingItem {
     public ItemStack onEaten( ItemStack stack, World world, EntityPlayer player )
     {
         player.playSound( "mob.zombie.woodbreak", 0.1F, 1.25F + ( world.rand.nextFloat() * 0.25F ) );
-
-        return new ItemStack( result, 1, 0 );
+        ItemStack the = new ItemStack( result, 1, 0 );
+        SkillManager.addExperience(player,"Artisanry", 8);
+        if (!world.isRemote)
+        {
+            if (!the.hasTagCompound()) {
+                the.setTagCompound(new NBTTagCompound());
+            }
+            ToolQuality quality = ToolQuality.getRandomQuality();
+            the.getTagCompound().setString("ToolQuality", quality.getName());
+        }
+        return the;
     }
 
     @Override

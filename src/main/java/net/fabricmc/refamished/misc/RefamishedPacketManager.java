@@ -1,21 +1,16 @@
 package net.fabricmc.refamished.misc;
 
-import btw.BTWMod;
+import btw.AddonHandler;
 import btw.client.network.packet.handler.*;
 import btw.entity.*;
-import btw.entity.mechanical.platform.BlockLiftedByPlatformEntity;
-import btw.entity.mechanical.source.VerticalWindMillEntity;
-import btw.entity.mechanical.source.WaterWheelEntity;
-import btw.entity.mechanical.source.WindMillEntity;
-import btw.network.packet.*;
+import btw.network.packet.handler.CustomPacketHandler;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
+import net.fabricmc.refamished.misc.Packets.CopperAnvilPacketHandler;
+import net.fabricmc.refamished.misc.Packets.ForgePlanPacketHandler;
+import net.fabricmc.refamished.misc.Packets.SteelAnvilPacketHandler;
+import net.fabricmc.refamished.misc.Packets.StoneAnvilPacketHandler;
 import net.minecraft.server.MinecraftServer;
-import net.minecraft.src.EntityCreeper;
-import net.minecraft.src.Packet;
-import net.minecraft.src.Packet24MobSpawn;
-
-import java.util.List;
 
 public class RefamishedPacketManager {
 
@@ -24,15 +19,23 @@ public class RefamishedPacketManager {
     public static final String BTW_OPTIONS_PACKET_CHANNEL = "re|OP";
     public static final String BTW_DIFFICULTY_PACKET_CHANNEL = "re|DF";
     public static final String CUSTOM_INTERFACE_PACKET_CHANNEL = "re|OI";
+    public static final String STONE_ANVIL_ = "re|LSS";
+    public static final String COPPER_ANVIL_ = "re|LSC";
+    public static final String STEEL_ANVIL_ = "re|LSST";
+    public static final String FORGE_PLAN = "re|FP";
 
     public static void initPacketInfo() {
         if (!MinecraftServer.getIsServer()) {
             RefamishedPacketManager.initClientPacketInfo();
         }
-        Packet.addIdClassMapping(166, false, true, StartBlockHarvestPacket.class);
-        Packet.addIdClassMapping(21, true, true, PlayerSyncPacket.class);
-        Packet.addIdClassMapping(167, true, false, TimerSpeedPacket.class);
-        Packet.addIdClassMapping(168, true, false, HardcoreSpawnPacket.class);
+        registerPacketHandler(STONE_ANVIL_, new StoneAnvilPacketHandler());
+        registerPacketHandler(COPPER_ANVIL_, new CopperAnvilPacketHandler());
+        registerPacketHandler(STEEL_ANVIL_, new SteelAnvilPacketHandler());
+        registerPacketHandler(FORGE_PLAN, new ForgePlanPacketHandler());
+        //Packet.addIdClassMapping(166, false, true, StartBlockHarvestPacket.class);
+        //Packet.addIdClassMapping(21, true, true, PlayerSyncPacket.class);
+        //Packet.addIdClassMapping(167, true, false, TimerSpeedPacket.class);
+        //Packet.addIdClassMapping(168, true, false, HardcoreSpawnPacket.class);
     }
 
     @Environment(value= EnvType.CLIENT)
@@ -41,8 +44,12 @@ public class RefamishedPacketManager {
         //BTWMod.instance.registerPacketHandler(CUSTOM_ENTITY_EVENT_PACKET_CHANNEL, new EntityEventPacketHandler());
         //BTWMod.instance.registerPacketHandler(BTW_OPTIONS_PACKET_CHANNEL, new BTWOptionsPacketHandler());
         //BTWMod.instance.registerPacketHandler(BTW_DIFFICULTY_PACKET_CHANNEL, new BTWDifficultyPacketHandler());
-        //BTWMod.instance.registerPacketHandler(CUSTOM_INTERFACE_PACKET_CHANNEL, new GuiPacketHandler());
-        RefamishedPacketManager.initEntitySpawnEntries();
+        registerPacketHandler(CUSTOM_INTERFACE_PACKET_CHANNEL, new RefamishedGuiPacketHandler());
+        //RefamishedPacketManager.initEntitySpawnEntries();
+    }
+
+    public static void registerPacketHandler(String channel, CustomPacketHandler handler) {
+        AddonHandler.registerPacketHandler(channel, handler);
     }
 
     @Environment(value=EnvType.CLIENT)

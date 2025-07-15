@@ -21,6 +21,11 @@ public class SkillRecipeStarter {
         addItemFromString(RefamishedItems.plateCopper.itemID, "Artisanry:1");
         addItemFromString(RefamishedItems.legsCopper.itemID, "Artisanry:1");
         addItemFromString(RefamishedItems.bootsCopper.itemID, "Artisanry:1");
+        addItemFromString(RefamishedItems.copperTongs.itemID, "Artisanry:1");
+        addItemFromString(RefamishedItems.copperHammer.itemID, "Artisanry:1");
+        addItemFromString(RefamishedItems.copperChisel.itemID, "Artisanry:1");
+        addItemFromString(RefamishedItems.copper_machete.itemID, "Artisanry:1");
+        addItemFromString(RefamishedItems.copperShears.itemID, "Artisanry:1");
 
         addItemFromString(Item.swordIron.itemID, "Artisanry:2");
         addItemFromString(Item.pickaxeIron.itemID, "Artisanry:2");
@@ -32,6 +37,9 @@ public class SkillRecipeStarter {
         addItemFromString(Item.legsIron.itemID, "Artisanry:2");
         addItemFromString(Item.bootsIron.itemID, "Artisanry:2");
         addItemFromString(RefamishedItems.iron_machete.itemID, "Artisanry:2");
+        addItemFromString(RefamishedItems.ironHammer.itemID, "Artisanry:2");
+        addItemFromString(RefamishedItems.iron_trowel.itemID, "Artisanry:2");
+        addItemFromString(Item.shears.itemID, "Artisanry:2");
 
         addItemFromString(Item.swordGold.itemID, "Artisanry:2");
         addItemFromString(Item.pickaxeGold.itemID, "Artisanry:2");
@@ -42,12 +50,21 @@ public class SkillRecipeStarter {
         addItemFromString(Item.plateGold.itemID, "Artisanry:2");
         addItemFromString(Item.legsGold.itemID, "Artisanry:2");
         addItemFromString(Item.bootsGold.itemID, "Artisanry:2");
+        addItemFromString(RefamishedItems.gold_machete.itemID, "Artisanry:2");
 
         addItemFromString(RefamishedItems.gildedIronSword.itemID, "Artisanry:2");
         addItemFromString(RefamishedItems.gildedIronPickaxe.itemID, "Artisanry:2");
         addItemFromString(RefamishedItems.gildedIronAxe.itemID, "Artisanry:2");
         addItemFromString(RefamishedItems.gildedIronShovel.itemID, "Artisanry:2");
         addItemFromString(RefamishedItems.gildedIronHoe.itemID, "Artisanry:2");
+        addItemFromString(RefamishedItems.gilded_machete.itemID, "Artisanry:2");
+        addItemFromString(RefamishedItems.gildedShears.itemID, "Artisanry:2");
+
+        addItemFromString(RefamishedItems.tipDiamondSword.itemID, "Artisanry:2");
+        addItemFromString(RefamishedItems.tipDiamondPickaxe.itemID, "Artisanry:2");
+        addItemFromString(RefamishedItems.tipDiamondAxe.itemID, "Artisanry:2");
+        addItemFromString(RefamishedItems.tipDiamondShovel.itemID, "Artisanry:2");
+        addItemFromString(RefamishedItems.tipDiamondHoe.itemID, "Artisanry:2");
 
         addItemFromString(Item.swordDiamond.itemID, "Artisanry:3");
         addItemFromString(Item.pickaxeDiamond.itemID, "Artisanry:3");
@@ -58,8 +75,18 @@ public class SkillRecipeStarter {
         addItemFromString(Item.plateDiamond.itemID, "Artisanry:3");
         addItemFromString(Item.legsDiamond.itemID, "Artisanry:3");
         addItemFromString(Item.bootsDiamond.itemID, "Artisanry:3");
+        addItemFromString(BTWItems.diamondShears.itemID, "Artisanry:3");
+        addItemFromString(BTWItems.diamondChisel.itemID, "Artisanry:3");
+        addItemFromString(RefamishedItems.diamond_machete.itemID, "Artisanry:3");
         addItemFromString(RefamishedItems.diamond_machete.itemID, "Artisanry:3");
         addItemFromString(RefamishedItems.compound_arbalest.itemID, "Artisanry:3");
+
+        addItemFromString(RefamishedItems.steelHelmet.itemID, "Artisanry:2");
+        addItemFromString(RefamishedItems.steelChestplate.itemID, "Artisanry:2");
+        addItemFromString(RefamishedItems.steelLeggings.itemID, "Artisanry:2");
+        addItemFromString(RefamishedItems.steelBoots.itemID, "Artisanry:2");
+        addItemFromString(RefamishedItems.steelTongs.itemID, "Artisanry:2");
+        addItemFromString(RefamishedItems.steelHammer.itemID, "Artisanry:2");
 
         addItemFromString(BTWItems.sinewExtractingBeef.itemID, "Artisanry:1");
         addItemFromString(BTWItems.sinewExtractingWolf.itemID, "Artisanry:1");

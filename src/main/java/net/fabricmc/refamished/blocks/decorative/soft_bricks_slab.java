@@ -11,6 +11,8 @@ import net.minecraft.src.IconRegister;
 import net.minecraft.src.Material;
 import net.minecraft.src.World;
 
+import java.util.Random;
+
 public class soft_bricks_slab extends SlabBlock {
     public soft_bricks_slab(int iBlockID) {
         super(iBlockID, Material.rock);
@@ -28,5 +30,10 @@ public class soft_bricks_slab extends SlabBlock {
     @Environment(value= EnvType.CLIENT)
     public void registerIcons(IconRegister register) {
         this.blockIcon = register.registerIcon("refamished:soft_bricks");
+    }
+
+    @Override
+    public int idDropped(int iMetadata, Random random, int iFortuneModifier) {
+        return RefamishedBlocks.softBrickLooseSlab.blockID;
     }
 }

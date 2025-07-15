@@ -1,8 +1,11 @@
    package net.fabricmc.refamished.mixin;
 
    import btw.item.BTWItems;
+   import net.fabricmc.api.EnvType;
+   import net.fabricmc.api.Environment;
    import net.fabricmc.refamished.RefamishedItems;
    import net.fabricmc.refamished.RefamishedMod;
+   import net.fabricmc.refamished.RefamishedModClient;
    import net.fabricmc.refamished.skill.SkillRecipeStarter;
    import net.minecraft.src.Minecraft;
    import org.spongepowered.asm.mixin.Mixin;
@@ -20,10 +23,11 @@
        /**
         * Inject into Minecraft's startGame method to initialize key bindings
         */
+       @Environment(value = EnvType.CLIENT)
        @Inject(method = "startGame", at = @At("RETURN"))
        private void startGameInject(CallbackInfo ci) {
            // Call the method in your main mod class to initialize key bindings.
-           RefamishedMod.registerKeyBindings(gameSettings);
+           RefamishedModClient.registerKeyBindings(gameSettings);
            System.out.println("RefamishedMod: Keybindings initialized in startGame method!");
            SkillRecipeStarter the = new SkillRecipeStarter();
            the.begin();
@@ -32,8 +36,9 @@
        /**
         * Inject into the runTick method to handle custom key presses during game ticks.
         */
+       @Environment(value = EnvType.CLIENT)
        @Inject(method = "runTick", at = @At("HEAD"))
        private void runTickInject(CallbackInfo ci) {
-           RefamishedMod.handleKeyPress(); // Run key press logic for each tick
+           RefamishedModClient.handleKeyPress();
        }
    }

@@ -1,0 +1,91 @@
+package net.fabricmc.refamished.items.tools;
+
+import btw.item.items.PickaxeItem;
+import net.fabricmc.refamished.itemsbase.hammer;
+import net.fabricmc.refamished.misc.RefamishedConfig;
+import net.minecraft.src.*;
+
+public class hammerDecorated extends hammer {
+    public hammerDecorated(int iItemID) {
+        super(iItemID, 2f, EnumToolMaterial.STONE);
+        setMaxDamage(40);
+    }
+
+    public int missShatter()
+    {
+        return 3;
+    }
+    public int shatter()
+    {
+        return 7;
+    }
+
+    private Icon m_iconWool[] = new Icon[3];
+
+    @Override
+    public boolean requiresMultipleRenderPasses()
+    {
+        return true;
+    }
+
+    @Override
+    public int getColorFromItemStack(ItemStack stack, int iRenderPass )
+    {
+        if ( iRenderPass == 1 )
+        {
+            return GetColor( stack );
+        }
+
+        return super.getColorFromItemStack( stack, iRenderPass );
+    }
+
+    static public void SetColor( ItemStack stack, int iColor )
+    {
+        NBTTagCompound tag = stack.getTagCompound();
+
+        if ( tag == null )
+        {
+            tag = new NBTTagCompound();
+            stack.setTagCompound( tag );
+        }
+
+        tag.setInteger( "binding", iColor );
+
+    }
+
+    static public int GetColor( ItemStack stack )
+    {
+        NBTTagCompound tag = stack.getTagCompound();
+
+        if ( tag != null )
+        {
+            if ( tag.hasKey( "binding" ) )
+            {
+                return tag.getInteger( "binding" );
+            }
+        }
+
+        return 0xffffff;
+    }
+
+
+    @Override
+    public void registerIcons( IconRegister register )
+    {
+        super.registerIcons( register );
+
+        itemIcon = register.registerIcon( "refamished:stone_hammer");
+        m_iconWool[2] = register.registerIcon( "refamished:bindings/hammer_binding" );
+    }
+
+    @Override
+    public Icon getIconFromDamageForRenderPass( int iDamage, int iRenderPass )
+    {
+        if ( iRenderPass == 0 )
+        {
+            return itemIcon;
+        }
+
+        return m_iconWool[2];
+    }
+}

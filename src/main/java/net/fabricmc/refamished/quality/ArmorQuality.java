@@ -1,6 +1,15 @@
 package net.fabricmc.refamished.quality;
 
+import btw.item.items.ArmorItem;
+import btw.item.items.ChiselItem;
+import btw.item.items.ClubItem;
+import btw.item.items.ToolItem;
+import net.fabricmc.refamished.itemsbase.blade;
+import net.fabricmc.refamished.itemsbase.machete;
 import net.minecraft.src.EnumChatFormatting;
+import net.minecraft.src.Item;
+import net.minecraft.src.ItemSword;
+import net.minecraft.src.MathHelper;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,7 +31,6 @@ public enum ArmorQuality {
 	CHAIN("Chain", 3, 15, EnumChatFormatting.YELLOW),
 
 	EXCEPTIONAL("Exceptional", 3, 25, EnumChatFormatting.AQUA),
-
 	MASTERWORK("Masterwork", 3, 5, EnumChatFormatting.LIGHT_PURPLE);
 
 
@@ -74,6 +82,28 @@ public enum ArmorQuality {
 		return AVERAGE; // Default fallback
 	}
 
+	public static ArmorQuality getRandomQualityReroll(int level) {
+		int totalWeight = 0;
+
+		for (ArmorQuality quality : ArmorQuality.values()) {
+			if (quality == MASTERWORK) continue;
+			totalWeight += MathHelper.clamp_int(quality.getWeight() + (quality.getBonus() * level), 0, 1000);
+		}
+
+		int random = new Random().nextInt(totalWeight);
+		int currentWeight = 0;
+
+		for (ArmorQuality quality : ArmorQuality.values()) {
+			if (quality == MASTERWORK) continue;
+			currentWeight += MathHelper.clamp_int(quality.getWeight() + (quality.getBonus() * level), 0, 1000);
+			if (random < currentWeight) {
+				return quality;
+			}
+		}
+
+		return AVERAGE;
+	}
+
 	public static ArmorQuality getRandomNegativeQuality() {
 		List<ArmorQuality> negativeQualities = new ArrayList<>();
 
@@ -88,5 +118,9 @@ public enum ArmorQuality {
 		}
 
 		return negativeQualities.get(new Random().nextInt(negativeQualities.size()));
+	}
+
+	public static boolean armorHaveQualities(Item item) {
+		return item instanceof ArmorItem;
 	}
 }

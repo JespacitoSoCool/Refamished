@@ -21,7 +21,11 @@ public class crossbow extends ItemBow implements IconByItemStack {
     protected float getCurrentPullStrength(EntityPlayer player, ItemStack itemStack, int iTicksInUseRemaining) {
         int iTicksInUse = this.getMaxItemUseDuration(itemStack) - iTicksInUseRemaining;
         float fPullStrength = (float)iTicksInUse / 20.0f;
-        return Math.clamp(fPullStrength/GetPullLimit(),0.0f,1.0f);
+        float ts = fPullStrength/GetPullLimit();
+        if (ts > 1) {
+            ts = 1;
+        }
+        return ts;
     }
 
     @Override
@@ -33,7 +37,9 @@ public class crossbow extends ItemBow implements IconByItemStack {
         {
             return;
         }
-        world.playSoundAtEntity(player, RefamishedSoundManager.CROSSBOW_LOAD_END.sound(), 0.75f, 1.1f + world.rand.nextFloat() * 0.5f);
+        if (!world.isRemote) {
+            world.playSoundAtEntity(player, RefamishedSoundManager.CROSSBOW_LOAD_END.sound(), 0.75f, 1.1f + world.rand.nextFloat() * 0.5f);
+        }
         if (itemStack.hasTagCompound() && itemStack.getTagCompound().hasKey("LoadedBolt")) {
 
         }
@@ -91,7 +97,9 @@ public class crossbow extends ItemBow implements IconByItemStack {
 
                 stack.damageItem( 1, player );
 
-                world.playSoundAtEntity(player, RefamishedSoundManager.CROSSBOW_SHOOT.sound(), 0.75f, 1.1f + world.rand.nextFloat() * 0.1f);
+                if (!world.isRemote) {
+                    world.playSoundAtEntity(player, RefamishedSoundManager.CROSSBOW_SHOOT.sound(), 0.75f, 1.1f + world.rand.nextFloat() * 0.1f);
+                }
 
                 if ( stack.stackSize == 0 )
                 {

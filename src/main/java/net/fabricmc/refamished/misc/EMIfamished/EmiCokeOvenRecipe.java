@@ -12,6 +12,7 @@ import emi.shims.java.net.minecraft.client.gui.tooltip.TooltipComponent;
 import emi.shims.java.net.minecraft.text.Text;
 import net.fabricmc.refamished.itemsbase.craftingPulling;
 import net.fabricmc.refamished.misc.Recipes.CokeOvenSmeltingRecipes;
+import net.minecraft.src.Icon;
 import net.minecraft.src.Item;
 import net.minecraft.src.ItemStack;
 import net.minecraft.src.ResourceLocation;
@@ -42,15 +43,32 @@ public class EmiCokeOvenRecipe implements EmiRecipe {
     @Override
     @Nullable
     public ResourceLocation getId() {
-        String string = Output_.getItem().itemIcon.getIconName();
-        String[] parts = string.split(":");
-        if (parts.length == 1)
-        {
-            return new ResourceLocation(string);
+        if (Output_.getItem().getHasSubtypes()) {
+            Icon icon = Output_.getItem().getIconFromDamage(Output_.getItemDamage());
+            if (icon == null) {
+                icon = Output_.getItem().getIconFromDamageForRenderPass(Output_.getItemDamage(),1);
+            }
+            String string = icon.getIconName();
+            String[] parts = string.split(":");
+            if (parts.length == 1)
+            {
+                return new ResourceLocation(string);
+            }
+            String mod = parts[0];
+            String texturename = parts[1];
+            return new ResourceLocation(mod, texturename);
         }
-        String mod = parts[0];
-        String texturename = parts[1];
-        return new ResourceLocation(mod, texturename);
+        else {
+            String string = Output_.getItem().itemIcon.getIconName();
+            String[] parts = string.split(":");
+            if (parts.length == 1)
+            {
+                return new ResourceLocation(string);
+            }
+            String mod = parts[0];
+            String texturename = parts[1];
+            return new ResourceLocation(mod, texturename);
+        }
     }
 
     @Override

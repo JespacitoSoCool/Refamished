@@ -7,4 +7,6 @@ public interface EnumArmorMaterialInterface {
     EnumArmorMaterial getCopperMaterial();
     EnumArmorMaterial getRustIronMaterial();
     EnumArmorMaterial getDulledGoldMaterial();
+
+    EnumArmorMaterial getSteelMaterial();
 }

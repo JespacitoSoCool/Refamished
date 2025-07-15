@@ -18,6 +18,7 @@ import net.fabricmc.refamished.skill.SkillManager;
 import net.minecraft.src.*;
 
 import java.util.List;
+import java.util.Set;
 import java.util.UUID;
 
 public class machete extends Item implements PlaceableAsItem
@@ -35,10 +36,16 @@ public class machete extends Item implements PlaceableAsItem
         m_eMaterial = material;
         this.setMaxStackSize(1);
         setCreativeTab(CreativeTabs.tabCombat);
+        setMaxDamage(material.getMaxUses());
     }
 
     public float func_82803_g() {
         return m_iWeaponDamage;
+    }
+
+    @Override
+    public boolean isDamagedInCrafting() {
+        return true;
     }
 
     @Override

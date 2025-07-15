@@ -48,6 +48,9 @@ public abstract class NetClientHandlerMixin {
         else if (par1Packet23VehicleSpawn.type == 3374) {
             var8 = new EntityMolotov(interballs.getClient(), var2, var4, var6);
         }
+//        else if (par1Packet23VehicleSpawn.type == EntitySKOrb.getVehicleSpawnPacketType()) {
+//            var8 = new EntitySKOrb(interballs.getClient(), var2, var4, var6);
+//        }
         if (var8 != null) {
             ((Entity)var8).serverPosX = par1Packet23VehicleSpawn.xPosition;
             ((Entity)var8).serverPosY = par1Packet23VehicleSpawn.yPosition;

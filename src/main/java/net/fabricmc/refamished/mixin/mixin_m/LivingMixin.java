@@ -135,4 +135,20 @@ public class LivingMixin {
             ci.cancel();
         }
     }
+
+    @Inject(method = "attackEntityAsMob",at = @At("HEAD"))
+    private void dropItems(Entity attackedEntity, CallbackInfoReturnable<Boolean> cir) {
+        if ((Object)this instanceof EntitySpider) {
+            EntitySpider the = (EntitySpider)(Object)this;
+            LivingInterface Liver = (LivingInterface)(Object)this;
+            if (the.worldObj.getDifficulty() == RefamishedMod.CRUEL) {
+                int hunger = the.worldObj.rand.nextInt(5)+15;
+                int poison = the.worldObj.rand.nextInt(3)+3;
+
+                ((EntityLivingBase)attackedEntity).addPotionEffect( new PotionEffect( Potion.hunger.id, hunger * 20, 0 ) );
+                ((EntityLivingBase)attackedEntity).addPotionEffect( new PotionEffect( Potion.poison.id, poison * 20, 0 ) );
+                ((EntityLivingBase)attackedEntity).addPotionEffect( new PotionEffect( RefamishedMod.INFESTEDWOUND.id, 120 * 20, 0 ) );
+            }
+        }
+    }
 }

@@ -20,14 +20,17 @@ public abstract class ItemArmorMixin {
 
 	@Inject(method = "onCreated", at = @At("HEAD"))
 	private void assignToolQuality(ItemStack par1ItemStack, World par2World, EntityPlayer par3EntityPlayer, CallbackInfo ci) {
-		SkillManager.addExperience(par3EntityPlayer,"Artisanry",5);
 		if (!par2World.isRemote)
 		{
 			if (!par1ItemStack.hasTagCompound()) {
 				par1ItemStack.setTagCompound(new NBTTagCompound());
 			}
+			if (!par1ItemStack.getTagCompound().hasKey("cra")) {
+				SkillManager.addExperience(par3EntityPlayer,"Artisanry",5);
+			}
 			ArmorQuality quality = ArmorQuality.getRandomQuality();
 			par1ItemStack.getTagCompound().setString("ToolQuality", quality.getName());
+			par1ItemStack.getTagCompound().setBoolean("cra", true);
 		}
 	}
 }

@@ -1,8 +1,7 @@
 package net.fabricmc.refamished.items.tools;
 
-import btw.item.items.ClubItem;
 import net.fabricmc.refamished.RefamishedItems;
-import net.fabricmc.refamished.items.leatherWorkFlint;
+import net.fabricmc.refamished.items.others.leatherWorkFlint;
 import net.fabricmc.refamished.misc.Utils.UtilItem;
 import net.fabricmc.refamished.skill.SkillManager;
 import net.minecraft.src.*;

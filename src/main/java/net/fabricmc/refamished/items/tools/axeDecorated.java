@@ -2,6 +2,7 @@ package net.fabricmc.refamished.items.tools;
 
 import btw.item.items.AxeItem;
 import btw.item.items.PickaxeItem;
+import net.fabricmc.refamished.misc.RefamishedConfig;
 import net.minecraft.src.*;
 
 public class axeDecorated extends AxeItem {
@@ -62,7 +63,12 @@ public class axeDecorated extends AxeItem {
     {
         super.registerIcons( register );
 
-        m_iconWool[1] = register.registerIcon( "stone_axe" );
+        if (RefamishedConfig.refamishedTextures) {
+            itemIcon = register.registerIcon( "refamished:override/stone_axe");
+        }
+        else {
+            itemIcon = register.registerIcon( "stone_axe");
+        }
         m_iconWool[2] = register.registerIcon( "refamished:bindings/axe_binding" );
     }
 
@@ -71,7 +77,7 @@ public class axeDecorated extends AxeItem {
     {
         if ( iRenderPass == 0 )
         {
-            return m_iconWool[1];
+            return itemIcon;
         }
 
         return m_iconWool[2];

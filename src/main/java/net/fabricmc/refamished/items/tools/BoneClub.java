@@ -11,6 +11,7 @@ public class BoneClub extends ClubItem {
     public BoneClub(int iItemID, int iDurability, int iWeaponDamage, String sName) {
         super(iItemID, iDurability, iWeaponDamage, sName);
     }
+
     private Icon m_iconWool[] = new Icon[3];
 
     @Override

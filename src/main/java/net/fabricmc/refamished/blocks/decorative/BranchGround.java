@@ -1,5 +1,7 @@
 package net.fabricmc.refamished.blocks.decorative;
 
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.fabricmc.refamished.RefamishedItems;
 import net.minecraft.src.*;
 
@@ -12,7 +14,7 @@ public class BranchGround extends Block {
         float var2 = 0.5F;
         float var3 = 0.015625F;
         this.setBlockBounds(0.5F - var2, 0.0F, 0.5F - var2, 0.5F + var2, var3, 0.5F + var2);
-
+        hideFromEMI();
         initBlockBounds( 0D, 0D, 0D, 1D, 0.015625D, 1D );
 
         setUnlocalizedName("branch_ground");
@@ -62,20 +64,25 @@ public class BranchGround extends Block {
         return false;
     }
 
+    @Environment(value= EnvType.CLIENT)
     public boolean renderAsNormalBlock()
     {
         return false;
     }
 
+    @Environment(value= EnvType.CLIENT)
     private Icon woodIcon;
+    @Environment(value= EnvType.CLIENT)
     private Icon branchIcon;
 
+    @Environment(value= EnvType.CLIENT)
     public void registerIcons( IconRegister register )
     {
         woodIcon = register.registerIcon( "log_spruce" );
         branchIcon = register.registerIcon("refamished:branch");
     }
 
+    @Environment(value= EnvType.CLIENT)
     public Icon getIcon(int iSide, int iMetadata )
     {
         if ( iSide == 1 || iSide == 0 )
@@ -89,6 +96,7 @@ public class BranchGround extends Block {
 
     /*SOCK'S RENDER CODE: has some z fighting and transparency issues...*/
     /* HI SOCKS I USED YOUR CODE PLS FORGIVE ME*/
+    @Environment(value= EnvType.CLIENT)
     public boolean renderBlock(RenderBlocks renderBlocks, int i, int j, int k)
     {
 

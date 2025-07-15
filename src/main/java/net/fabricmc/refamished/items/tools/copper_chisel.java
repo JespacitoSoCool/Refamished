@@ -12,6 +12,11 @@ public class copper_chisel extends ChiselItem  {
     }
 
     @Override
+    public boolean getCanBePlacedAsBlock() {
+        return true;
+    }
+
+    @Override
     public boolean onBlockDestroyed(ItemStack stack, World world, int iBlockID, int i, int j, int k, EntityLivingBase usingEntity) {
         if (iBlockID == Block.wood.blockID && world.getBlockId(i, j, k) == BTWBlocks.workStump.blockID) {
             stack.damageItem(9, usingEntity);

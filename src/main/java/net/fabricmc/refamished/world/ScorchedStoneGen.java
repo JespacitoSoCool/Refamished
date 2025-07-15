@@ -44,16 +44,17 @@ public class ScorchedStoneGen extends WorldGenerator {
                     int n5 = world.getBlockId(i2, i4, i3);
                     if (n5 == Block.stone.blockID)
                     {
-                        int meta = world.getBlockMetadata(i2, i4, i3) + random.nextInt(2)*3;
-                        //System.out.println("HI "+i2+" "+i4+" "+i3);
-                        int getId = getIdk(options);
-                        if (getId == RefamishedBlocks.scorchedStoneOre.blockID)
-                        {
-                            world.setBlock(i2, i4, i3, getId, 0, 2);
-                        }
-                        else {
-                            world.setBlockAndMetadata(i2, i4, i3, getId,meta);
-                        }
+                            int meta = world.getBlockMetadata(i2, i4, i3) + random.nextInt(2)*3;
+                            //System.out.println("HI "+i2+" "+i4+" "+i3);
+                            int getId = getIdk(options);
+                            //System.out.println(i2 +" "+i4+" "+i3);
+                            if (getId == RefamishedBlocks.scorchedStoneOre.blockID)
+                            {
+                                world.setBlock(i2, i4, i3, getId, 0, 2);
+                            }
+                            else {
+                                world.setBlockAndMetadata(i2, i4, i3, getId,meta);
+                            }
                     }
                 }
             }

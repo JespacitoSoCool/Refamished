@@ -57,9 +57,9 @@ public class SkillsGui extends GuiScreen {
         texInd.put("Weaving", 0);
         texInd.put("Chipping", 1);
         texInd.put("Artisanry", 2);
-        texInd.put("Endurance", 3);
-        texInd.put("Drift", 3);
         texInd.put("Refinement", 3);
+        texInd.put("Endurance", 4);
+        texInd.put("Drift", 4);
     }
 
     private void drawProgressBar(int x, int y, int value, int max, boolean isFull) {
@@ -101,9 +101,9 @@ public class SkillsGui extends GuiScreen {
 
         int delta = org.lwjgl.input.Mouse.getDWheel(); // Mouse wheel scroll
         if (delta > 0) {
-            scrollPosition = Math.max(0, scrollPosition - 1);
+            //scrollPosition = Math.max(0, scrollPosition - 1);
         } else if (delta < 0) {
-            scrollPosition = Math.min(skills.size() - visibleRows, scrollPosition + 1);
+            //scrollPosition = Math.min(skills.size() - visibleRows, scrollPosition + 1);
         }
     }
 

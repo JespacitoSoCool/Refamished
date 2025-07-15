@@ -62,6 +62,11 @@ public class compoundArbalest extends crossbow {
         return 2F;
     }
 
+    public boolean CanItemBeFiredAsArrow( int iItemID )
+    {
+        return iItemID == RefamishedItems.bolt_iron.itemID;
+    }
+
     @Override
     public void registerIcons(IconRegister register) {
         super.registerIcons(register);

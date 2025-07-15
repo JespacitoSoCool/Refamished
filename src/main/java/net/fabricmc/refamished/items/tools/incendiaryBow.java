@@ -41,12 +41,12 @@ public class incendiaryBow extends ItemBow {
 
     @Override
     public boolean canItemBeFiredAsArrow(int iItemID) {
-        return iItemID == RefamishedItems.arrow_incendiary.itemID;
+        return iItemID == RefamishedItems.arrow_incendiary.itemID || super.canItemBeFiredAsArrow(iItemID);
     }
 
     @Override
     protected EntityArrow createArrowEntityForItem(World world, EntityPlayer player, int iItemID, float fPullStrength) {
-        EntityArrow entityArrow = null;
+        EntityArrow entityArrow = super.createArrowEntityForItem(world,player,iItemID,fPullStrength);
         if (iItemID == RefamishedItems.arrow_incendiary.itemID) {
             entityArrow = new EntityIncendiaryArrow(world, player, fPullStrength * 0.55f * this.getPullStrengthToArrowVelocityMultiplier());
             if (!player.isUsingSpecialKey())

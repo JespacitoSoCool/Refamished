@@ -10,6 +10,8 @@ import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.fabricmc.refamished.RefamishedBlocks;
 import net.fabricmc.refamished.RefamishedItems;
+import net.fabricmc.refamished.items.tools.metalTrowel;
+import net.fabricmc.refamished.misc.Utils.UtilItem;
 import net.minecraft.src.*;
 
 import java.util.List;
@@ -36,14 +38,15 @@ public class placedReadySoftClayBrick extends Block {
 
         ItemStack heldItem = player.getHeldItem();
 
-        if (heldItem != null && (heldItem.itemID == RefamishedItems.stone_trowel.itemID))
+        if (heldItem != null && (heldItem.itemID == RefamishedItems.stone_trowel.itemID || heldItem.getItem() instanceof metalTrowel))
         {
             heldItem.damageItem(1, player);
 
             world.playSoundEffect( (double)i + 0.5D, (double)j + 0.5D, (double)k + 0.5D,
                     stepSound.getBreakSound(), ( stepSound.getVolume() + 1.0F ) / 2.0F, stepSound.getPitch() * 0.8F );
 
-            this.dropBlockAsItem_do(world, i, j, k, new ItemStack(RefamishedItems.clay_mud, 1, 0));
+            UtilItem.GivePlayerStackOrEject( player, new ItemStack(RefamishedItems.clay_mud, 1, 0));
+            //this.dropBlockAsItem_do(world, (int)(player.posX-0.5d),(int)(player.posY-0.5d),(int)(player.posZ-0.5d), new ItemStack(RefamishedItems.clay_mud, 1, 0));
 
             world.setBlockAndMetadataWithNotify( i, j, k, RefamishedBlocks.clayMudBrickGround.blockID, world.getBlockMetadata(i, j, k));
             return true;

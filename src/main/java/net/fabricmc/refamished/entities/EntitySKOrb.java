@@ -304,21 +304,10 @@ public class EntitySKOrb extends EntityXPOrb implements EntityWithCustomPacket {
 
     @Override
     public Packet getSpawnPacketForThisEntity() {
-        ByteArrayOutputStream byteStream = new ByteArrayOutputStream();
-        DataOutputStream dataStream = new DataOutputStream(byteStream);
-
-        try {
-            dataStream.writeInt(1);  // Entity type ID (matching the handler registration)
-            dataStream.writeInt(this.entityId);
-            dataStream.writeInt(MathHelper.floor_double(this.posX * 32.0));
-            dataStream.writeInt(MathHelper.floor_double(this.posY * 32.0));
-            dataStream.writeInt(MathHelper.floor_double(this.posZ * 32.0));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        return new Packet250CustomPayload(RefamishedPacketManager.SPAWN_CUSTOM_ENTITY_PACKET_CHANNEL, byteStream.toByteArray());
+        return new Packet26EntityExpOrb();
     }
 
-
+    public static int getVehicleSpawnPacketType() {
+        return 3109;
+    }
 }

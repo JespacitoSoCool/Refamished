@@ -2,6 +2,8 @@ package net.fabricmc.refamished.blocks;
 
 import btw.block.BTWBlocks;
 import btw.item.BTWItems;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.minecraft.src.*;
 
 import java.util.Random;
@@ -76,9 +78,11 @@ public class flint_ore extends Block {
 
     //----------- Client Side Functionality -----------//
 
+    @Environment(value= EnvType.CLIENT)
     protected Icon m_IconNaturalClay;
 
     @Override
+    @Environment(value= EnvType.CLIENT)
     public void registerIcons( IconRegister register )
     {
         super.registerIcons( register );
@@ -87,6 +91,7 @@ public class flint_ore extends Block {
     }
 
     @Override
+    @Environment(value= EnvType.CLIENT)
     public Icon getBlockTexture( IBlockAccess blockAccess, int i, int j, int k, int iSide )
     {
         return m_IconNaturalClay;

@@ -50,7 +50,7 @@ public class ProgressiveCraftingItemMixin implements ProgressiveCraftingInterfac
                     stack.setItemDamage(iDamage-getDamaging);
                     //iDamage -= getDamaging;
                     iProgression = iProgression-getDamaging;
-                    System.out.println("Damage : "+getDamaging);
+                    //System.out.println("Damage : "+getDamaging);
                     //SetProgression(stack,GetProgression(stack)-getDamaging);
                 }
 

@@ -22,7 +22,7 @@ public class ToolQualityHelper {
 		qualityEffects.put(ToolQuality.STURDY, new QualityEffect(1f, 0.25f,0F));
 
 		qualityEffects.put(ToolQuality.LIGHT, new QualityEffect(1.25f, 0.5f,-0.5F));
-		qualityEffects.put(ToolQuality.HEAVY, new QualityEffect(1.1f, -1f,0.5F));
+		qualityEffects.put(ToolQuality.HEAVY, new QualityEffect(1.1f, -0.5f,0.5F));
 		qualityEffects.put(ToolQuality.KEEN, new QualityEffect(1f, -0.5f,0.5F));
 		qualityEffects.put(ToolQuality.LONG, new QualityEffect(0.75f, 2f,-1F));
 		qualityEffects.put(ToolQuality.SHORT, new QualityEffect(1.35f, -1f,0.5F));

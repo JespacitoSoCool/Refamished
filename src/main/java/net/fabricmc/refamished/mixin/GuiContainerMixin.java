@@ -4,6 +4,7 @@ import btw.item.items.ClubItem;
 import btw.item.items.ToolItem;
 import net.fabricmc.refamished.itemsbase.blade;
 import net.fabricmc.refamished.itemsbase.machete;
+import net.fabricmc.refamished.misc.RefamishedConfig;
 import net.fabricmc.refamished.quality.ArmorQuality;
 import net.fabricmc.refamished.quality.ArmorQualityHelper;
 import net.fabricmc.refamished.quality.ToolQuality;
@@ -12,12 +13,15 @@ import net.fabricmc.refamished.quality.ToolQualityHelper;
 import net.minecraft.src.*;
 import org.lwjgl.opengl.GL11;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(GuiContainer.class)
 public abstract class GuiContainerMixin {
+	@Unique
+	boolean usesOldQualityFlags = false;
 
 	@Inject(method = "drawScreen", at = @At(value = "INVOKE", target = "net/minecraft/src/GuiContainer.drawGuiContainerForegroundLayer(II)V"))
 	public void onDrawScreen(int mouseX, int mouseY, float partialTicks, CallbackInfo ci) {
@@ -28,6 +32,7 @@ public abstract class GuiContainerMixin {
 
 		// Save all necessary OpenGL states at once
 		GL11.glPushAttrib(GL11.GL_ALL_ATTRIB_BITS);
+		usesOldQualityFlags = RefamishedConfig.oldQualityFlags;
 
 		RenderHelper.disableStandardItemLighting(); // Disable inventory lighting
 
@@ -60,7 +65,8 @@ public abstract class GuiContainerMixin {
 				Minecraft.getMinecraft().getTextureManager().bindTexture(
 						new ResourceLocation("refamished", "textures/gui/tool_quality_marker.png")
 				);
-				((Gui) (Object) this).drawTexturedModalRect(slotX, slotY, 0, index * 7, 7, 7);
+				int iconOffset = usesOldQualityFlags ? 7 : 0;
+				((Gui) (Object) this).drawTexturedModalRect(slotX, slotY, iconOffset, index * 7, 7, 7);
 
 				GL11.glPopMatrix(); // Restore matrix state
 			}
@@ -82,7 +88,8 @@ public abstract class GuiContainerMixin {
 				Minecraft.getMinecraft().getTextureManager().bindTexture(
 						new ResourceLocation("refamished", "textures/gui/tool_quality_marker.png")
 				);
-				((Gui) (Object) this).drawTexturedModalRect(slotX, slotY, 0, index * 7, 7, 7);
+				int iconOffset = usesOldQualityFlags ? 7 : 0;
+				((Gui) (Object) this).drawTexturedModalRect(slotX, slotY, iconOffset, index * 7, 7, 7);
 
 				GL11.glPopMatrix(); // Restore matrix state
 			}

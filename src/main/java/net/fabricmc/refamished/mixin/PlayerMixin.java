@@ -1,9 +1,13 @@
 package net.fabricmc.refamished.mixin;
 
 import btw.world.util.difficulty.Difficulties;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.fabricmc.refamished.RefamishedMod;
 import net.fabricmc.refamished.interfaces.EntityPlayerInterface;
 import net.fabricmc.refamished.interfaces.IconByItemStack;
+import net.fabricmc.refamished.interfaces.IconLargedMultipleRender;
+import net.fabricmc.refamished.misc.DifficultyCruel;
 import net.fabricmc.refamished.quality.ArmorQuality;
 import net.fabricmc.refamished.quality.ArmorQualityHelper;
 import net.fabricmc.refamished.skill.*;
@@ -96,57 +100,6 @@ public abstract class PlayerMixin {
 				//System.out.println("DEBUG: Skills synced for player " + playerMP.getEntityName());
 			}
 		}
-
-		InventoryPlayer inventory = player.inventory;
-
-		float speed = BASE_MOVEMENT_SPEED;
-		float speedModifier = 1F;
-		float speedMultiplier = 0.85F;
-		if (player.worldObj.getDifficulty() == RefamishedMod.CRUEL || player.worldObj.getDifficulty() == Difficulties.HOSTILE)
-		{
-			speedMultiplier = 0.7F;
-		}
-
-		for ( int iSlot = 0; iSlot < inventory.armorInventory.length; iSlot++ )
-		{
-			ItemStack tempStack = inventory.armorInventory[iSlot];
-
-			if ( tempStack != null )
-			{
-				float iArmorWeight = ArmorQualityHelper.getSpeedMultiplier(ArmorQualityHelper.getArmorQuality(tempStack));
-				speedModifier += (iArmorWeight - 1);
-				//System.out.println("Armor Weight: " + iArmorWeight);
-			}
-		}
-
-		ItemStack boots = inventory.armorInventory[0];
-
-		if (boots != null) {
-			int bootsId = boots.getItem().itemID;
-
-            // Default boots multiplier
-            speedMultiplier = HardcoreBarefoot.CUSTOM_SPEEDS.getOrDefault(bootsId, 1.0F);
-		}
-
-		((PlayerCapabilitiesAccessor)capabilities).setWalkSpeed(speed * speedModifier * speedMultiplier);
-	}
-
-	/**
-	 * Get the skill level for a given skill.
-	 *
-	 * @param player    The player whose skill level is queried.
-	 * @param skillName The name of the skill.
-	 * @return The skill level, or 0 if the skill isn’t found.
-	 */
-	public int getSkillLevel(EntityPlayer player, String skillName) {
-		SkillPersistentState persistentState = RefamishedMod.getSkillPersistentState();
-		if (persistentState != null) {
-			SkillData skillData = persistentState.getSkillData(player.getUniqueID());
-			if (SkillData.skills.containsKey(skillName)) {
-				return skillData.level; // Get the level for the skill
-			}
-		}
-		return 0; // Default to level 0 if skill doesn't exist
 	}
 
 	@Inject(method = "getArmorExhaustionModifier", at = @At("RETURN"), cancellable = true)
@@ -170,6 +123,12 @@ public abstract class PlayerMixin {
 		if (!((EntityPlayer)(Object)this).getEntityWorld().isRemote)
 		{
 			//System.out.println("TOTAL Armor Weight: " + iWeight);
+		}
+		if (iWeight > 10) {
+			iWeight = 10;
+		}
+		if (iWeight <= 0) {
+			iWeight = 0;
 		}
 		cir.setReturnValue(cir.getReturnValue()+iWeight);
 	}
@@ -234,6 +193,7 @@ public abstract class PlayerMixin {
 		player.openContainer = player.inventoryContainer;
 	}
 
+	@Environment(value = EnvType.CLIENT)
 	@Inject(method = "getItemIcon", at = @At("HEAD"), cancellable = true)
 	private void renderItem(ItemStack itemStack, int index, CallbackInfoReturnable<Icon> cir) {
 		EntityPlayer player = (EntityPlayer)(Object)this;
@@ -242,6 +202,32 @@ public abstract class PlayerMixin {
 			//System.out.println("AAAAAA");
 			cir.setReturnValue(iconObtainerThing.getIcon(itemStack,player));
 			cir.cancel();
+		}
+		else if (itemStack.getItem() instanceof IconLargedMultipleRender) {
+			cir.setReturnValue(itemStack.getItem().getIconFromDamageForRenderPass(itemStack.getItemDamage(), index));
+			cir.cancel();
+		}
+	}
+
+	@Inject(method = "updateItemUse", at = @At("HEAD"), cancellable = true)
+	private void updateThing(ItemStack par1ItemStack, int par2, CallbackInfo ci) {
+		EntityPlayer player = (EntityPlayer)(Object)this;
+		if (par1ItemStack.getItemUseAction() == EnumAction.drink) {
+			player.playSound("random.drink", 0.5f, player.worldObj.rand.nextFloat() * 0.1f + 0.9f);
+		}
+		if (par1ItemStack.getItemUseAction() == EnumAction.eat && par1ItemStack.getHasSubtypes()) {
+			for (int var3 = 0; var3 < par2; ++var3) {
+				Vec3 var4 = player.worldObj.getWorldVec3Pool().getVecFromPool(((double)player.rand.nextFloat() - 0.5) * 0.1, Math.random() * 0.1 + 0.1, 0.0);
+				var4.rotateAroundX(-player.rotationPitch * (float)Math.PI / 180.0f);
+				var4.rotateAroundY(-player.rotationYaw * (float)Math.PI / 180.0f);
+				Vec3 var5 = player.worldObj.getWorldVec3Pool().getVecFromPool(((double)player.rand.nextFloat() - 0.5) * 0.3, (double)(-player.rand.nextFloat()) * 0.6 - 0.3, 0.6);
+				var5.rotateAroundX(-player.rotationPitch * (float)Math.PI / 180.0f);
+				var5.rotateAroundY(-player.rotationYaw * (float)Math.PI / 180.0f);
+				var5 = var5.addVector(player.posX, player.posY + (double)player.getEyeHeight(), player.posZ);
+				player.worldObj.spawnParticle("iconcrack_" + par1ItemStack.getItem().itemID+"_"+par1ItemStack.getItemDamage(), var5.xCoord, var5.yCoord, var5.zCoord, var4.xCoord, var4.yCoord + 0.05, var4.zCoord);
+			}
+			player.playSound("random.eat", 0.5f + 0.5f * (float)player.rand.nextInt(2), (player.rand.nextFloat() - player.rand.nextFloat()) * 0.2f + 1.0f);
+			ci.cancel();
 		}
 	}
 }

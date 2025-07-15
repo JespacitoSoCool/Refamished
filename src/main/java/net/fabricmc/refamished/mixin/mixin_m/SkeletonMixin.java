@@ -27,12 +27,13 @@ public abstract class SkeletonMixin {
 
         if (self!= null && !self.isDead)
         {
+            boolean isCruel = self != null && self.worldObj != null && self.worldObj.getDifficulty() != null && self.worldObj.getDifficulty() instanceof DifficultyCruel;
             if (dimension == -1) {  // Nether
-                thisthing.setAttackRanged(new SkeletonArrowAttackBehavior(self, 0.20F, 20, 30F));
+                thisthing.setAttackRanged(new SkeletonArrowAttackBehavior(self, 0.20F, isCruel ? 18 : 20, 35F));
             } else if (dimension == 1) {  // End
-                thisthing.setAttackRanged(new SkeletonArrowAttackBehavior(self, 0.05F, 10, 40F));
+                thisthing.setAttackRanged(new SkeletonArrowAttackBehavior(self, 0.05F, isCruel ? 8 : 10, 50F));
             } else {  // Overworld
-                thisthing.setAttackRanged(new SkeletonArrowAttackBehavior(self, 0.1F, 30, 20F));
+                thisthing.setAttackRanged(new SkeletonArrowAttackBehavior(self, 0.1F, isCruel ? 25 : 35, 25F));
             }
         }
     }
@@ -40,7 +41,7 @@ public abstract class SkeletonMixin {
     private void onEntityInit(CallbackInfo ci) {
         EntitySkeleton self = (EntitySkeleton)(Object)this;
         EntityInterface ent = (EntityInterface)self;
-        if (self!= null && !self.isDead)
+        if (self!= null && !self.isDead && self.getAttackTarget() != null)
         {
             int dimension = (self!= null && self.worldObj != null) ? self.worldObj.provider.dimensionId : 0;
             boolean cruelDif = self.worldObj != null && self.worldObj.getDifficulty() instanceof DifficultyCruel;

@@ -39,7 +39,7 @@ public class ZombieMixin {
             new ItemStack(RefamishedItems.dulledGoldAxe),
             new ItemStack(RefamishedItems.dulledGoldShovel),
             new ItemStack(RefamishedItems.dulledGoldHoe),
-            new ItemStack(Item.axeStone),
+            //new ItemStack(Item.axeStone),
             new ItemStack(RefamishedItems.ironBlade),
             new ItemStack(RefamishedItems.death_club[0]),
             new ItemStack(RefamishedItems.death_club[1]),
@@ -55,11 +55,12 @@ public class ZombieMixin {
         int randomIndex = random.nextInt(itemOptions.length);
         return itemOptions[randomIndex];
     }
-    @Inject(method = "getSpeedModifier",at = @At("RETURN"),cancellable = true)
+    @Inject(method = "getSpeedModifier",at = @At("TAIL"),cancellable = true)
     private void SpeedThing(CallbackInfoReturnable<Float> cir) {
         EntityZombie the = (EntityZombie)(Object)this;
-        if (the.worldObj.getDifficulty() == RefamishedMod.CRUEL) {
-            cir.setReturnValue(cir.getReturnValue()*1.4F);
+        EntityLiving liver = (EntityLiving)(Object)this;
+        if (liver.worldObj.getDifficulty() == RefamishedMod.CRUEL) {
+            cir.setReturnValue(cir.getReturnValue()*1.35F);
         }
     }
     @Inject(method = "addRandomArmor",at = @At("HEAD"),cancellable = true)
@@ -93,6 +94,9 @@ public class ZombieMixin {
             ((EntityLivingBase)attackedEntity).addPotionEffect( new PotionEffect( Potion.poison.id, poison * 20, 0 ) );
             ((EntityLivingBase)attackedEntity).addPotionEffect( new PotionEffect( RefamishedMod.INFESTEDWOUND.id, 180 * 20, 0 ) );
         }
+        else {
+            ((EntityLivingBase)attackedEntity).addPotionEffect( new PotionEffect( RefamishedMod.INFESTEDWOUND.id, 30 * 20, 0 ) );
+        }
     }
 
     @Inject(method = "attackEntityAsMob", at = @At("HEAD"), cancellable = true)
@@ -114,7 +118,11 @@ public class ZombieMixin {
             }
         }
 
-        float totalDamage = (float)(baseDamage + toolDamage);
+        float totalDamage = (float)(toolDamage);
+        if (totalDamage == 0)
+        {
+            totalDamage = (float) baseDamage;
+        }
 
         boolean attacked = target.attackEntityFrom(DamageSource.causeMobDamage(zombie), totalDamage);
         cir.setReturnValue(attacked);

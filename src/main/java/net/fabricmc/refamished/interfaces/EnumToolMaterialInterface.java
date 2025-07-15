@@ -9,6 +9,7 @@ public interface EnumToolMaterialInterface {
     EnumToolMaterial getCorrodedCopperMaterial();
     EnumToolMaterial getTippedDiamondMaterial();
     EnumToolMaterial getDulledGoldMaterial();
+    EnumToolMaterial getSteelMaterial();
 
     EnumToolMaterial getGildedIronMaterial();
 

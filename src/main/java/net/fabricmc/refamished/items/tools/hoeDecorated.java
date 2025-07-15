@@ -2,6 +2,7 @@ package net.fabricmc.refamished.items.tools;
 
 import btw.item.items.AxeItem;
 import btw.item.items.HoeItem;
+import net.fabricmc.refamished.misc.RefamishedConfig;
 import net.minecraft.src.*;
 
 public class hoeDecorated extends HoeItem {
@@ -62,7 +63,12 @@ public class hoeDecorated extends HoeItem {
     {
         super.registerIcons( register );
 
-        m_iconWool[1] = register.registerIcon( "stone_hoe" );
+        if (RefamishedConfig.refamishedTextures) {
+            itemIcon = register.registerIcon( "refamished:override/stone_hoe");
+        }
+        else {
+            itemIcon = register.registerIcon( "stone_hoe");
+        }
         m_iconWool[2] = register.registerIcon( "refamished:bindings/hoe_binding" );
     }
 
@@ -71,7 +77,7 @@ public class hoeDecorated extends HoeItem {
     {
         if ( iRenderPass == 0 )
         {
-            return m_iconWool[1];
+            return itemIcon;
         }
 
         return m_iconWool[2];

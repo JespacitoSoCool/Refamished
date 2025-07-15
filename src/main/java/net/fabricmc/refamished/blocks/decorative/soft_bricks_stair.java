@@ -7,6 +7,8 @@ import net.fabricmc.refamished.RefamishedBlocks;
 import net.minecraft.src.Block;
 import net.minecraft.src.World;
 
+import java.util.Random;
+
 public class soft_bricks_stair extends StairsBlock {
     public soft_bricks_stair(int iBlockID) {
         super(iBlockID,RefamishedBlocks.softBrickMortar, 0);
@@ -14,5 +16,10 @@ public class soft_bricks_stair extends StairsBlock {
         this.setResistance(3.0f);
         this.setUnlocalizedName("soft_bricks_stair");
         this.setTextureName("refamished:soft_bricks");
+    }
+
+    @Override
+    public int idDropped(int iMetadata, Random random, int iFortuneModifier) {
+        return RefamishedBlocks.softBrickLooseStairs.blockID;
     }
 }

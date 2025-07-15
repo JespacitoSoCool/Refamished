@@ -20,7 +20,7 @@ public class CowMixin {
         EntityCow cow = (EntityCow)(Object)this;
         ci.cancel();
         if (!cow.isStarving()) {
-            int numDrops = cow.rand.nextInt(3) + cow.rand.nextInt(1 + lootingModifier) + 1;
+            int numDrops = cow.rand.nextInt(3) + cow.rand.nextInt(1 + lootingModifier) + 2;
             if (cow.isFamished()) {
                 numDrops /= 2;
             }
@@ -28,7 +28,7 @@ public class CowMixin {
                 cow.dropItem(RefamishedItems.cowhide.itemID, 1);
             }
             if (!cow.hasHeadCrabbedSquid()) {
-                numDrops = cow.rand.nextInt(3) + 1 + cow.rand.nextInt(1 + lootingModifier);
+                numDrops = cow.rand.nextInt(3) + 2 + cow.rand.nextInt(1 + lootingModifier);
                 if (cow.isFamished()) {
                     numDrops /= 2;
                 }

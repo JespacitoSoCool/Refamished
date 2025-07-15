@@ -40,13 +40,13 @@ public class copper_ore extends OreBlockStaged {
     @Override
     public int quantityDropped( Random rand )
     {
-        return 1 + rand.nextInt( 1 );
+        return 1 + rand.nextInt( 2 );
     }
 
     @Override
     public int quantityDroppedOnConversion( Random rand )
     {
-        return 2 + rand.nextInt( 2 );
+        return 1 + rand.nextInt( 2 );
     }
 
     @Override

@@ -45,7 +45,7 @@ public class CokeOvenSmeltingRecipes {
         if (input == null) return null;
 
         for (RecipeEntry entry : recipeList) {
-            if (entry.input.itemID == input.itemID &&
+            if (entry.input.itemID == input.itemID && entry.input.getItemDamage() == input.getItemDamage() &&
                     firePower >= entry.minFireLevel) {
                 return entry;
             }
@@ -60,7 +60,7 @@ public class CokeOvenSmeltingRecipes {
 
     public int getRequiredFirePower(ItemStack input) {
         for (RecipeEntry entry : recipeList) {
-            if (entry.input.itemID == input.itemID) {
+            if (entry.input.itemID == input.itemID && entry.input.getItemDamage() == input.getItemDamage()) {
                 return entry.minFireLevel;
             }
         }
@@ -78,7 +78,7 @@ public class CokeOvenSmeltingRecipes {
 
     public boolean canBeSmelted(ItemStack input) {
         for (RecipeEntry entry : recipeList) {
-            if (entry.input.itemID == input.itemID) {
+            if (entry.input.itemID == input.itemID && entry.input.getItemDamage() == input.getItemDamage()) {
                 return true;
             }
         }

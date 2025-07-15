@@ -333,7 +333,7 @@ public class CokeOven extends BlockFurnace {
                     getHeatLevel += 3;
                 }
                 else if (id != BTWBlocks.stokedFire.blockID) {
-                    getHeatLevel += 3;
+                    getHeatLevel += 4;
                 }
                 else if (id != BTWBlocks.smallCampfire.blockID) {
                     getHeatLevel += 1;

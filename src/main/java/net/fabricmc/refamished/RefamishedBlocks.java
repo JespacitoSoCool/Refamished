@@ -2,8 +2,11 @@ package net.fabricmc.refamished;
 
 import btw.block.BTWBlocks;
 import btw.block.blocks.OreStorageBlock;
+import btw.item.blockitems.SlabBlockItem;
 import net.fabricmc.refamished.blocks.*;
+import net.fabricmc.refamished.blocks.crops.*;
 import net.fabricmc.refamished.blocks.decorative.*;
+import net.fabricmc.refamished.blocks.decorative.burnt.*;
 import net.minecraft.src.Block;
 import net.minecraft.src.CreativeTabs;
 import net.minecraft.src.Item;
@@ -57,8 +60,8 @@ public class RefamishedBlocks {
             id_cowhidePreparedGround= 3460,
             id_cowhideReady= 3461,
             id_blueberryBush= 3106,
-            id_blueberryWild= 3107,
-            id_chargedBookshelf= 3108,
+            id_sweetberryBush= 3107,
+            id_wildBush= 3108,
             id_rustRail= 3109,
             id_decayedWood= 3110,
             id_decayedPlanks= 3111,
@@ -71,7 +74,7 @@ public class RefamishedBlocks {
             id_goldChunkHeavy= 3118,
             id_ironChunkHeavy= 3119,
             id_sinteredChunkHeavy= 3120,
-            id_branchBush= 3121,
+            id_wildSpurge= 3121,
             id_softBrickGround= 3122,
             id_clayMudBrickGround= 3123,
             id_softBrickLoose= 3124,
@@ -89,10 +92,10 @@ public class RefamishedBlocks {
             id_redstoneBricks= 3136,
             id_redstoneBricksSlab= 3137,
             id_redstoneBricksStairs= 3138,
-            id_fallingLeaves= 3139,
-            id_charredLeaves= 3140,
-            id_charredDirt= 3141,
-            id_charredGrass= 3142,
+            id_moved1= 3139,
+            id_moved2= 3140,
+            id_moved3= 3141,
+            id_moved4= 3142,
             id_paintBrickStone= 3143,
             id_paintBrickStoneSlab= 3144,
             id_paintBrickStoneStair= 3145,
@@ -134,7 +137,26 @@ public class RefamishedBlocks {
             id_tarBucket= 3424,
             id_copperSlab= 3425,
             id_copperStair= 3426,
-            id_copperDoubleSlab= 3427
+            id_copperDoubleSlab= 3427,
+            id_horsehide= 3428,
+            id_cranberryBush= 3429,
+            id_blackberryBush= 3430,
+            id_fallingLeaves= 3431,
+            id_charredLeaves= 3432,
+            id_charredDirt= 3433,
+            id_charredDirtSlab= 3434,
+            id_charredGrass= 3434,
+            id_charredGrassSlab= 3435,
+            id_burntPlanks= 3436,
+            id_burntPlanksSlab= 3437,
+            id_burntWood= 3439,
+            id_burntChest= 3440,
+            if_denseStone= 3441,
+            id_stoneAnvil= 3442,
+            id_copperAnvil= 3443,
+            id_steelAnvil= 3444,
+            id_workbench= 3445,
+            id_gildedIronBlock= 3446
                     ;
 
     public static Block log;
@@ -180,6 +202,7 @@ public class RefamishedBlocks {
     public static Block paintStoneRough1;
     public static Block paintStoneRough2;
     public static Block paintStoneRough3;
+    public static Block wildSprurge;
     public static Block cokeOven;
     public static Block scorchedStone;
     public static Block scorchedStoneOre;
@@ -187,16 +210,25 @@ public class RefamishedBlocks {
     public static Block tar_tank;
     public static Block tar_tankDummy;
     public static Block tar_bucket;
+    public static Block stoneAnvil;
+    public static Block copperAnvil;
+    public static Block SteelAnvil;
+    public static Block workbench;
+    public static Block gildedIronBlock;
 
     public static Block blueberryBush;
-    public static Block blueberryWild;
+    public static Block sweetberryBush;
+    public static Block cranberryBush;
+    public static Block blackberryBush;
     public static Block decayedWood;
     public static Block decayedPlanks;
     public static Block brittlestone;
-    public static Block branchBush;
+    public static Block bushWild;
 
     public static Block copperChunkStorage;
     public static Block copperChunkGround;
+    public static Block sinteredChunkStorage;
+    public static Block sinteredChunkGround;
     public static Block copperBlock;
     public static Block copperSlab;
     public static Block copperStair;
@@ -219,6 +251,7 @@ public class RefamishedBlocks {
     public static Block grassThorns;
 
     public static cowhideTanning preparedCowhideBlock;
+    public static horsehideTanning preparedHorseHide;
     public static Block cowhideReady;
     public static Block enchantmentTableOff;
     public static Block lapisWire;
@@ -228,9 +261,14 @@ public class RefamishedBlocks {
     public static Block fallingLeaves;
     public static Block charredLeaves;
     public static Block charredDirt;
+    public static Block charredDirtSlab;
     public static Block charredGrass;
+    public static Block burntPlanks;
+    public static Block burntPlanksSlab;
+    public static Block burntChest;
     public static Block thatch;
     public static Block branch;
+    public static Block denseStone;
 
     public static Block copperOre;
     public static Block flintOre;
@@ -246,6 +284,8 @@ public class RefamishedBlocks {
         saltpeterOre = new saltpeter_ore(3454);
         copperChunkGround = new copper_ore_storage_ground(id_copperChunkground);
         copperChunkStorage = new copper_ore_storage(id_copperChunkStorage);
+        sinteredChunkGround = new sinter_iron_ore_storage_ground(id_blockIronSintered);
+        sinteredChunkStorage = new sinter_iron_ore_storage(id_blockIronSinteredStorage);
         copperBlock = new OreStorageBlock(id_copperBlock).setHardness(5.0f).setResistance(10.0f).setStepSound(soundMetalFootstep).setUnlocalizedName("block_copper").setTextureName("refamished:copper_block");
         copperDoubleSlab = new copperDoubleSlabBlock(id_copperDoubleSlab);
         copperSlab = new copperSlabBlock(id_copperSlab);
@@ -257,8 +297,15 @@ public class RefamishedBlocks {
         retort_grate = new retort_grate(id_retort_grate);
         tar_tankDummy = new tarTankDummy(id_tarTankDummy).hideFromEMI();
         tar_tank = new tarTank(id_tarTank);
-        tar_bucket = new bucket_block_tar(id_tarBucket);
+        tar_bucket = new bucket_block_tar(id_tarBucket).hideFromEMI();;
         branch = new BranchGround(id_branchBlock);
+        wildSprurge = new wildSpurge(id_wildSpurge);
+        denseStone = new DenseStone(if_denseStone);
+        stoneAnvil = new stoneAnvil(id_stoneAnvil).setCreativeTab(CreativeTabs.tabDecorations);
+        copperAnvil = new copperAnvil(id_copperAnvil).setCreativeTab(CreativeTabs.tabDecorations);
+        SteelAnvil = new steelAnvil(id_steelAnvil).setCreativeTab(CreativeTabs.tabDecorations);
+        workbench = new CraftingBench(id_workbench);
+        gildedIronBlock = new OreStorageBlock(id_gildedIronBlock).setHardness(6.0f).setResistance(15.0f).setStepSound(soundMetalFootstep).setUnlocalizedName("block_gilded").setTextureName("refamished:gilded_block");
         //thatch = new bucket_block_tar(id_tarBucket);
 
         clayMudBrickGround = new placedSoftClayBrick(id_clayMudBrickGround);
@@ -271,13 +318,31 @@ public class RefamishedBlocks {
         softBrickLooseSlab = new soft_brick_loose_slab(id_softBrickLooseSlab);
         softBrickLooseStairs = new soft_brick_loose_stair(id_softBrickLooseStairs);
         preparedCowhideBlock = new cowhideTanning(id_cowhidePreparedGround);
+        preparedHorseHide = new horsehideTanning(id_horsehide);
         cowhideReady = new cowhideTanningFinished(id_cowhideReady);
+        blueberryBush = new blueberryBush(id_blueberryBush).hideFromEMI();
+        sweetberryBush = new sweetberryBush(id_sweetberryBush).hideFromEMI();
+        bushWild = new wildBush(id_wildBush).hideFromEMI();
+        cranberryBush = new cranberryBush(id_cranberryBush).hideFromEMI();
+        blackberryBush = new blackberryBush(id_blackberryBush).hideFromEMI();
+        charredDirt = new charredDirt(id_charredDirt);
+        charredDirtSlab = new charredDirtSlab(id_charredDirtSlab);
+        burntPlanks = new woodBurntBlock(id_burntPlanks);
+        burntPlanksSlab = new woodBurntSlab(id_burntPlanksSlab);
+        //burntChest = new burntChest(id_burntChest);
 
         cokeOven = new CokeOven(id_cokeOven,false);
 
         Item.itemsList[copperOre.blockID] = new ItemBlockWithMetadata(copperOre.blockID - 256, copperOre).setUnlocalizedName("ore_copper");
         Item.itemsList[saltpeterOre.blockID] = new ItemBlockWithMetadata(saltpeterOre.blockID - 256, saltpeterOre).setUnlocalizedName("ore_saltpeter");
         Item.itemsList[scorchedStone.blockID] = new ItemBlockWithMetadata(scorchedStone.blockID - 256, scorchedStone);
+        Item.itemsList[copperSlab.blockID] = new SlabBlockItem(copperSlab.blockID - 256);
+        Item.itemsList[softBrickLooseSlab.blockID] = new SlabBlockItem(softBrickLooseSlab.blockID - 256);
+        Item.itemsList[softBrickMortarSlab.blockID] = new SlabBlockItem(softBrickMortarSlab.blockID - 256);
+        Item.itemsList[burntPlanksSlab.blockID] = new SlabBlockItem(burntPlanksSlab.blockID - 256);
+
+        Block.deadBush.setHardness(0.2F);
+        Block.deadBush.setAxesEffectiveOn();
 
     }
 }

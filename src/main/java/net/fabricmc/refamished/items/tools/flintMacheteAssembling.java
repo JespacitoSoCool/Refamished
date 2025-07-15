@@ -1,11 +1,13 @@
 package net.fabricmc.refamished.items.tools;
 
 import btw.item.items.ProgressiveCraftingItem;
+import net.fabricmc.refamished.quality.ToolQuality;
+import net.fabricmc.refamished.skill.SkillManager;
 import net.minecraft.src.*;
 
 public class flintMacheteAssembling extends ProgressiveCraftingItem {
 
-    static public final int m_assemblingDamage = 5;
+    static public final int m_assemblingDamage = ( 60 * 4 );
     protected Item result;
     public flintMacheteAssembling(int par1, Item Result) {
         super(par1);
@@ -26,6 +28,15 @@ public class flintMacheteAssembling extends ProgressiveCraftingItem {
         player.playSound( "mob.zombie.woodbreak", 0.1F, 1.25F + ( world.rand.nextFloat() * 0.25F ) );
         ItemStack the = new ItemStack( result, 1, 0 );
         BoneClub.SetColor(the,GetColor(stack));
+        SkillManager.addExperience(player,"Artisanry", 11);
+        if (!world.isRemote)
+        {
+            if (!the.hasTagCompound()) {
+                the.setTagCompound(new NBTTagCompound());
+            }
+            ToolQuality quality = ToolQuality.getRandomQuality();
+            the.getTagCompound().setString("ToolQuality", quality.getName());
+        }
         return the;
     }
 

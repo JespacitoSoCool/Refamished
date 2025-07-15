@@ -9,4 +9,7 @@ public class RefamishedRecipeCategories
     public static EmiRecipeCategory HARDENING;
     public static EmiRecipeCategory COKEOVEN;
     public static EmiRecipeCategory PERCENTAGESMELT;
+    public static EmiRecipeCategory QUALITIES;
+    public static EmiRecipeCategory QUALITIESARMOR;
+    public static EmiRecipeCategory SMITHING;
 }

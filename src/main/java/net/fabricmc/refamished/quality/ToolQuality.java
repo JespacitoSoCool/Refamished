@@ -1,6 +1,12 @@
 package net.fabricmc.refamished.quality;
 
-import net.minecraft.src.EnumChatFormatting;
+import btw.item.items.ChiselItem;
+import btw.item.items.ClubItem;
+import btw.item.items.ShovelItem;
+import btw.item.items.ToolItem;
+import net.fabricmc.refamished.itemsbase.blade;
+import net.fabricmc.refamished.itemsbase.machete;
+import net.minecraft.src.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -10,20 +16,21 @@ public enum ToolQuality {
 	CRUDE("Crude", 0, 0, EnumChatFormatting.RED),
 	DULL("Dull", 0, 0, EnumChatFormatting.RED),
 	RUSTED("Rusted", 0, 0, EnumChatFormatting.RED),
-	BROKEN("Broken", -35, 5, EnumChatFormatting.RED),
-	SHODDY("Shoddy", -10, 10, EnumChatFormatting.RED),
-	BRITTLE("Brittle", -10, 10, EnumChatFormatting.RED),
-	STURDY("Sturdy", -10, 15, EnumChatFormatting.YELLOW),
-	AVERAGE("Average", 0, 120, EnumChatFormatting.WHITE),
-	EXCEPTIONAL("Exceptional", 10, 25, EnumChatFormatting.AQUA),
-	MASTERWORK("Masterwork", 20, 5, EnumChatFormatting.LIGHT_PURPLE),
+	BROKEN("Broken", -1, 10, EnumChatFormatting.RED),
+	SHODDY("Shoddy", -1, 10, EnumChatFormatting.RED),
+	BRITTLE("Brittle", -1, 10, EnumChatFormatting.RED),
+	STURDY("Sturdy", -1, 15, EnumChatFormatting.YELLOW),
+	AVERAGE("Average", -5, 120, EnumChatFormatting.WHITE),
 
-	LIGHT("Lightweight", -15, 15, EnumChatFormatting.YELLOW),
-	HEAVY("Heavy", 40, 15, EnumChatFormatting.YELLOW),
-	KEEN("Keen", -5, 15, EnumChatFormatting.YELLOW),
-	LONG("Long", -15, 15, EnumChatFormatting.YELLOW),
-	SHORT("Short", -15, 15, EnumChatFormatting.YELLOW),
-	REINFORCED("Reinforced", 30, 10, EnumChatFormatting.YELLOW);
+	LIGHT("Lightweight", 1, 15, EnumChatFormatting.YELLOW),
+	HEAVY("Heavy", 1, 15, EnumChatFormatting.YELLOW),
+	KEEN("Keen", 1, 15, EnumChatFormatting.YELLOW),
+	LONG("Long", 1, 15, EnumChatFormatting.YELLOW),
+	SHORT("Short", 1, 15, EnumChatFormatting.YELLOW),
+	REINFORCED("Reinforced", 1, 10, EnumChatFormatting.YELLOW),
+
+	EXCEPTIONAL("Exceptional", 5, 25, EnumChatFormatting.AQUA),
+	MASTERWORK("Masterwork", 4, 5, EnumChatFormatting.LIGHT_PURPLE);
 
 	private final String name;
 	private final int bonus;
@@ -53,24 +60,49 @@ public enum ToolQuality {
 		return weight;
 	}
 
-	public static ToolQuality getRandomQuality() {
+	public static ToolQuality getRandomQuality(int level) {
 		int totalWeight = 0;
 
 		for (ToolQuality quality : ToolQuality.values()) {
-			totalWeight += quality.getWeight();
+			totalWeight += MathHelper.clamp_int(quality.getWeight() + (quality.getBonus()*level),0,1000);
 		}
 
 		int random = new Random().nextInt(totalWeight);
 		int currentWeight = 0;
 
 		for (ToolQuality quality : ToolQuality.values()) {
-			currentWeight += quality.getWeight();
+			currentWeight += MathHelper.clamp_int(quality.getWeight() + (quality.getBonus()*level),0,1000);
+			if (random < currentWeight) {
+				return quality;
+			}
+		}
+		return AVERAGE;
+	}
+
+	public static ToolQuality getRandomQuality() {
+		return getRandomQuality(0);
+	}
+
+	public static ToolQuality getRandomQualityReroll(int level) {
+		int totalWeight = 0;
+
+		for (ToolQuality quality : ToolQuality.values()) {
+			if (quality == MASTERWORK) continue;
+			totalWeight += MathHelper.clamp_int(quality.getWeight() + (quality.getBonus() * level), 0, 1000);
+		}
+
+		int random = new Random().nextInt(totalWeight);
+		int currentWeight = 0;
+
+		for (ToolQuality quality : ToolQuality.values()) {
+			if (quality == MASTERWORK) continue;
+			currentWeight += MathHelper.clamp_int(quality.getWeight() + (quality.getBonus() * level), 0, 1000);
 			if (random < currentWeight) {
 				return quality;
 			}
 		}
 
-		return AVERAGE; // Default fallback
+		return AVERAGE;
 	}
 
 	public static ToolQuality getRandomNegativeQuality() {
@@ -83,9 +115,13 @@ public enum ToolQuality {
 		}
 
 		if (negativeQualities.isEmpty()) {
-			return AVERAGE; // Fallback if something goes wrong
+			return AVERAGE;
 		}
 
 		return negativeQualities.get(new Random().nextInt(negativeQualities.size()));
+	}
+
+	public static boolean toolHaveQualities(Item item) {
+		return item instanceof ItemSword || item instanceof ToolItem || item instanceof blade || item instanceof machete || item instanceof ChiselItem || item instanceof ClubItem;
 	}
 }

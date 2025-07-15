@@ -1,6 +1,7 @@
 package net.fabricmc.refamished.items.tools;
 
 import btw.block.BTWBlocks;
+import btw.block.blocks.ChewedLogBlock;
 import net.fabricmc.refamished.itemsbase.blade;
 import net.fabricmc.refamished.quality.ToolQuality;
 import net.fabricmc.refamished.quality.ToolQualityHelper;
@@ -27,6 +28,11 @@ public class bladeFlint extends blade
         float modifiedSpeed = ToolQualityHelper.getDigSpeedMultiplier(quality);
         float fStrength = super.getStrVsBlock( stack, world, block, i, j, k );
 
+        if (block.blockID == Block.wood.blockID || block instanceof ChewedLogBlock)
+        {
+            return 4F*modifiedSpeed;
+        }
+
         if ( block.blockID == Block.web.blockID
                 || block.blockID == BTWBlocks.web.blockID)
         {
@@ -39,11 +45,6 @@ public class bladeFlint extends blade
         {
             return 3.5F*modifiedSpeed;
         }
-
-//        if (block.blockID == Block.wood.blockID)
-//        {
-//        	return 3.0F;
-//        }
 
         return fStrength;
     }

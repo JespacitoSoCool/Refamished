@@ -14,6 +14,7 @@ import java.util.Random;
 import net.fabricmc.refamished.RefamishedBlocks;
 import net.fabricmc.refamished.RefamishedItems;
 import net.fabricmc.refamished.entities.tiles.placedSoftClayBrickTile;
+import net.fabricmc.refamished.items.tools.metalTrowel;
 import net.minecraft.src.*;
 
 public class placedSoftClayBrick extends BlockContainer {

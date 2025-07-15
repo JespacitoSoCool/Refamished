@@ -1,6 +1,7 @@
 package net.fabricmc.refamished.items.tools;
 
 import btw.item.items.PickaxeItem;
+import net.fabricmc.refamished.misc.RefamishedConfig;
 import net.minecraft.src.*;
 
 public class pickaxeDecorated extends PickaxeItem {
@@ -61,7 +62,12 @@ public class pickaxeDecorated extends PickaxeItem {
     {
         super.registerIcons( register );
 
-        m_iconWool[1] = register.registerIcon( "stone_pickaxe" );
+        if (RefamishedConfig.refamishedTextures) {
+            itemIcon = register.registerIcon( "refamished:override/stone_pickaxe");
+        }
+        else {
+            itemIcon = register.registerIcon( "stone_pickaxe");
+        }
         m_iconWool[2] = register.registerIcon( "refamished:bindings/pickaxe_binding" );
     }
 
@@ -70,7 +76,7 @@ public class pickaxeDecorated extends PickaxeItem {
     {
         if ( iRenderPass == 0 )
         {
-            return m_iconWool[1];
+            return itemIcon;
         }
 
         return m_iconWool[2];

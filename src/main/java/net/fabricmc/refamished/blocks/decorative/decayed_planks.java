@@ -54,6 +54,7 @@ public class decayed_planks extends BlockWood {
         list.add(new ItemStack(blockID, 1, 0));
     }
     @Override
+    @Environment(value= EnvType.CLIENT)
     public int getRenderType() {
         return 0; // Use the default block rendering type
     }

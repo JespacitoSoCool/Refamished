@@ -1,11 +1,13 @@
 package net.fabricmc.refamished.mixin.mixin_m;
 
 import btw.entity.mob.behavior.ZombieSecondaryAttackBehavior;
+import btw.item.BTWItems;
 import com.google.common.collect.Multimap;
 import net.fabricmc.refamished.RefamishedItems;
 import net.fabricmc.refamished.RefamishedMod;
 import net.fabricmc.refamished.entities.behavior.CreeperSecondaryAttackBehavior;
 import net.fabricmc.refamished.entities.behavior.CreeperSecondaryTargetFilter;
+import net.fabricmc.refamished.items.tools.BoneRazors;
 import net.fabricmc.refamished.misc.DifficultyCruel;
 import net.fabricmc.refamished.quality.ToolQuality;
 import net.minecraft.src.*;
@@ -72,6 +74,27 @@ public class CreeperMixin {
                     }
                 }
             }
+        }
+    }
+    @Inject(method = "interact",at = @At("HEAD"), cancellable = true)
+    private void what(EntityPlayer player, CallbackInfoReturnable<Boolean> cir) {
+        EntityCreeper self = (EntityCreeper) (Object) this;
+        CreeperInterface thisthing2 = (CreeperInterface) self;
+        ItemStack playersCurrentItem = player.inventory.getCurrentItem();
+        if (playersCurrentItem != null && playersCurrentItem.getItem() instanceof BoneRazors && thisthing2.getNeuteredStateUm() == 0) {
+            if (!self.worldObj.isRemote) {
+                self.setNeuteredState(1);
+                int i = MathHelper.floor_double(self.posX);
+                int j = MathHelper.floor_double(self.posY);
+                int k = MathHelper.floor_double(self.posZ);
+                self.worldObj.playAuxSFX(2258, i, j, k, 0);
+            }
+            playersCurrentItem.damageItem(10, player);
+            if (playersCurrentItem.stackSize <= 0) {
+                player.inventory.mainInventory[player.inventory.currentItem] = null;
+            }
+            cir.setReturnValue(true);
+            cir.cancel();
         }
     }
 }

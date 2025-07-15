@@ -38,6 +38,11 @@ public class WoodenClub extends ClubItem {
     }
 
     @Override
+    public int getFurnaceBurnTime(int iItemDamage) {
+        return 150;
+    }
+
+    @Override
     public Icon getIconFromDamageForRenderPass(int damage, int renderPass) {
         if (renderPass == 0) {
             return handleTextures[0];

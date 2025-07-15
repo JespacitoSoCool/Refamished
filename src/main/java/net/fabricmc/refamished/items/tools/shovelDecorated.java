@@ -3,6 +3,7 @@ package net.fabricmc.refamished.items.tools;
 import btw.item.items.HoeItem;
 import btw.item.items.ShovelItem;
 import btw.item.items.ShovelItemStone;
+import net.fabricmc.refamished.misc.RefamishedConfig;
 import net.minecraft.src.*;
 
 public class shovelDecorated extends ShovelItemStone {
@@ -63,7 +64,12 @@ public class shovelDecorated extends ShovelItemStone {
     {
         super.registerIcons( register );
 
-        m_iconWool[1] = register.registerIcon( "stone_shovel" );
+        if (RefamishedConfig.refamishedTextures) {
+            itemIcon = register.registerIcon( "refamished:override/stone_shovel");
+        }
+        else {
+            itemIcon = register.registerIcon( "stone_shovel");
+        }
         m_iconWool[2] = register.registerIcon( "refamished:bindings/shovel_binding" );
     }
 
@@ -72,7 +78,7 @@ public class shovelDecorated extends ShovelItemStone {
     {
         if ( iRenderPass == 0 )
         {
-            return m_iconWool[1];
+            return itemIcon;
         }
 
         return m_iconWool[2];

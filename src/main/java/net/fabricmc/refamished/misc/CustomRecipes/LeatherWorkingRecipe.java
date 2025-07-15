@@ -2,6 +2,8 @@ package net.fabricmc.refamished.misc.CustomRecipes;
 
 import btw.item.BTWItems;
 import net.fabricmc.refamished.RefamishedItems;
+import net.fabricmc.refamished.quality.ToolQuality;
+import net.fabricmc.refamished.quality.ToolQualityHelper;
 import net.minecraft.src.*;
 
 import java.util.ArrayList;
@@ -41,9 +43,11 @@ public class LeatherWorkingRecipe extends ShapelessRecipes {
 
                 // Add damage but ensure it doesn't exceed the max damage
                 int newDamage = Math.min(currentDamage, maxDamage);
+                String quality = ToolQualityHelper.getToolQuality(ingredient).getName();
 
                 // Set the custom NBT tag
                 output.getTagCompound().setInteger("damage", newDamage);
+                output.getTagCompound().setString("quality", quality);
 
                 break; // Stop after processing the first damageable ingredient
             }

@@ -45,9 +45,11 @@ public class BlockStoneScorchedOre extends OreBlockStaged {
         return 2 + rand.nextInt( 2 );
     }
 
+    @Environment(value= EnvType.CLIENT)
     protected Icon m_IconNaturalClay;
 
     @Override
+    @Environment(value= EnvType.CLIENT)
     public void registerIcons( IconRegister register )
     {
         super.registerIcons( register );
@@ -56,6 +58,7 @@ public class BlockStoneScorchedOre extends OreBlockStaged {
     }
 
     @Override
+    @Environment(value= EnvType.CLIENT)
     public Icon getBlockTexture( IBlockAccess blockAccess, int i, int j, int k, int iSide )
     {
         return m_IconNaturalClay;

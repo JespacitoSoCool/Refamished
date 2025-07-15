@@ -9,13 +9,12 @@ import net.minecraft.src.World;
 
 public class rib_beef_cooked_partial extends FoodItem {
     public rib_beef_cooked_partial(int iItemID) {
-        super(iItemID, 2, 0.25F, false, "");
+        super(iItemID, 3, 0.25F, false, "");
 
         setIncineratedInCrucible();
         setUnlocalizedName( "rib_cow_partial" );
 
         this.setCreativeTab(CreativeTabs.tabFood);
-        setIncreasedFoodPoisoningEffect();
         setTextureName("refamished:rib_beef_partial");
         maxStackSize = 1;
     }

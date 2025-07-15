@@ -10,6 +10,8 @@ import net.minecraft.src.Block;
 import net.minecraft.src.IconRegister;
 import net.minecraft.src.World;
 
+import java.util.Random;
+
 public class soft_brick_loose_slab extends LooseBrickSlabBlock {
     public soft_brick_loose_slab(int iBlockID) {
         super(iBlockID);
@@ -31,6 +33,11 @@ public class soft_brick_loose_slab extends LooseBrickSlabBlock {
         }
         world.setBlockAndMetadataWithNotify(i, j, k, RefamishedBlocks.softBrickMortarSlab.blockID, iNewMetadata);
         return true;
+    }
+
+    @Override
+    public int idDropped(int iMetadata, Random random, int iFortuneModifier) {
+        return RefamishedBlocks.softBrickLooseSlab.blockID;
     }
 
     @Override

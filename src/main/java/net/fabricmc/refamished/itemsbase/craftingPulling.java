@@ -208,7 +208,7 @@ public class craftingPulling extends Item {
         }
     }
 
-    private Icon calculatePullingIcon() {
+    protected Icon calculatePullingIcon() {
         EntityPlayer player = Minecraft.getMinecraft().thePlayer;
         if (player != null)
         {

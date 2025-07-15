@@ -7,7 +7,8 @@ import net.minecraft.src.EnumArmorMaterial;
 import net.minecraft.src.EnumToolMaterial;
 
 public class RefamishedSoundManager {
-    public static final AddonSoundRegistryEntry CROSSBOW_LOAD = new AddonSoundRegistryEntry("refamished:item.crossbow.Crossbow_loading_end");
-    public static final AddonSoundRegistryEntry CROSSBOW_LOAD_END = new AddonSoundRegistryEntry("refamished:item.crossbow.Crossbow_loading_end");
+    public static final AddonSoundRegistryEntry CROSSBOW_LOAD = new AddonSoundRegistryEntry("refamished:item.crossbow.Crossbow_loading_end",1);
+    public static final AddonSoundRegistryEntry CROSSBOW_LOAD_END = new AddonSoundRegistryEntry("refamished:item.crossbow.Crossbow_loading_end",1);
     public static final AddonSoundRegistryEntry CROSSBOW_SHOOT = new AddonSoundRegistryEntry("refamished:item.crossbow.Crossbow_shoot",3);
+    public static final AddonSoundRegistryEntry METAL_HIT = new AddonSoundRegistryEntry("refamished:plate_hit",2);
 }

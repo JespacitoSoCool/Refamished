@@ -3,6 +3,8 @@ package net.fabricmc.refamished.items.tools;
 import btw.item.items.ProgressiveCraftingItem;
 import btw.item.items.WoolItem;
 import net.fabricmc.refamished.RefamishedItems;
+import net.fabricmc.refamished.quality.ToolQuality;
+import net.fabricmc.refamished.skill.SkillManager;
 import net.minecraft.src.*;
 
 public class boneClubAssembling extends ProgressiveCraftingItem {
@@ -29,6 +31,15 @@ public class boneClubAssembling extends ProgressiveCraftingItem {
         player.playSound( "mob.zombie.woodbreak", 0.1F, 1.25F + ( world.rand.nextFloat() * 0.25F ) );
         ItemStack the = new ItemStack( result, 1, 0 );
         BoneClub.SetColor(the,GetColor(stack));
+        SkillManager.addExperience(player,"Artisanry", 10);
+        if (!world.isRemote)
+        {
+            if (!the.hasTagCompound()) {
+                the.setTagCompound(new NBTTagCompound());
+            }
+            ToolQuality quality = ToolQuality.getRandomQuality();
+            the.getTagCompound().setString("ToolQuality", quality.getName());
+        }
         return the;
     }
 

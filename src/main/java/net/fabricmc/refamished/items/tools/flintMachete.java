@@ -1,18 +1,28 @@
 package net.fabricmc.refamished.items.tools;
 
+import btw.entity.attribute.AttributeOperation;
 import btw.item.items.ClubItem;
+import com.google.common.collect.Multimap;
+import net.fabricmc.refamished.RefamishedMod;
 import net.fabricmc.refamished.itemsbase.machete;
 import net.fabricmc.refamished.misc.ReMaterials;
+import net.fabricmc.refamished.misc.ResharedMonsterAttributes;
 import net.minecraft.src.*;
 
 public class flintMachete extends machete {
 
     public flintMachete(int iItemID) {
         super(iItemID,2.5F,-0.25F, EnumToolMaterial.STONE);
-        setMaxDamage(38);
+        setMaxDamage(40);
         setUnlocalizedName("flint_machete");
     }
+
     private Icon m_iconWool[] = new Icon[3];
+
+    @Override
+    public boolean isDamagedInCrafting() {
+        return false;
+    }
 
     @Override
     public boolean requiresMultipleRenderPasses()

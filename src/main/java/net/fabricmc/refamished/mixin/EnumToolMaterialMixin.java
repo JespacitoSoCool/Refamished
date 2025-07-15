@@ -48,7 +48,7 @@ public class EnumToolMaterialMixin implements EnumToolMaterialInterface {
     @Unique
     private static EnumToolMaterial DIAMONDTIP = addCustomMaterial(
             "EMERALDTIP",
-            4, 728, 3.3F, 2.0f, 14, 25, 2
+            4, 600, 3.1F, 2.0f, 14, 25, 2
     );
     @Unique
     private static EnumToolMaterial DULLEDGOLD = addCustomMaterial(
@@ -58,12 +58,17 @@ public class EnumToolMaterialMixin implements EnumToolMaterialInterface {
     @Unique
     private static EnumToolMaterial GILDEDIRON = addCustomMaterial(
             "GILDEDIRON",
-            3, 642, 3.2F, 2.0f, 14, 25, 2
+            3, 642, 3.4F, 2.0f, 30, 40, 3
     );
     @Unique
     private static EnumToolMaterial COBALTZURE = addCustomMaterial(
             "COBALTZURE",
-            5, 1972, 3.2F, 3.5f, 17, 30, 3
+            5, 1972, 4.1F, 3.5f, 15, 30, 3
+    );
+    @Unique
+    private static EnumToolMaterial STEEL = addCustomMaterial(
+            "GILDEDIRON",
+            3, 904, 3F, 2.0f, 8, 25, 2
     );
 
     @Invoker("<init>")
@@ -117,6 +122,11 @@ public class EnumToolMaterialMixin implements EnumToolMaterialInterface {
     @Override
     public EnumToolMaterial getCobaltzureMaterial() {
         return COBALTZURE;
+    }
+
+    @Override
+    public EnumToolMaterial getSteelMaterial() {
+        return STEEL;
     }
 
     @ModifyArg(method = "<clinit>", at = @At(value = "INVOKE", target = "Lnet/minecraft/src/EnumToolMaterial;<init>(Ljava/lang/String;IIIFFIII)V",
