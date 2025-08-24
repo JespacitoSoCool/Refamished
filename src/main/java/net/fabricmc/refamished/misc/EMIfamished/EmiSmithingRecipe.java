@@ -24,9 +24,9 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class EmiSmithingRecipe implements EmiRecipe {
-    private final List<EmiIngredient> input;
-    private final EmiStack[] output;
-    private final List<ItemStack> input_;
+    final List<EmiIngredient> input;
+    final EmiStack[] output;
+    final List<ItemStack> input_;
     private final ItemStack[] output_;
 
     public EmiSmithingRecipe(List<ItemStack> input, ItemStack output) {

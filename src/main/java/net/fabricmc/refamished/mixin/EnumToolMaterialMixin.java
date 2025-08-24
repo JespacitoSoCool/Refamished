@@ -70,6 +70,11 @@ public class EnumToolMaterialMixin implements EnumToolMaterialInterface {
             "GILDEDIRON",
             3, 904, 3F, 2.0f, 8, 25, 2
     );
+    @Unique
+    private static EnumToolMaterial NMBLOOD = addCustomMaterial(
+            "GILDEDIRON",
+            3, 904, 3F, 2.0f, 8, 25, 2
+    );
 
     @Invoker("<init>")
     public static EnumToolMaterial theExpansionInit(String internalName, int internalId, int level, int uses, float eff, float attack, int enchant, int ic, int im) {
@@ -127,6 +132,11 @@ public class EnumToolMaterialMixin implements EnumToolMaterialInterface {
     @Override
     public EnumToolMaterial getSteelMaterial() {
         return STEEL;
+    }
+
+    @Override
+    public EnumToolMaterial getNmBlood() {
+        return NMBLOOD;
     }
 
     @ModifyArg(method = "<clinit>", at = @At(value = "INVOKE", target = "Lnet/minecraft/src/EnumToolMaterial;<init>(Ljava/lang/String;IIIFFIII)V",

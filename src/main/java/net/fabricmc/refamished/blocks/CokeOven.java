@@ -11,6 +11,7 @@ import net.fabricmc.api.Environment;
 import net.fabricmc.refamished.RefamishedBlocks;
 import net.fabricmc.refamished.RefamishedItems;
 import net.fabricmc.refamished.entities.tiles.cokeovenTile;
+import net.fabricmc.refamished.entities.tiles.copperConductTile;
 import net.fabricmc.refamished.models.block.CokeOvenModel;
 import net.fabricmc.refamished.misc.Recipes.CokeOvenSmeltingRecipes;
 import net.minecraft.src.*;
@@ -301,6 +302,15 @@ public class CokeOven extends BlockFurnace {
                     if (id != RefamishedBlocks.softBrickMortar.blockID) {
                         return false;
                     }
+                }
+            }
+        }
+        if (world.getBlockId(startX, startY+2, startZ) == RefamishedBlocks.copperConduct.blockID) {
+            Block conduct = Block.blocksList[world.getBlockId(startX, startY+2, startZ)];
+            if (conduct instanceof steamContainer) {
+                TileEntity tile = world.getBlockTileEntity(startX, startY+2, startZ);
+                if (tile instanceof copperConductTile conductTile) {
+                    conductTile.addSteam(4);
                 }
             }
         }

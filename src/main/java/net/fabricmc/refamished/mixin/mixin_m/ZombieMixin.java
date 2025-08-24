@@ -1,5 +1,6 @@
 package net.fabricmc.refamished.mixin.mixin_m;
 
+import btw.community.refamished.RefamishedAddon;
 import btw.item.BTWItems;
 import btw.world.util.difficulty.Difficulty;
 import com.google.common.collect.Multimap;
@@ -59,7 +60,7 @@ public class ZombieMixin {
     private void SpeedThing(CallbackInfoReturnable<Float> cir) {
         EntityZombie the = (EntityZombie)(Object)this;
         EntityLiving liver = (EntityLiving)(Object)this;
-        if (liver.worldObj.getDifficulty() == RefamishedMod.CRUEL) {
+        if (liver.worldObj.getDifficulty() == RefamishedAddon.CRUEL) {
             cir.setReturnValue(cir.getReturnValue()*1.35F);
         }
     }
@@ -67,7 +68,7 @@ public class ZombieMixin {
     private void dropItems(CallbackInfo ci) {
         EntityZombie the = (EntityZombie)(Object)this;
         LivingInterface Liver = (LivingInterface)(Object)this;
-        if (the.worldObj.getDifficulty() == RefamishedMod.CRUEL) {
+        if (the.worldObj.getDifficulty() == RefamishedAddon.CRUEL) {
             if (the.rand.nextFloat() < 0.8f) {
                 ItemStack select = cruelTool();
                 the.setCurrentItemOrArmor(0, select);
@@ -86,7 +87,7 @@ public class ZombieMixin {
     private void dropItems(Entity attackedEntity, CallbackInfoReturnable<Boolean> cir) {
         EntityZombie the = (EntityZombie)(Object)this;
         LivingInterface Liver = (LivingInterface)(Object)this;
-        if (the.worldObj.getDifficulty() == RefamishedMod.CRUEL) {
+        if (the.worldObj.getDifficulty() == RefamishedAddon.CRUEL) {
             int hunger = the.worldObj.rand.nextInt(5)+10;
             int poison = the.worldObj.rand.nextInt(5)+5;
 

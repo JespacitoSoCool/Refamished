@@ -8,20 +8,24 @@ import btw.crafting.recipe.CraftingRecipeList;
 import btw.crafting.recipe.RecipeManager;
 import btw.crafting.recipe.types.customcrafting.WoolArmorRecipe;
 import btw.item.BTWItems;
+import btw.item.tag.Tag;
+import btw.item.tag.TagInstance;
+import btw.item.tag.TagOrStack;
 import btw.util.color.Color;
 import net.fabricmc.refamished.RefamishedBlocks;
 import net.fabricmc.refamished.RefamishedItems;
+import net.fabricmc.refamished.RefamishedMod;
 import net.fabricmc.refamished.items.materials.PigmentItem;
 import net.fabricmc.refamished.items.materials.metalSheets;
 import net.fabricmc.refamished.items.materials.metallurgyArmor;
 import net.fabricmc.refamished.items.materials.metallurgyHeads;
 import net.fabricmc.refamished.items.tools.flintMachete;
-import net.fabricmc.refamished.itemsbase.machete;
-import net.fabricmc.refamished.misc.CustomRecipes.*;
+import net.fabricmc.refamished.misc.CustomRecipes.crafting.*;
+import net.fabricmc.refamished.misc.CustomRecipes.forging.ArmorCombination;
 import net.fabricmc.refamished.misc.Recipes.*;
 import net.minecraft.src.*;
-import org.lwjgl.Sys;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -124,6 +128,8 @@ public abstract class CraftingManagerMixin {
 				Character.valueOf( 'I' ), Item.ingotIron,
 		} );
 
+		RecipeManager.addRecipe(new ItemStack(BTWBlocks.lens), new Object[]{"GDG", "G G", "G#G", Character.valueOf('#'), Block.glass, Character.valueOf('G'), RefamishedItems.gildedIngot, Character.valueOf('D'), RefamishedItems.diamondFoil});
+		RecipeManager.addRecipe(new ItemStack(BTWBlocks.lens), new Object[]{"G#G", "G G", "GDG", Character.valueOf('#'), Block.glass, Character.valueOf('G'), RefamishedItems.gildedIngot, Character.valueOf('D'), RefamishedItems.diamondFoil});
 
 	}
 	@Inject(method = "addItemRecipes", at = @At("TAIL"),remap = false)
@@ -223,121 +229,7 @@ public abstract class CraftingManagerMixin {
 						new ItemStack(RefamishedItems.sinterIronDust, 1),
 						new ItemStack(RefamishedItems.sinterIronDust, 1),
 				});
-		/*
-		/*
-		RecipeManager.addRecipe( new ItemStack( RefamishedItems.copperSword ), new Object[] {
-				"I",
-				"I",
-				"S",
-				Character.valueOf( 'I' ), RefamishedItems.copperIngot,
-				Character.valueOf( 'S' ), Item.stick,
-		} );
-		RecipeManager.addRecipe( new ItemStack( RefamishedItems.copperPickaxe ), new Object[] {
-				"III",
-				" S ",
-				Character.valueOf( 'I' ), RefamishedItems.copperIngot,
-				Character.valueOf( 'S' ), Item.stick,
-		} );
-		RecipeManager.addRecipe( new ItemStack( RefamishedItems.copperAxe ), new Object[] {
-				"I ",
-				"IS",
-				Character.valueOf( 'I' ), RefamishedItems.copperIngot,
-				Character.valueOf( 'S' ), Item.stick,
-		} );
-		RecipeManager.addRecipe( new ItemStack( RefamishedItems.copperShovel ), new Object[] {
-				"I",
-				"S",
-				Character.valueOf( 'I' ), RefamishedItems.copperIngot,
-				Character.valueOf( 'S' ), Item.stick,
-		} );
-		RecipeManager.addRecipe( new ItemStack( RefamishedItems.copperHoe ), new Object[] {
-				"IS",
-				" S",
-				Character.valueOf( 'I' ), RefamishedItems.copperIngot,
-				Character.valueOf( 'S' ), Item.stick,
-		} );
-		RecipeManager.addRecipe( new ItemStack( RefamishedItems.copperChisel ), new Object[] {
-				"NN",
-				"NN",
-				Character.valueOf( 'N' ), RefamishedItems.copperNugget,
-		} );
-		RecipeManager.addRecipe( new ItemStack( RefamishedItems.gildedIronSword ), new Object[] {
-				"I",
-				"I",
-				"S",
-				Character.valueOf( 'I' ), RefamishedItems.gildedIngot,
-				Character.valueOf( 'S' ), Item.stick,
-		} );
-		RecipeManager.addRecipe( new ItemStack( RefamishedItems.gildedIronPickaxe ), new Object[] {
-				"III",
-				" S ",
-				" S ",
-				Character.valueOf( 'I' ), RefamishedItems.gildedIngot,
-				Character.valueOf( 'S' ), Item.stick,
-		} );
-		RecipeManager.addRecipe( new ItemStack( RefamishedItems.gildedIronAxe ), new Object[] {
-				"I ",
-				"IS",
-				" S",
-				Character.valueOf( 'I' ), RefamishedItems.gildedIngot,
-				Character.valueOf( 'S' ), Item.stick,
-		} );
-		RecipeManager.addRecipe( new ItemStack( RefamishedItems.gildedIronShovel ), new Object[] {
-				"I",
-				"S",
-				"S",
-				Character.valueOf( 'I' ), RefamishedItems.gildedIngot,
-				Character.valueOf( 'S' ), Item.stick,
-		} );
-		RecipeManager.addRecipe( new ItemStack( RefamishedItems.gildedIronHoe ), new Object[] {
-				"IS",
-				" S",
-				" S",
-				Character.valueOf( 'I' ), RefamishedItems.gildedIngot,
-				Character.valueOf( 'S' ), Item.stick,
-		} );
 
-		RecipeManager.addRecipe( new ItemStack( RefamishedItems.tipDiamondSword ), new Object[] {
-				"ID",
-				"ID",
-				"S ",
-				Character.valueOf( 'I' ), Item.ingotIron,
-				Character.valueOf( 'D' ), Item.diamond,
-				Character.valueOf( 'S' ), Item.stick,
-		} );
-		RecipeManager.addRecipe( new ItemStack( RefamishedItems.tipDiamondPickaxe ), new Object[] {
-				"III",
-				"DSD",
-				" S ",
-				Character.valueOf( 'I' ), Item.ingotIron,
-				Character.valueOf( 'D' ), Item.diamond,
-				Character.valueOf( 'S' ), Item.stick,
-		} );
-		RecipeManager.addRecipe( new ItemStack( RefamishedItems.tipDiamondAxe ), new Object[] {
-				"ID ",
-				"ISD",
-				" S ",
-				Character.valueOf( 'I' ), Item.ingotIron,
-				Character.valueOf( 'D' ), Item.diamond,
-				Character.valueOf( 'S' ), Item.stick,
-		} );
-		RecipeManager.addRecipe( new ItemStack( RefamishedItems.tipDiamondShovel ), new Object[] {
-				"ID",
-				"S ",
-				"S ",
-				Character.valueOf( 'I' ), Item.ingotIron,
-				Character.valueOf( 'D' ), Item.diamond,
-				Character.valueOf( 'S' ), Item.stick,
-		} );
-		RecipeManager.addRecipe( new ItemStack( RefamishedItems.tipDiamondHoe ), new Object[] {
-				"IS",
-				"DS",
-				" S",
-				Character.valueOf( 'I' ), Item.ingotIron,
-				Character.valueOf( 'D' ), Item.diamond,
-				Character.valueOf( 'S' ), Item.stick,
-		} );
-		 */
 		List<Object[]> leatherThings = Arrays.asList(
 				new Object[]{Item.leather},
 				new Object[]{BTWItems.scouredLeather},
@@ -500,6 +392,7 @@ public abstract class CraftingManagerMixin {
 
 		addCokeOvenRecipe(new ItemStack(RefamishedItems.ingotPreparation,1,9), new ItemStack(RefamishedItems.ingotPreparation,1,5), 15,2);
 		addCokeOvenRecipe(new ItemStack(RefamishedItems.ingotPreparation,1,10), new ItemStack(RefamishedItems.ingotPreparation,1,5), 15,2);
+		addCokeOvenRecipe(new ItemStack(Block.coalBlock), new ItemStack(RefamishedBlocks.cokeBlock), 99,2);
 
 		addSmithingRecipe(new ItemStack(RefamishedItems.rawIngot,1,0),new ItemStack[]{new ItemStack(RefamishedItems.copperNugget,3), new ItemStack(BTWItems.stone,3,1)},65);
 		addSmithingRecipe(new ItemStack(RefamishedItems.rawIngot,1,1),new ItemStack[]{new ItemStack(BTWItems.ironNugget,3), new ItemStack(BTWItems.stone,3,1)},55);
@@ -530,22 +423,6 @@ public abstract class CraftingManagerMixin {
 		RecipeManager.addStokedCauldronRecipe(new ItemStack(RefamishedItems.sinterIronChunk), new ItemStack[]
 				{new ItemStack(BTWItems.ironOrePile),new ItemStack(BTWItems.coalDust)});
 
-		RecipeManager.addStokedCrucibleRecipe(new ItemStack(BTWItems.diamondIngot, 2), new ItemStack[]
-				{new ItemStack(RefamishedItems.steelIngot,2),new ItemStack(Item.diamond,2),new ItemStack(BTWItems.creeperOysters,5)
-						,new ItemStack(RefamishedItems.saltpeter,22),new ItemStack(Item.slimeBall)});
-		RecipeManager.addStokedCrucibleRecipe(new ItemStack(BTWItems.diamondIngot, 2), new ItemStack[]
-				{new ItemStack(RefamishedItems.steelIngot,2),new ItemStack(Item.diamond,2),new ItemStack(BTWItems.creeperOysters,5)
-						,new ItemStack(RefamishedItems.saltpeter,22),new ItemStack(BTWItems.glue)});
-		RecipeManager.addStokedCrucibleRecipe(new ItemStack(BTWItems.diamondIngot, 2), new ItemStack[]
-				{new ItemStack(RefamishedItems.steelIngot,2),new ItemStack(Item.diamond,2),new ItemStack(BTWItems.creeperOysters,5)
-						,new ItemStack(BTWItems.nitre,22),new ItemStack(Item.slimeBall)});
-		RecipeManager.addStokedCrucibleRecipe(new ItemStack(BTWItems.diamondIngot, 2), new ItemStack[]
-				{new ItemStack(RefamishedItems.steelIngot,2),new ItemStack(Item.diamond,2),new ItemStack(BTWItems.creeperOysters,5)
-						,new ItemStack(BTWItems.nitre,22),new ItemStack(BTWItems.glue)});
-
-		RecipeManager.addStokedCrucibleRecipe(new ItemStack(RefamishedItems.steelIngot), new ItemStack[]
-				{new ItemStack(Item.ingotIron),new ItemStack(RefamishedItems.scorched_flux,12),new ItemStack(RefamishedItems.coke_coal,2)});
-
 		List<Object[]> toolBindings = Arrays.asList(
 				new Object[]{Item.silk},
 				new Object[]{BTWItems.sinew},
@@ -557,8 +434,8 @@ public abstract class CraftingManagerMixin {
 			CraftingManager.getInstance().getRecipeList().add(new BindingToolRecipe(
 					new ItemStack(Item.axeStone), // Tool output
 					Arrays.asList(
-							new ItemStack(Item.stick), // Stick handle
-							new ItemStack(RefamishedItems.chippedAxeHead), // Chipped tool head
+							new ItemStack(Item.stick),
+							new ItemStack(RefamishedItems.chippedAxeHead),
 							new ItemStack((Item) tool[0]) // Binding material
 					)
 			));
@@ -1132,7 +1009,7 @@ public abstract class CraftingManagerMixin {
 						,new ItemStack(Item.stick),new ItemStack(RefamishedItems.sugar_resin),diamondRivet),
 				new ItemStack(Item.hoeDiamond), 125,3);
 		addForgePlanRecipe(Arrays.asList(new ItemStack(RefamishedItems.metallurgyHeads,1,getHeadIndexByString("diamond_machete"))
-						,new ItemStack(Item.stick),new ItemStack(RefamishedItems.sugar_resin),copperRivet),
+						,new ItemStack(Item.stick),new ItemStack(RefamishedItems.sugar_resin),diamondRivet),
 				new ItemStack(RefamishedItems.diamond_machete), 200,3);
 
 		addForgePlanRecipe(Arrays.asList(new ItemStack(RefamishedItems.metallurgyHeads,1,getHeadIndexByString("tip_sword"))
@@ -1243,45 +1120,53 @@ public abstract class CraftingManagerMixin {
 						,new ItemStack(Item.stick),new ItemStack(RefamishedItems.sugar_resin)),
 				new ItemStack(RefamishedItems.gildedChisel), 150,2);
 
+		//ForgingPlansRecipes.getInstance().addRecipe(new ArmorCombination(Arrays.asList(new ItemStack(RefamishedItems.sheet),new ItemStack(RefamishedItems.sheet)), 500, 1));
+
+		ForgingPlansRecipes.getInstance().getRecipeList().add(new ArmorCombination());
 		Item[] armor = new Item[] {
 				Item.helmetIron,Item.plateIron,Item.legsIron,Item.bootsIron,
 				Item.helmetGold,Item.plateGold,Item.legsGold,Item.bootsGold,
 				Item.helmetDiamond,Item.plateDiamond,Item.legsDiamond,Item.bootsDiamond,
 				RefamishedItems.steelHelmet,RefamishedItems.steelChestplate,RefamishedItems.steelLeggings,RefamishedItems.steelBoots,
+				RefamishedItems.helmetCopperWhole,RefamishedItems.plateCopperWhole,RefamishedItems.legsCopperWhole,RefamishedItems.bootsCopperWhole,
 		};
-		String[] materialArmor = new String[]{"iron","gold","diamond","steel"};
-		int[] materialHardness = new int[]{13,20,17,11};
+		String[] materialArmor = new String[]{"iron","gold","diamond","steel","copper"};
+		int[] materialHardness = new int[]{13,20,17,11,12};
+		int[] forgeLevel = new int[]{2,2,3,3,1};
 		String[] heads = new String[]{"helm","coif","pauldrons","cuirass","tassets","greaves","threads","sabatons"};
 		int[] materialCost = new int[]{2,3,3,5,4,3,2,2};
 		int[] materialHard = new int[]{4,5,5,7,5,5,4,4};
 		for (int ih = 0; ih < materialArmor.length; ih++) {
 			String name_ = materialArmor[ih];
 			int hardnessSet = materialHardness[ih];
+			int forgeLvl = forgeLevel[ih];
 			int sheetId = metalSheets.getPartIndex(name_);
 			for (int jh = 0; jh < heads.length; jh++) {
 				String part = heads[jh];
 				int cost = materialCost[jh];
 				int hardness = materialHard[jh];
 				addForgePlanRecipe(Arrays.asList(new ItemStack(RefamishedItems.sheet,cost,sheetId)),
-						new ItemStack(RefamishedItems.metallurgyArmor,1,metallurgyArmor.getPartIndex(name_+"_"+part)), hardness*hardnessSet);
+						new ItemStack(RefamishedItems.metallurgyArmor,1,metallurgyArmor.getPartIndex(name_+"_"+part)), hardness*hardnessSet,forgeLvl);
 			}
 			addForgePlanRecipe(Arrays.asList(new ItemStack(RefamishedItems.metallurgyArmor,1,metallurgyArmor.getPartIndex(name_+"_helm")),
 							new ItemStack(RefamishedItems.metallurgyArmor,1,metallurgyArmor.getPartIndex(name_+"_coif")),
 							new ItemStack(RefamishedItems.sugar_resin)),
-					new ItemStack(armor[(ih*4)]), 7*hardnessSet);
+					new ItemStack(armor[(ih*4)]), 7*hardnessSet,forgeLvl);
 			addForgePlanRecipe(Arrays.asList(new ItemStack(RefamishedItems.metallurgyArmor,1,metallurgyArmor.getPartIndex(name_+"_pauldrons")),
 							new ItemStack(RefamishedItems.metallurgyArmor,1,metallurgyArmor.getPartIndex(name_+"_cuirass")),
 							new ItemStack(RefamishedItems.sugar_resin)),
-					new ItemStack(armor[(ih*4)+1]), 10*hardnessSet);
+					new ItemStack(armor[(ih*4)+1]), 10*hardnessSet,forgeLvl);
 			addForgePlanRecipe(Arrays.asList(new ItemStack(RefamishedItems.metallurgyArmor,1,metallurgyArmor.getPartIndex(name_+"_tassets")),
 							new ItemStack(RefamishedItems.metallurgyArmor,1,metallurgyArmor.getPartIndex(name_+"_greaves")),
 							new ItemStack(RefamishedItems.sugar_resin)),
-					new ItemStack(armor[(ih*4)+2]), 8*hardnessSet);
+					new ItemStack(armor[(ih*4)+2]), 8*hardnessSet,forgeLvl);
 			addForgePlanRecipe(Arrays.asList(new ItemStack(RefamishedItems.metallurgyArmor,1,metallurgyArmor.getPartIndex(name_+"_threads")),
 							new ItemStack(RefamishedItems.metallurgyArmor,1,metallurgyArmor.getPartIndex(name_+"_sabatons")),
 							new ItemStack(RefamishedItems.sugar_resin)),
-					new ItemStack(armor[(ih*4)+3]), 6*hardnessSet);
+					new ItemStack(armor[(ih*4)+3]), 6*hardnessSet,forgeLvl);
 		}
+		addForgePlanRecipe(Arrays.asList(new ItemStack(RefamishedItems.copperIngot)),
+				new ItemStack(RefamishedItems.sheet,1,0), 100,1);
 		addForgePlanRecipe(Arrays.asList(new ItemStack(Item.ingotIron)),
 				new ItemStack(RefamishedItems.sheet,1,1), 100,2);
 		addForgePlanRecipe(Arrays.asList(new ItemStack(Item.ingotGold)),
@@ -1553,7 +1438,6 @@ public abstract class CraftingManagerMixin {
 		RecipeManager.addStokedCrucibleRecipe(new ItemStack(RefamishedItems.copperNugget, 5), new ItemStack[]{new ItemStack(BTWItems.cementBucket)});
 		RecipeManager.addStokedCrucibleRecipe(new ItemStack(RefamishedItems.copperNugget, 5), new ItemStack[]{new ItemStack(BTWItems.milkChocolateBucket)});
 		//RecipeManager.addStokedCrucibleRecipe(new ItemStack(BTWItems.ironNugget, 6), new ItemStack[]{new ItemStack(Item.saddle)});
-		RecipeManager.addStokedCrucibleRecipe(new ItemStack(BTWItems.soulforgedSteelIngot, 2), new ItemStack[]{new ItemStack(RefamishedItems.steelIngot, 5), new ItemStack(RefamishedItems.scorched_flux, 64), new ItemStack(BTWItems.soulUrn, 3), new ItemStack(BTWItems.soulFlux, 12), new ItemStack(BTWItems.rawMysteryMeat, 3)});
 		for (int ih = 0; ih < Item.recordWait.itemID - Item.record13.itemID + 1; ih++) {
 			RecipeManager.addStokedCrucibleRecipe(new ItemStack(BTWItems.ironNugget, 7), new ItemStack[]{new ItemStack(Item.itemsList[Item.record13.itemID+ih])});
 		}
@@ -1635,6 +1519,8 @@ public abstract class CraftingManagerMixin {
 //				// Here old -> craftingManager.addRecipe(new ItemStack(item), this.recipePatterns[j], Character.valueOf('#'), Item.stick, Character.valueOf('X'), object);
 //			}
 //		}
+		RecipeManager.removeVanillaRecipe(new ItemStack(BTWBlocks.lens), new Object[]{"GDG", "G G", "G#G", Character.valueOf('#'), Block.glass, Character.valueOf('G'), Item.ingotGold, Character.valueOf('D'), Item.diamond});
+		RecipeManager.removeVanillaRecipe(new ItemStack(BTWBlocks.lens), new Object[]{"G#G", "G G", "GDG", Character.valueOf('#'), Block.glass, Character.valueOf('G'), Item.ingotGold, Character.valueOf('D'), Item.diamond});
 		Set<Item> targets = new HashSet<Item>(Arrays.asList(
 				Item.swordDiamond,
 				Item.pickaxeDiamond,
@@ -1656,6 +1542,11 @@ public abstract class CraftingManagerMixin {
 				it.remove();
 			}
 		}
+
+
+		CraftingManager.getInstance().getRecipeList().add(new TestArmorCombination(Arrays.asList(
+				new ItemStack(RefamishedItems.metallurgyArmor,1,Short.MAX_VALUE),
+				new ItemStack(RefamishedItems.metallurgyArmor,1,Short.MAX_VALUE))));
 	}
 
 	private static void removeVanillaRecipe2(ItemStack output, String[] pattern, Object... recipeComponents) {
@@ -1882,5 +1773,37 @@ public abstract class CraftingManagerMixin {
 				new Object[]{
 						stair
 				});
+	}
+
+	private static int[] materialCost = new int[]{2,3,3,5,4,3,2,2};
+	private static int[] materialHard = new int[]{4,5,5,7,5,5,4,4};
+
+	@Unique
+	private static void addArmorSlightlyManual(Item[] armor, String name_, int hardnessSet, int forgeLevel) {
+		String[] heads = new String[]{"helm","coif","pauldrons","cuirass","tassets","greaves","threads","sabatons"};
+		int sheetId = metalSheets.getPartIndex(name_);
+		for (int jh = 0; jh < heads.length; jh++) {
+			String part = heads[jh];
+			int cost = materialCost[jh];
+			int hardness = materialHard[jh];
+			addForgePlanRecipe(Arrays.asList(new ItemStack(RefamishedItems.sheet,cost,sheetId)),
+					new ItemStack(RefamishedItems.metallurgyArmor,1,metallurgyArmor.getPartIndex(name_+"_"+part)), hardness*hardnessSet,forgeLevel);
+		}
+		addForgePlanRecipe(Arrays.asList(new ItemStack(RefamishedItems.metallurgyArmor,1,metallurgyArmor.getPartIndex(name_+"_helm")),
+						new ItemStack(RefamishedItems.metallurgyArmor,1,metallurgyArmor.getPartIndex(name_+"_coif")),
+						new ItemStack(RefamishedItems.sugar_resin)),
+				new ItemStack(armor[0]), 7*hardnessSet,forgeLevel);
+		addForgePlanRecipe(Arrays.asList(new ItemStack(RefamishedItems.metallurgyArmor,1,metallurgyArmor.getPartIndex(name_+"_pauldrons")),
+						new ItemStack(RefamishedItems.metallurgyArmor,1,metallurgyArmor.getPartIndex(name_+"_cuirass")),
+						new ItemStack(RefamishedItems.sugar_resin)),
+				new ItemStack(armor[1]), 10*hardnessSet,forgeLevel);
+		addForgePlanRecipe(Arrays.asList(new ItemStack(RefamishedItems.metallurgyArmor,1,metallurgyArmor.getPartIndex(name_+"_tassets")),
+						new ItemStack(RefamishedItems.metallurgyArmor,1,metallurgyArmor.getPartIndex(name_+"_greaves")),
+						new ItemStack(RefamishedItems.sugar_resin)),
+				new ItemStack(armor[2]), 8*hardnessSet,forgeLevel);
+		addForgePlanRecipe(Arrays.asList(new ItemStack(RefamishedItems.metallurgyArmor,1,metallurgyArmor.getPartIndex(name_+"_threads")),
+						new ItemStack(RefamishedItems.metallurgyArmor,1,metallurgyArmor.getPartIndex(name_+"_sabatons")),
+						new ItemStack(RefamishedItems.sugar_resin)),
+				new ItemStack(armor[3]), 6*hardnessSet,forgeLevel);
 	}
 }

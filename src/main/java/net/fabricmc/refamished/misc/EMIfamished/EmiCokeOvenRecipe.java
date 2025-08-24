@@ -12,10 +12,7 @@ import emi.shims.java.net.minecraft.client.gui.tooltip.TooltipComponent;
 import emi.shims.java.net.minecraft.text.Text;
 import net.fabricmc.refamished.itemsbase.craftingPulling;
 import net.fabricmc.refamished.misc.Recipes.CokeOvenSmeltingRecipes;
-import net.minecraft.src.Icon;
-import net.minecraft.src.Item;
-import net.minecraft.src.ItemStack;
-import net.minecraft.src.ResourceLocation;
+import net.minecraft.src.*;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
@@ -43,6 +40,7 @@ public class EmiCokeOvenRecipe implements EmiRecipe {
     @Override
     @Nullable
     public ResourceLocation getId() {
+        if (Output_.getItem() instanceof ItemBlock) return new ResourceLocation(((ItemBlock)Output_.getItem()).getIconFromDamage(Output_.getItemDamage()).getIconName());
         if (Output_.getItem().getHasSubtypes()) {
             Icon icon = Output_.getItem().getIconFromDamage(Output_.getItemDamage());
             if (icon == null) {
@@ -94,10 +92,13 @@ public class EmiCokeOvenRecipe implements EmiRecipe {
     @Override
     public void addWidgets(WidgetHolder widgets) {
         int duration = this.rep_.cookTimeTicks;
+        boolean isSteamKiln = rep_.minFireLevel == 99;
         widgets.addFillingArrow(24, 5, 10000).tooltip((mx, my) -> List.of(TooltipComponent.of(EmiPort.ordered(EmiPort.translatable("emi.cooking.time", duration / 20)))));
-        widgets.addTexture(EmiTexture.EMPTY_FLAME, 1, 24);
-        widgets.addAnimatedTexture(EmiTexture.FULL_FLAME, 1, 24, duration * 20, false, true, true);
-        widgets.addText(Text.translatable("emi.refamished.cokeoven.level", this.rep_.minFireLevel),17,27,0xff0000,true);
+        if (!isSteamKiln) {
+            widgets.addTexture(EmiTexture.EMPTY_FLAME, 1, 24);
+            widgets.addAnimatedTexture(EmiTexture.FULL_FLAME, 1, 24, duration * 20, false, true, true);
+        }
+        widgets.addText(Text.translatable(!isSteamKiln ? "emi.refamished.cokeoven.level" : "emi.refamished.cokeoven.steam", this.rep_.minFireLevel),!isSteamKiln ? 17 : 3,27,0xff0000,true);
         widgets.addSlot(this.input, 0, 4);
         widgets.addSlot(this.output, 56, 0).large(true).recipeContext(this);
     }

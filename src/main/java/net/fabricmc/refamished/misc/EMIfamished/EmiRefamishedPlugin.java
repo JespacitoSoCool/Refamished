@@ -1,36 +1,25 @@
 package net.fabricmc.refamished.misc.EMIfamished;
 
 import btw.block.BTWBlocks;
-import btw.crafting.manager.CauldronCraftingManager;
-import btw.crafting.manager.CrucibleStokedCraftingManager;
-import btw.crafting.recipe.RecipeManager;
 import btw.crafting.recipe.types.BulkRecipe;
-import btw.crafting.recipe.types.customcrafting.WoolArmorRecipe;
-import btw.crafting.recipe.types.customcrafting.WoolBlockRecipe;
 import btw.item.BTWItems;
+import btw.item.tag.TagOrStack;
 import emi.dev.emi.emi.EmiUtil;
 import emi.dev.emi.emi.api.EmiEntrypoint;
 import emi.dev.emi.emi.api.EmiPlugin;
 import emi.dev.emi.emi.api.EmiRegistry;
 import emi.dev.emi.emi.api.plugin.BTWPlugin;
-import emi.dev.emi.emi.api.plugin.VanillaPlugin;
 import emi.dev.emi.emi.api.recipe.*;
 import emi.dev.emi.emi.api.render.EmiTexture;
-import emi.dev.emi.emi.api.stack.EmiIngredient;
 import emi.dev.emi.emi.api.stack.EmiStack;
 import emi.dev.emi.emi.recipe.EmiCookingRecipe;
-import emi.dev.emi.emi.recipe.EmiShapedRecipe;
-import emi.dev.emi.emi.recipe.EmiShapelessRecipe;
-import emi.dev.emi.emi.recipe.btw.EmiBulkRecipe;
 import emi.dev.emi.emi.recipe.btw.EmiProgressiveRecipe;
-import emi.dev.emi.emi.recipe.special.*;
 import emi.dev.emi.emi.runtime.EmiReloadLog;
 import emi.shims.java.net.minecraft.text.Text;
-import emi.shims.java.net.minecraft.util.SyntheticIdentifier;
 import net.fabricmc.refamished.RefamishedBlocks;
 import net.fabricmc.refamished.RefamishedItems;
 import net.fabricmc.refamished.itemsbase.craftingPulling;
-import net.fabricmc.refamished.misc.CustomRecipes.RecipesArmorPigment;
+import net.fabricmc.refamished.misc.CustomRecipes.crafting.RecipesArmorPigment;
 import net.fabricmc.refamished.misc.Recipes.*;
 import net.fabricmc.refamished.quality.ArmorQuality;
 import net.fabricmc.refamished.quality.ToolQuality;
@@ -38,7 +27,6 @@ import net.minecraft.src.*;
 
 import java.util.Arrays;
 import java.util.List;
-import java.util.Map;
 import java.util.function.Supplier;
 
 @EmiEntrypoint
@@ -133,9 +121,9 @@ public class EmiRefamishedPlugin implements EmiPlugin {
             addRecipeSafe(registry,()->new EmiCokeOvenRecipe(bulkRecipe.input, bulkRecipe.output,bulkRecipe));
         }
         for (BulkRecipe bulkRecipe : PercentageBasedSmelting.getInstance().getRecipeList()) {
-            List<ItemStack> input = bulkRecipe.getCraftingIngrediantList();
+            List<TagOrStack> input = bulkRecipe.getCraftingIngrediantList();
             List<ItemStack> list = bulkRecipe.getCraftingOutputList();
-            addRecipeSafe(registry,()->new EmiPercentageBasedSmelt(input.getFirst(), list));
+            addRecipeSafe(registry,()->new EmiPercentageBasedSmelt((ItemStack) input.getFirst(), list));
         }
         for (Object iRecipe : registry.getRecipeManager().getRecipes()) {
             IRecipe recipe = (IRecipe)iRecipe;
@@ -176,10 +164,19 @@ public class EmiRefamishedPlugin implements EmiPlugin {
         }
 
         for (ForgingPlansRecipes.RecipeEntry entryobj : ForgingPlansRecipes.getInstance().getRecipeList()) {
-            ForgingPlansRecipes.RecipeEntry entry = entryobj;
-            List<ItemStack> in = entry.inputs;
-            ItemStack out = entry.output;
-            addRecipeSafe(registry, () -> new EmiSmithingRecipe( in, out));
+            if (entryobj.isCombinationRecipe())
+            {
+                ForgingPlansRecipes.RecipeEntry entry = entryobj;
+                List<ItemStack> in = entry.inputs;
+                ItemStack out = entry.output;
+                addRecipeSafe(registry, () -> new EmiSmithingArmor( in, out));
+            }
+            else {
+                ForgingPlansRecipes.RecipeEntry entry = entryobj;
+                List<ItemStack> in = entry.inputs;
+                ItemStack out = entry.output;
+                addRecipeSafe(registry, () -> new EmiSmithingRecipe( in, out));
+            }
         }
         for (SmithingRecipes.RecipeEntry entryobj : SmithingRecipes.getInstance().getRecipeList()) {
             SmithingRecipes.RecipeEntry entry = entryobj;

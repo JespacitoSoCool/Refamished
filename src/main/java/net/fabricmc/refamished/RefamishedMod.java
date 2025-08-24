@@ -1,6 +1,7 @@
 package net.fabricmc.refamished;
 
 import btw.AddonHandler;
+import btw.community.refamished.RefamishedAddon;
 import btw.item.BTWItems;
 import btw.network.packet.BTWPacketManager;
 import btw.world.util.WorldUtils;
@@ -28,9 +29,6 @@ import java.util.UUID;
 
 public class RefamishedMod implements ModInitializer {
 	private static SkillPersistentState skillPersistentState;
-	public static final UUID toolRangeUUID = UUID.fromString("cfde7e5c-9ccf-4aef-abd4-152fde3d0c1a");
-	public static final Difficulty CRUEL = new DifficultyCruel("cruel");
-	public static final RefamishedSoundManager soundManageer = new RefamishedSoundManager();
 
 	public static final Potion INFESTEDWOUND = new RePotion(100, true, Integer.valueOf("904A4A", 16)).setPotionName("potion.infestedwound");
 	@Override
@@ -38,9 +36,9 @@ public class RefamishedMod implements ModInitializer {
 		addMaterialOverride();
 		SkillData skillData = new SkillData();
 		skillPersistentState = new SkillPersistentState();
-		System.out.println("Hi world!!!!!!!!111 kil me");
+		//System.out.println("Hi world!!!!!!!!111 kil me");
 
-		System.out.println("!!!!!!!!!loaded : "+BTWItems.sharpStone);
+		//System.out.println("!!!!!!!!!loaded : "+BTWItems.sharpStone);
 		RefamishedConfig.load();
 		if (INFESTEDWOUND instanceof IGridPotion grid) {
 			grid.setGridX(0);
@@ -54,11 +52,12 @@ public class RefamishedMod implements ModInitializer {
 		System.out.println("Enviroment :"+ FabricLoader.getInstance().getEnvironmentType().name());
 	}
 
-	public final boolean nightmareEnabled = AddonHandler.isModInstalled("nightmare");
+	public static final boolean NMEnabled = AddonHandler.isModInstalled("nightmare_mode");
 
 	public static void addMaterialOverride()
 	{
 		ReMaterials.init();
+		ReFormatting.init();
 	}
 
 	public static SkillPersistentState getSkillPersistentState() {

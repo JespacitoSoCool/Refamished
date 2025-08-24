@@ -2,6 +2,7 @@ package net.fabricmc.refamished.items.materials;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
+import net.fabricmc.refamished.RefamishedMod;
 import net.minecraft.src.*;
 
 import java.util.List;
@@ -20,7 +21,12 @@ public class metallurgyHeads extends Item {
     private static final String[] separatedHeads = new String[]{"tip_sword","tip_pickaxe","tip_axe","tip_shovel","tip_hoe","copper_hammer","copper_chisel",
             "iron_chisel","diamond_chisel","tong_copper","tong_iron","tong_steel","iron_hammer","steel_hammer",
             "iron_shear_body","iron_shear_razor","diamond_shear_body","diamond_shear_razor","copper_shear_body","copper_shear_razor","gilded_shear_body","gilded_shear_razor",
-    "copper_trowel","iron_trowel","gilded_hammer","tong_gilded","gilded_trowel","gilded_chisel"};
+            "copper_trowel","iron_trowel","gilded_hammer","tong_gilded","gilded_trowel","gilded_chisel",
+            "blood_sword","blood_pickaxe","blood_axe","blood_shovel","blood_hoe","blood_rivet","blood_crossguard","blood_machete",
+            "blood_shear_body","blood_shear_razor","blood_hammer","tong_blood",
+    };
+    private static final String[] moddedItems = new String[]{"blood"};
+    private static final Boolean[] moddedBool = new Boolean[]{RefamishedMod.NMEnabled};
     public static final String[] parts = new String[material.length * heads.length + separatedHeads.length];
     private Icon[] iconByMetadataArray = new Icon[parts.length];
     static {
@@ -61,6 +67,8 @@ public class metallurgyHeads extends Item {
     @Override
     public void getSubItems(int par1, CreativeTabs tab, List list) {
         for (int i = 0; i < parts.length; i++) {
+            String partName = parts[i];
+            if (!canDisplay(partName)) continue;
             list.add(new ItemStack(par1, 1, i));
         }
     }
@@ -84,4 +92,12 @@ public class metallurgyHeads extends Item {
         return -1;
     }
 
+    private static boolean canDisplay(String part) {
+        for (int i = 0; i < moddedItems.length; i++) {
+            if (part.contains(moddedItems[i])) {
+                return moddedBool[i];
+            }
+        }
+        return true;
+    }
 }

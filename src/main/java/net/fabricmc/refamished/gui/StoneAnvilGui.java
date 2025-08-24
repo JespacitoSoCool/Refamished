@@ -18,10 +18,7 @@ import org.lwjgl.opengl.GL11;
 import java.io.ByteArrayOutputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class StoneAnvilGui extends GuiContainer {
     private static final ResourceLocation TEXTURE = new ResourceLocation("refamished:textures/gui/stone_anvil.png");
@@ -179,21 +176,19 @@ public class StoneAnvilGui extends GuiContainer {
             this.mc.renderEngine.bindTexture(TEXTURE);
             GL11.glDisable(GL11.GL_LIGHTING);
             drawTexturedModalRect(tx , by , row == 0 ? 176 : 196, he, width, 20);
-            ItemStack output = recipeButtons.get(i).output;
+            ItemStack output = recipeButtons.get(i).getOutput(Arrays.asList(tile.inventory));
             itemRenderer.renderItemAndEffectIntoGUI(this.fontRenderer, this.mc.getTextureManager(), output, tx + 2, by + 2);
 
-            if (isMouseIn) {
-                ItemStack outputSmith = recipeButtons.get(i).output;
-                int itemID = outputSmith.itemID;
+            if (isMouseIn && output != null) {
+                int itemID = output.itemID;
 
                 List<String> tooltip = new ArrayList<>();
-                tooltip.add(EnumChatFormatting.BOLD + outputSmith.getDisplayName());
+                tooltip.add(EnumChatFormatting.BOLD + output.getDisplayName());
                 tooltip.add("");
 
-                // --- Show item requirements ---
                 tooltip.add(EnumChatFormatting.GRAY + "Requires:");
                 for (ItemStack input : recipeButtons.get(i).inputs) {
-                    tooltip.add("- " + input.stackSize + "x " + input.getDisplayName());
+                    tooltip.add("- " + input.stackSize + "x " + input.getItem().getItemStackDisplayName(input));
                 }
 
                 PlayerSkillData skillData = SkillManager.getSkillData(plrInv.player);
@@ -364,7 +359,7 @@ public class StoneAnvilGui extends GuiContainer {
                     try {
                         dos.writeByte(2);
                         dos.writeInt(i);
-                        dos.writeInt(selected.inputs.get(0).itemID);
+                        dos.writeInt(selected.getOutput(Arrays.asList(tile.inventory)).itemID);
                     } catch (IOException e) {
                         e.printStackTrace();
                     }

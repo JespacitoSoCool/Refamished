@@ -6,7 +6,9 @@ import net.fabricmc.api.Environment;
 import net.fabricmc.refamished.RefamishedMod;
 import net.fabricmc.refamished.interfaces.EntityPlayerInterface;
 import net.fabricmc.refamished.interfaces.IconByItemStack;
+import net.fabricmc.refamished.interfaces.IconLargedByItemStack;
 import net.fabricmc.refamished.interfaces.IconLargedMultipleRender;
+import net.fabricmc.refamished.itemsbase.craftedArmor;
 import net.fabricmc.refamished.misc.DifficultyCruel;
 import net.fabricmc.refamished.quality.ArmorQuality;
 import net.fabricmc.refamished.quality.ArmorQualityHelper;
@@ -118,37 +120,18 @@ public abstract class PlayerMixin {
 				float iArmorWeight = ArmorQualityHelper.getWeight(ArmorQualityHelper.getArmorQuality(tempStack));
 				iWeight += iArmorWeight;
 				//System.out.println("Armor Weight: " + iArmorWeight);
+				if (tempStack.getItem() instanceof craftedArmor armorC) {
+					iWeight += (float) (craftedArmor.getTrait(tempStack,"weight",armorC.armorType)/44.0);
+				}
 			}
 		}
-		if (!((EntityPlayer)(Object)this).getEntityWorld().isRemote)
-		{
-			//System.out.println("TOTAL Armor Weight: " + iWeight);
-		}
-		if (iWeight > 10) {
-			iWeight = 10;
+		if (iWeight > 25) {
+			iWeight = 25;
 		}
 		if (iWeight <= 0) {
 			iWeight = 0;
 		}
 		cir.setReturnValue(cir.getReturnValue()+iWeight);
-	}
-
-	@Inject(method = "damageEntity", at = @At("HEAD"), cancellable = true)
-	private void injectArmorBonus(DamageSource par1DamageSource, float par2, CallbackInfo ci) {
-		InventoryPlayer inventory = ((EntityPlayer)(Object)this).inventory; // Player inventory
-		int totalArmorBonus = 0; // Track total bonus
-
-		for (ItemStack armorPiece : inventory.armorInventory) {
-			if (armorPiece != null && armorPiece.getItem() instanceof ItemArmor) {
-				ArmorQuality quality = ArmorQualityHelper.getArmorQuality(armorPiece);
-				totalArmorBonus += ArmorQualityHelper.getArmorBonus(quality);
-			}
-		}
-
-		// Apply the bonus (adjust damage absorption/exhaustion or GUI)
-		if (totalArmorBonus > 0) {
-			//((EntityPlayer)(Object)this).addChatMessage("Armor Bonus Applied: +" + totalArmorBonus);
-		}
 	}
 
 	@Unique
@@ -201,6 +184,12 @@ public abstract class PlayerMixin {
 			IconByItemStack iconObtainerThing = (IconByItemStack)itemStack.getItem();
 			//System.out.println("AAAAAA");
 			cir.setReturnValue(iconObtainerThing.getIcon(itemStack,player));
+			cir.cancel();
+		}
+		else if (itemStack.getItem() instanceof IconLargedByItemStack) {
+			IconLargedByItemStack iconObtainerThing = (IconLargedByItemStack)itemStack.getItem();
+			//System.out.println("AAAAAA");
+			cir.setReturnValue(iconObtainerThing.getIcon(itemStack,player,index));
 			cir.cancel();
 		}
 		else if (itemStack.getItem() instanceof IconLargedMultipleRender) {

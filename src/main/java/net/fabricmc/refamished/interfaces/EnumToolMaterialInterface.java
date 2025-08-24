@@ -14,4 +14,6 @@ public interface EnumToolMaterialInterface {
     EnumToolMaterial getGildedIronMaterial();
 
     EnumToolMaterial getCobaltzureMaterial();
+
+    EnumToolMaterial getNmBlood();
 }

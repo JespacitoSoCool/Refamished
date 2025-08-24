@@ -19,18 +19,26 @@ public enum ToolQuality {
 	BROKEN("Broken", -1, 10, EnumChatFormatting.RED),
 	SHODDY("Shoddy", -1, 10, EnumChatFormatting.RED),
 	BRITTLE("Brittle", -1, 10, EnumChatFormatting.RED),
-	STURDY("Sturdy", -1, 15, EnumChatFormatting.YELLOW),
 	AVERAGE("Average", -5, 120, EnumChatFormatting.WHITE),
 
+	STURDY("Sturdy", -1, 15, EnumChatFormatting.YELLOW),
 	LIGHT("Lightweight", 1, 15, EnumChatFormatting.YELLOW),
 	HEAVY("Heavy", 1, 15, EnumChatFormatting.YELLOW),
 	KEEN("Keen", 1, 15, EnumChatFormatting.YELLOW),
 	LONG("Long", 1, 15, EnumChatFormatting.YELLOW),
 	SHORT("Short", 1, 15, EnumChatFormatting.YELLOW),
-	REINFORCED("Reinforced", 1, 10, EnumChatFormatting.YELLOW),
+	REINFORCED("Reinforced", 1, 15, EnumChatFormatting.YELLOW),
+	TEMPERED("Tempered", 1, 15, EnumChatFormatting.YELLOW),
+	ETCHED("Etched", 1, 15, EnumChatFormatting.YELLOW),
+	HARDENED("Hardened", 1, 15, EnumChatFormatting.YELLOW),
+
+	P_REACH("Reach+", 0, 0, EnumChatFormatting.GOLD),
+	P_DAMAGE("Damage+", 0, 0, EnumChatFormatting.GOLD),
+	P_SPEED("Speed+", 0, 0, EnumChatFormatting.GOLD),
 
 	EXCEPTIONAL("Exceptional", 5, 25, EnumChatFormatting.AQUA),
 	MASTERWORK("Masterwork", 4, 5, EnumChatFormatting.LIGHT_PURPLE);
+
 
 	private final String name;
 	private final int bonus;

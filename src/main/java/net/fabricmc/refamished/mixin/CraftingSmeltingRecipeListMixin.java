@@ -15,7 +15,6 @@ import net.fabricmc.refamished.items.materials.PigmentItem;
 import net.fabricmc.refamished.items.materials.metalSheets;
 import net.fabricmc.refamished.items.materials.metallurgyArmor;
 import net.fabricmc.refamished.items.materials.metallurgyHeads;
-import net.fabricmc.refamished.misc.CustomRecipes.*;
 import net.fabricmc.refamished.misc.Recipes.*;
 import net.minecraft.src.*;
 import org.spongepowered.asm.mixin.Mixin;

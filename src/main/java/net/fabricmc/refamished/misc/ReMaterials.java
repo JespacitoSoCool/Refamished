@@ -17,11 +17,13 @@ public class ReMaterials {
     public static EnumToolMaterial GILDEDIRON;
     public static EnumToolMaterial COBALTZURE;
     public static EnumToolMaterial STEEL;
+    public static EnumToolMaterial NMBLOOD;
 
     public static EnumArmorMaterial RUSTIRONARMOR;
     public static EnumArmorMaterial COPPERARMOR;
     public static EnumArmorMaterial DULLEDGOLDARMOR;
     public static EnumArmorMaterial STEELARMOR;
+    public static EnumArmorMaterial COPPERWHOLEARMOR;
 
     public static void init() {
         EnumToolMaterialInterface tool = ((EnumToolMaterialInterface) (Object) EnumToolMaterial.WOOD);
@@ -36,9 +38,11 @@ public class ReMaterials {
         GILDEDIRON = tool.getGildedIronMaterial();
         COBALTZURE = tool.getCobaltzureMaterial();
         STEEL = tool.getSteelMaterial();
+        NMBLOOD = tool.getNmBlood();
 
         RUSTIRONARMOR = armor.getRustIronMaterial();
         COPPERARMOR = armor.getCopperMaterial();
+        COPPERWHOLEARMOR = armor.getCopperWhole();
         DULLEDGOLDARMOR = armor.getDulledGoldMaterial();
         STEELARMOR = armor.getSteelMaterial();
     }

@@ -12,6 +12,7 @@ import net.fabricmc.refamished.entities.*;
 import net.fabricmc.refamished.entities.render.*;
 import net.fabricmc.refamished.entities.tiles.burntChestTile;
 import net.fabricmc.refamished.entities.tiles.cokeovenTile;
+import net.fabricmc.refamished.entities.tiles.copperConductTile;
 import net.fabricmc.refamished.entities.tiles.tarTankTile;
 import net.fabricmc.refamished.gui.SkillsGui;
 import net.fabricmc.refamished.interfaces.IGridPotion;
@@ -62,6 +63,7 @@ public class RefamishedModClient {
 	public static void registerEntitiesRenderer() {
 		TileEntityRenderer.instance.addSpecialRendererForClass(cokeovenTile.class, new CokeOvenRenderer());
 		TileEntityRenderer.instance.addSpecialRendererForClass(tarTankTile.class, new TarTankRenderer());
+		//TileEntityRenderer.instance.addSpecialRendererForClass(copperConductTile.class, new CopperConductRenderer());
 		TileEntityRenderer.instance.addSpecialRendererForClass(burntChestTile.class, new BurntChestRenderer());
 		//RenderManager.addEntityRenderer(EntitySKOrb.class, new RenderSKOrb());
 		RenderManager.addEntityRenderer(EntityIncendiaryArrow.class, new ArrowIncendiaryRender());

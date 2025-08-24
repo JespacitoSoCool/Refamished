@@ -6,6 +6,7 @@ import btw.item.util.ItemUtils;
 import btw.world.util.BlockPos;
 import net.fabricmc.refamished.RefamishedItems;
 import net.fabricmc.refamished.blocks.CokeOven;
+import net.fabricmc.refamished.blocks.steamContainer;
 import net.fabricmc.refamished.misc.Recipes.CokeOvenSmeltingRecipes;
 import net.minecraft.src.*;
 import org.lwjgl.Sys;

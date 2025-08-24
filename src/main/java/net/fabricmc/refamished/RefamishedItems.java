@@ -1,7 +1,10 @@
 package net.fabricmc.refamished;
 
+import btw.AddonHandler;
+import btw.BTWAddon;
 import btw.BTWMod;
 import btw.block.BTWBlocks;
+import btw.community.refamished.RefamishedAddon;
 import btw.crafting.util.FurnaceBurnTime;
 import btw.item.BTWItems;
 import btw.item.items.*;
@@ -12,11 +15,9 @@ import net.fabricmc.refamished.items.food.*;
 import net.fabricmc.refamished.items.materials.*;
 import net.fabricmc.refamished.items.others.*;
 import net.fabricmc.refamished.items.tools.*;
-import net.fabricmc.refamished.itemsbase.craftingPulling;
-import net.fabricmc.refamished.itemsbase.hammer;
-import net.fabricmc.refamished.itemsbase.machete;
-import net.fabricmc.refamished.itemsbase.tongs;
+import net.fabricmc.refamished.itemsbase.*;
 import net.fabricmc.refamished.misc.ReMaterials;
+import net.fabricmc.refamished.misc.Recipes.Addons.NmRecipes;
 import net.fabricmc.refamished.misc.RefamishedConfig;
 import net.minecraft.src.*;
 
@@ -32,7 +33,7 @@ public class RefamishedItems {
 			id_cowhide= 5457,
 			id_rottedString= 5458,
 			id_hellfireMolotov= 5459,
-			id_emberSmolder= 5460,
+			id_qualityBlueprint= 5460,
 			id_knifeRib = 19999,
 			id_ribCarvingBone = 19998,
 			id_leatherCuttingBone = 19997,
@@ -150,10 +151,10 @@ public class RefamishedItems {
 			id_flintSharpeningFlint= 5469,
 			id_flintCuttingWool= 5470,
 			id_woolString= 5471,
-			id_woolStoneAxe= 5472,
-			id_woolStoneShovel= 5473,
-			id_woolStoneHoe= 5474,
-			id_woolStonePickaxe= 5475,
+			id_copperWholeHelmet= 5472,
+			id_copperWholeChestplate= 5473,
+			id_copperWholeLeggings= 5474,
+			id_copperWholeBoots= 5475,
 			id_woolBonePickaxe= 5476,
 			id_woolBoneClub= 5477,
 			id_woolHeavyClub= 5478,
@@ -161,6 +162,15 @@ public class RefamishedItems {
 			id_woolHeavyClubAssembling= 5480,
 			id_woolFlintMachete= 5481,
 			id_paintedBrick= 5482,
+			id_craftedHelmet= 5483,
+			id_craftedChestplate= 5484,
+			id_craftedLeggings= 5485,
+			id_craftedBoots= 5486,
+			id_craftedSword= 5487,
+			id_craftedPickaxe= 5488,
+			id_craftedAxe= 5489,
+			id_craftedHoe= 5490,
+			id_craftedShovel= 5491,
 
 	id_lapisWireItem= 5601,
 			id_enchantingBook= 5602,
@@ -171,6 +181,10 @@ public class RefamishedItems {
 			id_witchKnot= 5607,
 			id_infusedChalice= 5608,
 			id_paintBucket= 5609,
+			id_bloodHammer= 5610,
+			id_bloodTongs= 5611,
+			id_bloodMachete= 5612,
+			id_bloodShears= 5613,
 
 	id_GildedIngot= 4000,
 			id_GildedNugget= 4001,
@@ -186,7 +200,7 @@ public class RefamishedItems {
 			id_chunkCobalt= 4008,
 			id_cobaltzureIngot= 4009,
 
-	id_frostforgeCrystal= 4010,
+	id_roseGold= 4010,
 			id_frostforgeIngot= 4011,
 
 	id_heavyIron= 4041,
@@ -514,6 +528,10 @@ public class RefamishedItems {
 	public static Item plateCopper;
 	public static Item legsCopper;
 	public static Item bootsCopper;
+	public static Item helmetCopperWhole;
+	public static Item plateCopperWhole;
+	public static Item legsCopperWhole;
+	public static Item bootsCopperWhole;
 	public static Item corrodedCopperSword;
 	public static Item corrodedCopperPickaxe;
 	public static Item corrodedCopperAxe;
@@ -547,6 +565,12 @@ public class RefamishedItems {
 	public static Item copperHammer;
 	public static Item ironHammer;
 	public static Item steelHammer;
+
+	public static Item craftedHelmet;
+	public static Item craftedChestplate;
+	public static Item craftedLeggings;
+	public static Item craftedBoots;
+	public static Item craftedIdk;
 
 	public static Item rib_beef;
 	public static Item rib;
@@ -636,6 +660,8 @@ public class RefamishedItems {
 	public static Item gildedHammer;
 	public static Item gildedChisel;
 	public static Item gildedTrowel;
+	public static Item qualityBlueprint;
+	public static Item roseGold;
 
 	public static Item test;
 	public static Item hellfire;
@@ -682,6 +708,7 @@ public class RefamishedItems {
 		gildedNugget = new Item(id_GildedNugget-256).setUnlocalizedName("gilded_iron_nugget").setTextureName("refamished:gilded_iron_nugget").setCreativeTab(CreativeTabs.tabMaterials);
 		cobaltzureIngot = new Item(id_cobaltzureIngot-256).setUnlocalizedName("cobalt_ingot").setTextureName("refamished:cobalt_ingot").setCreativeTab(CreativeTabs.tabMaterials);
 		cobaltzureNugget = new Item(id_cobaltNugget-256).setUnlocalizedName("cobalt_nugget").setTextureName("refamished:cobalt_nugget").setCreativeTab(CreativeTabs.tabMaterials);
+		roseGold = new Item(id_roseGold-256).setUnlocalizedName("rose_gold").setTextureName("refamished:rose_gold").setCreativeTab(CreativeTabs.tabMaterials);
 		rawIngot = new rawIngot(id_rawIngots-256).setCreativeTab(CreativeTabs.tabMaterials);
 		ingotPreparation = new ingotMoldPreparation(id_ingotPreparation-256).setCreativeTab(CreativeTabs.tabMaterials);
 		metallurgyHeads = new metallurgyHeads(id_metallurgy-256);
@@ -725,6 +752,11 @@ public class RefamishedItems {
 		cobaltzureAxe = new AxeItem(id_cobaltAxe-256,ReMaterials.COBALTZURE).setUnlocalizedName("cobaltzure_axe").setTextureName("refamished:cobalt_axe");
 		cobaltzureShovel = new ShovelItem(id_cobaltShovel-256,ReMaterials.COBALTZURE).setUnlocalizedName("cobaltzure_shovel").setTextureName("refamished:cobalt_shovel");
 		cobaltzureHoe = new HoeItem(id_cobaltHoe-256,ReMaterials.COBALTZURE).setUnlocalizedName("cobaltzure_hoe").setTextureName("refamished:cobalt_hoe");
+
+		craftedHelmet = new craftedArmor(id_craftedHelmet-256, 0);
+		craftedChestplate = new craftedArmor(id_craftedChestplate-256, 1);
+		craftedLeggings = new craftedArmor(id_craftedLeggings-256, 2);
+		craftedBoots = new craftedArmor(id_craftedBoots-256, 3);
 
 		rib_beef = new rib_beef(id_cowRib-256);
 		cooked_rib_beef = new rib_beef_cooked(id_cookedCowRib-256);
@@ -802,12 +834,16 @@ public class RefamishedItems {
 		plateCopper = new ArmorItemCopper(id_copperChestplate-256, 1, 5).setUnlocalizedName("chestplate_copper").setTextureName("refamished:copper_chestplate");
 		legsCopper = new ArmorItemCopper(id_copperLeggings-256, 2, 4).setUnlocalizedName("leggings_copper").setTextureName("refamished:copper_leggings");
 		bootsCopper = new ArmorItemCopper(id_copperBoots-256, 3, 2).setUnlocalizedName("boots_copper").setTextureName("refamished:copper_boots");
+		helmetCopperWhole = new ArmorItemCopperWhole(id_copperWholeHelmet-256, 0, 3).setUnlocalizedName("helmet_copper_whole").setTextureName("refamished:copper_whole_helmet");
+		plateCopperWhole = new ArmorItemCopperWhole(id_copperWholeChestplate-256, 1, 5).setUnlocalizedName("chestplate_copper_whole").setTextureName("refamished:copper_whole_chestplate");
+		legsCopperWhole = new ArmorItemCopperWhole(id_copperWholeLeggings-256, 2, 4).setUnlocalizedName("leggings_copper_whole").setTextureName("refamished:copper_whole_leggings");
+		bootsCopperWhole = new ArmorItemCopperWhole(id_copperWholeBoots-256, 3, 2).setUnlocalizedName("boots_copper_whole").setTextureName("refamished:copper_whole_boots");
 		corrodedCopperSword = new SwordItem(id_corrodedCopperSword-256,ReMaterials.CORRODEDCOPPER).setUnlocalizedName("corroded_copper_sword").setTextureName("refamished:corroded_copper_sword");
 		corrodedCopperPickaxe = new PickaxeItem(id_corrodedCopperPickaxe-256,ReMaterials.CORRODEDCOPPER).setUnlocalizedName("corroded_copper_pickaxe").setTextureName("refamished:corroded_copper_pickaxe");
 		corrodedCopperShovel = new ShovelItem(id_corrodedCopperShovel-256,ReMaterials.CORRODEDCOPPER).setUnlocalizedName("corroded_copper_shovel").setTextureName("refamished:corroded_copper_shovel");
 		corrodedCopperAxe = new AxeItem(id_corrodedCopperAxe-256,ReMaterials.CORRODEDCOPPER).setUnlocalizedName("corroded_copper_axe").setTextureName("refamished:corroded_copper_axe");
 		corrodedCopperHoe = new HoeItem(id_corrodedCopperHoe-256, ReMaterials.CORRODEDCOPPER).setUnlocalizedName("corroded_copper_hoe").setTextureName("refamished:corroded_copper_hoe");
-		coke_coal = new ItemFurnaceBurn(id_cokeCoal-256,FurnaceBurnTime.COAL.burnTime*2).setUnlocalizedName("coke_coal").setTextureName("refamished:coke_coal").setCreativeTab(CreativeTabs.tabMaterials).setIncineratedInCrucible().setFilterableProperties(2);
+		coke_coal = new ItemFurnaceBurn(id_cokeCoal-256,FurnaceBurnTime.COAL.burnTime*2).setUnlocalizedName("coke_coal").setTextureName("refamished:coke_coal").setCreativeTab(CreativeTabs.tabMaterials).setFilterableProperties(2);
 		helmetDulledGold = new ArmorItemDulledGold(id_dulledGoldHelmet-256, 0, 3).setUnlocalizedName("dulled_gold_helmet").setTextureName("refamished:dulled_gold_helmet");
 		plateDulledGold = new ArmorItemDulledGold(id_dulledGoldChestplate-256, 1, 5).setUnlocalizedName("dulled_gold_chestplate").setTextureName("refamished:dulled_gold_chestplate");
 		legsDulledGold = new ArmorItemDulledGold(id_dulledGoldLeggings-256, 2, 4).setUnlocalizedName("dulled_gold_leggings").setTextureName("refamished:dulled_gold_leggings");
@@ -855,6 +891,7 @@ public class RefamishedItems {
 		steelChestplate = new ArmorItemSteelButReal(id_steelChestplate-256, 1, 11).setUnlocalizedName("steel_chestplate").setTextureName("refamished:steel_chestplate");
 		steelLeggings = new ArmorItemSteelButReal(id_steelLeggings-256, 2, 9).setUnlocalizedName("steel_leggings").setTextureName("refamished:steel_leggings");
 		steelBoots = new ArmorItemSteelButReal(id_steelBoots-256, 3, 7).setUnlocalizedName("steel_boots").setTextureName("refamished:steel_boots");
+		qualityBlueprint = new qualityBlueprints(id_qualityBlueprint-256);
 
 		test = new TestingStick(id_testingstick-256).setUnlocalizedName("hi").setTextureName("stick").hideFromEMI();
 		hellfire = new hellfireMolotov(id_hellfireMolotov-256);
@@ -877,6 +914,9 @@ public class RefamishedItems {
 		Item.itemsList[Item.plateDiamond.itemID] = new ArmorItemDiamondRefDoSomething(55, 1, 10).setUnlocalizedName("chestplateDiamond").setTextureName(direc+"diamond_chestplate");
 		Item.itemsList[Item.legsDiamond.itemID] = new ArmorItemDiamondRefDoSomething(56, 2, 9).setUnlocalizedName("leggingsDiamond").setTextureName(direc+"diamond_leggings");
 		Item.itemsList[Item.bootsDiamond.itemID] = new ArmorItemDiamondRefDoSomething(57, 3, 6).setUnlocalizedName("bootsDiamond").setTextureName(direc+"diamond_boots");
+		BTWItems.creeperOysters.setNotIncineratedInCrucible();
+		BTWItems.rawMysteryMeat.setNotIncineratedInCrucible();
+		BTWItems.cookedMysteryMeat.setNotIncineratedInCrucible();
 		if (RefamishedConfig.refamishedTextures) {
 			BTWItems.sharpStone.setTextureName(overrideFolder+"sharp_stone");
 			BTWItems.sinewExtractingWolf.setTextureName(overrideFolder+"sinew_extracting_wolf");
@@ -907,6 +947,35 @@ public class RefamishedItems {
 			BTWBlocks.diamondIngot.setTextureName(overrideFolder+"diamond_block");
 			Item.ingotIron.setTextureName(overrideFolder+"iron_ingot");
 			Item.ingotGold.setTextureName(overrideFolder+"gold_ingot");
+		}
+	}
+
+	public static Item[] nmItems = new Item[15];
+	public static Item[] nmAdd = new Item[15];
+	private static String nmFolder = "refamished:other/";
+
+	public static void addForkedItems() {
+		if (RefamishedMod.NMEnabled) {
+			nmItems[0] = Item.itemsList[2581]; //Blood Ingot
+			nmItems[1] = Item.itemsList[2577]; //Blood Helmet
+			nmItems[2] = Item.itemsList[2578]; //Blood Chestplate
+			nmItems[3] = Item.itemsList[2579]; //Blood Leggings
+			nmItems[4] = Item.itemsList[2580]; //Blood Boots
+			nmItems[5] = Item.itemsList[2572]; //Blood Pickaxe
+			nmItems[6] = Item.itemsList[2573]; //Axe Pickaxe
+			nmItems[7] = Item.itemsList[2574]; //Shovel Pickaxe
+			nmItems[8] = Item.itemsList[2575]; //Hoe Pickaxe
+			nmItems[9] = Item.itemsList[2576]; //Sword Pickaxe
+			nmItems[10] = Item.itemsList[2571]; //Blood Orb
+			nmItems[11] = Item.itemsList[2568]; //Iron Knitting Needles
+			nmAdd[0] = new hammer(id_bloodHammer-256,3.5f, ReMaterials.NMBLOOD).setCreativeTab(CreativeTabs.tabTools).setTextureName(nmFolder+"blood_hammer").setUnlocalizedName("blood_hammer");
+			nmAdd[1] = new tongs(id_bloodTongs-256,1095).setCreativeTab(CreativeTabs.tabTools).setTextureName(nmFolder+"blood_tongs").setUnlocalizedName("blood_tongs");
+			nmAdd[2] = new metalShears(id_bloodShears-256,1095).setCreativeTab(CreativeTabs.tabTools).setTextureName(nmFolder+"blood_shears").setUnlocalizedName("blood_shears");
+			nmAdd[3] = new machete(id_bloodMachete-256,5.5F,0.4F, ReMaterials.NMBLOOD).setTextureName(nmFolder+"blood_machete").setUnlocalizedName("blood_machete");
+			if (RefamishedConfig.refamishedTextures) {
+
+			}
+			NmRecipes.NightmareModding();
 		}
 	}
 }

@@ -12,35 +12,56 @@ public class SmithingRecipes {
         return INSTANCE;
     }
 
-    public static class RecipeEntry {
+    public interface ISmithingRecipe {
+        boolean matches(ItemStack input);
+        ItemStack[] getResult(ItemStack input, Object... context);
+        int getShatterAmount();
+    }
+
+    public static class RecipeEntry implements ISmithingRecipe {
         public final ItemStack input;
         public final ItemStack[] firstOutput;
         public final int shatterAmount;
 
         public RecipeEntry(ItemStack input, ItemStack[] output1, int shatter) {
             this.input = input;
-            firstOutput = output1;
-            shatterAmount = shatter;
+            this.firstOutput = output1;
+            this.shatterAmount = shatter;
+        }
+
+        @Override
+        public boolean matches(ItemStack input) {
+            if (input == null) return false;
+            return this.input.itemID == input.itemID && this.input.getItemDamage() == input.getItemDamage();
+        }
+
+        @Override
+        public ItemStack[] getResult(ItemStack input, Object... context) {
+            return firstOutput;
+        }
+
+        @Override
+        public int getShatterAmount() {
+            return shatterAmount;
         }
     }
 
-    private final List<RecipeEntry> recipeList = new ArrayList<RecipeEntry>();
-
-    public List<RecipeEntry> getRecipeList()
-    {
-        return recipeList;
-    }
+    private final List<ISmithingRecipe> recipeList = new ArrayList<>();
 
     public void addRecipe(ItemStack input, ItemStack[] output, int minutes) {
         recipeList.add(new RecipeEntry(input, output, minutes));
     }
 
-    public RecipeEntry getMatchingRecipe(ItemStack input) {
+    public void addRecipe(ISmithingRecipe recipe) {
+        recipeList.add(recipe);
+    }
+
+    public ISmithingRecipe getMatchingRecipe(ItemStack input) {
         if (input == null) return null;
 
-        for (RecipeEntry entry : recipeList) {
-            if (entry.input.itemID == input.itemID && entry.input.getItemDamage() == input.getItemDamage()) {
-                return entry;
+        for (ISmithingRecipe recipe : recipeList) {
+            if (recipe.matches(input)) {
+                return recipe;
             }
         }
 
@@ -51,17 +72,23 @@ public class SmithingRecipes {
         return getMatchingRecipe(input) != null;
     }
 
-    public ItemStack[] getResult(ItemStack input) {
-        RecipeEntry recipe = getMatchingRecipe(input);
-        return recipe != null ? recipe.firstOutput : null;
+    public ItemStack[] getResult(ItemStack input, Object... context) {
+        ISmithingRecipe recipe = getMatchingRecipe(input);
+        return recipe != null ? recipe.getResult(input, context) : null;
     }
 
-    public boolean isValid(ItemStack input) {
-        for (RecipeEntry entry : recipeList) {
-            if (entry.input.itemID == input.itemID && entry.input.getItemDamage() == input.getItemDamage()) {
-                return true;
+    public int getShatterAmount(ItemStack input) {
+        ISmithingRecipe recipe = getMatchingRecipe(input);
+        return recipe != null ? recipe.getShatterAmount() : 0;
+    }
+
+    public List<RecipeEntry> getRecipeList() {
+        List<RecipeEntry> staticRecipes = new ArrayList<>();
+        for (ISmithingRecipe recipe : recipeList) {
+            if (recipe instanceof RecipeEntry) {
+                staticRecipes.add((RecipeEntry) recipe);
             }
         }
-        return false;
+        return staticRecipes;
     }
 }

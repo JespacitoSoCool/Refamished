@@ -2,7 +2,9 @@ package btw.community.refamished;
 
 import btw.AddonHandler;
 import btw.BTWAddon;
+import btw.achievement.BTWAchievements;
 import btw.world.biome.BiomeDecoratorBase;
+import btw.world.util.difficulty.Difficulty;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.fabricmc.refamished.RefamishedBlocks;
@@ -14,15 +16,23 @@ import net.fabricmc.refamished.entities.Particles.ParticleFireDot;
 import net.fabricmc.refamished.entities.Particles.ParticleThickCloud;
 import net.fabricmc.refamished.entities.render.*;
 import net.fabricmc.refamished.entities.tiles.*;
+import net.fabricmc.refamished.misc.DifficultyCruel;
+import net.fabricmc.refamished.misc.RefAchievements;
 import net.fabricmc.refamished.misc.RefamishedConfig;
+import net.fabricmc.refamished.misc.RefamishedSoundManager;
 import net.fabricmc.refamished.world.*;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.src.*;
 
 import java.util.Random;
+import java.util.UUID;
 
 public class RefamishedAddon extends BTWAddon {
     private static RefamishedAddon instance;
+    public static final UUID toolRangeUUID = UUID.fromString("cfde7e5c-9ccf-4aef-abd4-152fde3d0c1a");
+    public static final Difficulty CRUEL = new DifficultyCruel("cruel");
+
+    public static final RefamishedSoundManager soundManageer = new RefamishedSoundManager();
     public RefamishedAddon() {
         super();
         RefamishedMod.addMaterialOverride();
@@ -35,6 +45,11 @@ public class RefamishedAddon extends BTWAddon {
     @Override
     public void initialize() {
         AddonHandler.logMessage(this.getName() + " + SBTW - Version " + this.getVersionString() + " Initializing...");
+    }
+
+    @Override
+    public void postInitialize() {
+        RefamishedItems.addForkedItems();
     }
 
     @Override
@@ -144,6 +159,8 @@ public class RefamishedAddon extends BTWAddon {
         //EntityList.entityEggs.put(Integer.valueOf(id_skillOrb), new EntityEggInfo(id_skillOrb, 0x617677, 0xDDEAEA));
         TileEntity.addMapping(cokeovenTile.class, "cokeOvenTile");
         TileEntity.addMapping(tarTankTile.class, "tarTank");
+        TileEntity.addMapping(copperConductTile.class, "copperConduct");
+        TileEntity.addMapping(steamKilnTile.class, "steamKiln");
         System.out.println("TILE");
         //TileEntityRenderer.instance.addSpecialRendererForClass(tanningHorse.class, new TanningHorseRenderer());
         TileEntity.addMapping(placedSoftClayBrickTile.class, "softClay");

@@ -2,6 +2,8 @@ package net.fabricmc.refamished.items.materials;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
+import net.fabricmc.refamished.RefamishedItems;
+import net.fabricmc.refamished.RefamishedMod;
 import net.minecraft.src.*;
 
 import java.util.List;
@@ -15,8 +17,9 @@ public class metallurgyArmor extends Item {
         setHasSubtypes(true);
         setMaxStackSize(4);
     }
-    public static final String[] material = new String[]{"iron","gold","diamond","steel"};
-    public static final String[] heads = new String[]{"helm","coif","pauldrons","cuirass","tassets","greaves","threads","sabatons"};
+    public static final String[] material = new String[]{"iron","gold","diamond","steel", "copper", "blood"};
+    public static final String[] heads = new String[]{"helm", "coif", "pauldrons", "cuirass", "tassets", "greaves", "threads", "sabatons"};
+    public static final Boolean[] addonMaterials = new Boolean[]{true,true,true,true,true, RefamishedMod.NMEnabled};
     public static final String[] parts = new String[material.length * heads.length];
     private Icon[] iconByMetadataArray = new Icon[parts.length];
     static {
@@ -53,9 +56,14 @@ public class metallurgyArmor extends Item {
     @Override
     public void getSubItems(int par1, CreativeTabs tab, List list) {
         for (int i = 0; i < parts.length; i++) {
+            int materialIndex = i / heads.length;
+            if (!addonMaterials[materialIndex]) {
+                continue;
+            }
             list.add(new ItemStack(par1, 1, i));
         }
     }
+
 
     public static int getPartIndex(String name) {
         int index = 0;
@@ -68,6 +76,14 @@ public class metallurgyArmor extends Item {
             }
         }
         return -1;
+    }
+
+    public static boolean isPartOf(ItemStack item,String part) {
+        return item.getItem().getUnlocalizedName(item).contains(part);
+    }
+
+    public static String getMaterial(ItemStack item,String part) {
+        return (item.getItem().getUnlocalizedName(item).replace("item.metallurgyarmor.","")).replace(part,"").replace("_","");
     }
 
 }

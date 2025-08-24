@@ -1,5 +1,6 @@
 package net.fabricmc.refamished.mixin;
 
+import btw.community.refamished.RefamishedAddon;
 import btw.world.util.WorldUtils;
 import btw.world.util.difficulty.Difficulties;
 import net.fabricmc.refamished.RefamishedMod;
@@ -28,7 +29,7 @@ public abstract class PlayerSPMixin {
 			InventoryPlayer inventory = player.inventory;
 
 			float speedMultiplier = 0.85F;
-			if (player.worldObj.getDifficulty() == RefamishedMod.CRUEL || player.worldObj.getDifficulty() == Difficulties.HOSTILE)
+			if (player.worldObj.getDifficulty() == RefamishedAddon.CRUEL || player.worldObj.getDifficulty() == Difficulties.HOSTILE)
 			{
 				speedMultiplier = 0.7F;
 			}

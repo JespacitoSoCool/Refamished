@@ -1,6 +1,7 @@
 package net.fabricmc.refamished.mixin.mixin_m;
 
 import btw.block.BTWBlocks;
+import btw.community.refamished.RefamishedAddon;
 import net.fabricmc.refamished.RefamishedMod;
 import net.minecraft.src.*;
 import net.minecraft.src.Block;
@@ -15,7 +16,7 @@ public class GhastMixin {
     private void ignoreNetherrackInSight(Entity target, CallbackInfoReturnable<Boolean> cir) {
         EntityGhast ghast = (EntityGhast)(Object)this;
 
-        if (ghast.worldObj.getDifficulty() != null && ghast.worldObj.getDifficulty() == RefamishedMod.CRUEL) {
+        if (ghast.worldObj.getDifficulty() != null && ghast.worldObj.getDifficulty() == RefamishedAddon.CRUEL) {
             Vec3 from = ghast.worldObj.getWorldVec3Pool().getVecFromPool(ghast.posX, ghast.posY + (double)ghast.height / 2.0, ghast.posZ);
             Vec3 to = ghast.worldObj.getWorldVec3Pool().getVecFromPool(target.posX, target.posY + (double)target.getEyeHeight(), target.posZ);
 

@@ -1,5 +1,6 @@
 package net.fabricmc.refamished.mixin;
 
+import btw.community.refamished.RefamishedAddon;
 import btw.item.items.ClubItem;
 import btw.item.items.SwordItem;
 import btw.world.util.difficulty.Difficulties;
@@ -108,7 +109,7 @@ public abstract class EntityRendererMixin {
 							baseReach = 2f;
 						}
 					}
-					else if (this.mc.theWorld.getDifficulty() == RefamishedMod.CRUEL)
+					else if (this.mc.theWorld.getDifficulty() == RefamishedAddon.CRUEL)
 					{
 						reachAdjustment /= 1.5F;
 						if (the != null && the instanceof ToolItem)

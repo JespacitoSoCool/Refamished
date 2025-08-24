@@ -13,6 +13,7 @@ public class RefamishedConfig {
     public static boolean refamishedTextures = true;
     public static boolean embersEnabled = true;
     public static boolean smokeEnabled = true;
+    public static boolean tweakedDurabilityBar = false;
     public static String serverName = "";
     public static String serverIp = "";
 
@@ -39,6 +40,7 @@ public class RefamishedConfig {
         smokeEnabled = parseBoolean(props.getProperty("smokeEnabled"), true);
         serverName = parseString(props.getProperty("quickServerName"),"");
         serverIp = parseString(props.getProperty("quickServer"),"");
+        tweakedDurabilityBar = parseBoolean(props.getProperty("tweakedDurabilityBar"), false);
 
         // Prepare values and their descriptions
         entries.put("# Use of old quality flags", null);
@@ -59,7 +61,8 @@ public class RefamishedConfig {
         entries.put("# Quick Server Ip (String)", null);
         entries.put("quickServer", String.valueOf(serverIp));
 
-        System.out.println(serverIp+" SERVERRRRRRRRRRRRRR");
+        entries.put("# Toggle Durability on the bottom of the item", null);
+        entries.put("tweakedDurabilityBar", String.valueOf(tweakedDurabilityBar));
 
         // Write manually
         try {

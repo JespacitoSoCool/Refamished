@@ -156,7 +156,10 @@ public class RefamishedBlocks {
             id_copperAnvil= 3443,
             id_steelAnvil= 3444,
             id_workbench= 3445,
-            id_gildedIronBlock= 3446
+            id_gildedIronBlock= 3446,
+            id_roseGoldBlock= 3447,
+            id_copperConduct= 3448,
+            id_steamKiln= 3449
                     ;
 
     public static Block log;
@@ -269,6 +272,8 @@ public class RefamishedBlocks {
     public static Block thatch;
     public static Block branch;
     public static Block denseStone;
+    public static Block copperConduct;
+    public static Block steamKiln;
 
     public static Block copperOre;
     public static Block flintOre;
@@ -291,7 +296,7 @@ public class RefamishedBlocks {
         copperSlab = new copperSlabBlock(id_copperSlab);
         copperStair = new copperStairBlock(id_copperStair);
         steelBlock = new OreStorageBlock(id_steelBlock).setHardness(6.0f).setResistance(15.0f).setStepSound(soundMetalFootstep).setUnlocalizedName("block_steel").setTextureName("refamished:steel_block");
-        cokeBlock = new OreStorageBlock(id_cokeBlock).setHardness(5.0f).setResistance(10.0f).setStepSound(BTWBlocks.oreStepSound).setUnlocalizedName("block_coke").setTextureName("refamished:coke_block");
+        cokeBlock = new cokeCoalBlock(id_cokeBlock).setHardness(5.0f).setResistance(10.0f).setStepSound(BTWBlocks.oreStepSound).setUnlocalizedName("block_coke").setTextureName("refamished:coke_block");
         scorchedStone = new BlockStoneScorched(id_scorchedStone);
         scorchedStoneOre = new BlockStoneScorchedOre(id_scorchedStoneOre);
         retort_grate = new retort_grate(id_retort_grate);
@@ -329,6 +334,8 @@ public class RefamishedBlocks {
         charredDirtSlab = new charredDirtSlab(id_charredDirtSlab);
         burntPlanks = new woodBurntBlock(id_burntPlanks);
         burntPlanksSlab = new woodBurntSlab(id_burntPlanksSlab);
+        copperConduct = new copperConduct(id_copperConduct);
+        steamKiln = new steamKiln(id_steamKiln);
         //burntChest = new burntChest(id_burntChest);
 
         cokeOven = new CokeOven(id_cokeOven,false);

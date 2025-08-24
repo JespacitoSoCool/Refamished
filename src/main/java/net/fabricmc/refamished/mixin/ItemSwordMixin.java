@@ -1,5 +1,6 @@
 package net.fabricmc.refamished.mixin;
 
+import btw.community.refamished.RefamishedAddon;
 import btw.entity.attribute.AttributeOperation;
 import btw.item.items.ToolItem;
 import com.google.common.collect.Multimap;
@@ -21,7 +22,7 @@ public abstract class ItemSwordMixin {
 	@Inject(method = "getItemAttributeModifiers", at = @At("TAIL"), cancellable = true)
 	private void assignToolQuality(CallbackInfoReturnable<Multimap> cir) {
 		Multimap var1 = cir.getReturnValue();
-		var1.put(ResharedMonsterAttributes.attackRange.getAttributeUnlocalizedName(), new AttributeModifier(RefamishedMod.toolRangeUUID, "Attack Range", 0.25, AttributeOperation.ADDITIVE.value));
+		var1.put(ResharedMonsterAttributes.attackRange.getAttributeUnlocalizedName(), new AttributeModifier(RefamishedAddon.toolRangeUUID, "Attack Range", 0.25, AttributeOperation.ADDITIVE.value));
 		cir.setReturnValue(var1);
 	}
 }

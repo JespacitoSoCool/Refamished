@@ -19,14 +19,21 @@ public class ToolQualityHelper {
 		qualityEffects.put(ToolQuality.AVERAGE, new QualityEffect(1.0f, 0.0f,0F));
 		qualityEffects.put(ToolQuality.EXCEPTIONAL, new QualityEffect(1.2f, 0.5f,0.5F));
 		qualityEffects.put(ToolQuality.MASTERWORK, new QualityEffect(1.25f, 1f,1F));
-		qualityEffects.put(ToolQuality.STURDY, new QualityEffect(1f, 0.25f,0F));
+		qualityEffects.put(ToolQuality.STURDY, new QualityEffect(1.05f, 0.25f,-0.25F));
+		qualityEffects.put(ToolQuality.TEMPERED, new QualityEffect(0.9f, 0.25f,0.25F));
+		qualityEffects.put(ToolQuality.ETCHED, new QualityEffect(1.1f, -0.25f,0.25F));
+		qualityEffects.put(ToolQuality.HARDENED, new QualityEffect(0.8f, 0.25f,0.25F));
 
 		qualityEffects.put(ToolQuality.LIGHT, new QualityEffect(1.25f, 0.5f,-0.5F));
-		qualityEffects.put(ToolQuality.HEAVY, new QualityEffect(1.1f, -0.5f,0.5F));
+		qualityEffects.put(ToolQuality.HEAVY, new QualityEffect(0.9f, -0.25f,0.5F));
 		qualityEffects.put(ToolQuality.KEEN, new QualityEffect(1f, -0.5f,0.5F));
-		qualityEffects.put(ToolQuality.LONG, new QualityEffect(0.75f, 2f,-1F));
+		qualityEffects.put(ToolQuality.LONG, new QualityEffect(0.7f, 2f,-1F));
 		qualityEffects.put(ToolQuality.SHORT, new QualityEffect(1.35f, -1f,0.5F));
 		qualityEffects.put(ToolQuality.REINFORCED, new QualityEffect(1.25f, -0.25f,0.5F));
+
+		qualityEffects.put(ToolQuality.P_REACH, new QualityEffect(1f, 1.5f,0F));
+		qualityEffects.put(ToolQuality.P_DAMAGE, new QualityEffect(1f, 0f,1.5F));
+		qualityEffects.put(ToolQuality.P_SPEED, new QualityEffect(1.4f, 0f,0F));
 	}
 
 	// Retrieve dig speed multiplier for a given quality

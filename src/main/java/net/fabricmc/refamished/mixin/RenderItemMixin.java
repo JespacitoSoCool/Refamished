@@ -6,8 +6,10 @@ import com.prupe.mcpatcher.cit.CITUtils;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.fabricmc.refamished.interfaces.IconByItemStack;
+import net.fabricmc.refamished.interfaces.IconLargedByItemStack;
 import net.fabricmc.refamished.interfaces.IconLargedMultipleRender;
 import net.fabricmc.refamished.itemsbase.crossbow;
+import net.fabricmc.refamished.misc.RefamishedConfig;
 import net.fabricmc.refamished.mixin.mixin_m.RenderInterface;
 import net.fabricmc.refamished.mixin.mixin_m.RenderItemInterface;
 import net.fabricmc.refamished.quality.ArmorQuality;
@@ -15,10 +17,14 @@ import net.fabricmc.refamished.skill.SkillManager;
 import net.minecraft.src.*;
 import org.lwjgl.opengl.GL11;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Overwrite;
+import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
+import java.awt.*;
+import java.util.Hashtable;
 import java.util.Random;
 
 import static net.minecraft.src.RenderItem.renderInFrame;
@@ -53,6 +59,24 @@ public class RenderItemMixin {
             renderer.renderIcon(par4, par5, var8, 16, 16);
             GL11.glEnable(2896);
             GL11.glEnable(2884);
+            ci.cancel();
+        }
+        else if (par3ItemStack.getItem() instanceof IconLargedByItemStack iconObtainerThing)
+        {
+            GL11.glDisable(2896);
+            par2TextureManager.bindTexture(TextureMap.locationItemsTexture);
+            for (int var9 = 0; var9 <= iconObtainerThing.getRenderers(par3ItemStack); ++var9) {
+                Icon var10 = iconObtainerThing.getIcon(par3ItemStack,null,var9);
+                int var11 = Item.itemsList[var6].getColorFromItemStack(par3ItemStack, var9);
+                float var12 = (float)(var11 >> 16 & 0xFF) / 255.0f;
+                float var13 = (float)(var11 >> 8 & 0xFF) / 255.0f;
+                float var14 = (float)(var11 & 0xFF) / 255.0f;
+                if (renderer.renderWithColor) {
+                    GL11.glColor4f(var12, var13, var14, 1.0f);
+                }
+                renderer.renderIcon(par4, par5, var10, 16, 16);
+            }
+            GL11.glEnable(2896);
             ci.cancel();
         }
         else if (par3ItemStack.getItem() instanceof IconLargedMultipleRender iconObtainerThing)
@@ -157,4 +181,95 @@ public class RenderItemMixin {
             }
         }
     }
+
+    @Shadow
+    protected void renderQuad(Tessellator tess, int x, int y, int width, int height, int color) {}
+
+    /**
+     * @author
+     * @reason
+     */
+    @Overwrite
+    public void renderItemOverlayIntoGUI(FontRenderer fr, TextureManager texMgr, ItemStack stack, int x, int y, String text) {
+        if (stack == null) return;
+        Hashtable<Integer, Long> itemCooldowns = Minecraft.getMinecraft().playerController.getItemCooldowns();
+        if (itemCooldowns.containsKey(stack.itemID)) {
+            long itemCooldown = stack.getItem().getItemRightClickCooldown();
+            long remainingItemCooldown = itemCooldowns.get(stack.itemID) - Minecraft.getMinecraft().theWorld.getTotalWorldTime();
+            int cooldownPixelHeight = MathHelper.ceiling_double_int((double)(16L * remainingItemCooldown) / (double)itemCooldown);
+            if (remainingItemCooldown > 0L) {
+                GL11.glDisable(2896);
+                GL11.glDisable(2929);
+                GL11.glDisable(3553);
+                Tessellator var9 = Tessellator.instance;
+                GL11.glColor4f(1.0f, 1.0f, 1.0f, 0.5f);
+                this.renderQuad(var9, x, y + 16 - cooldownPixelHeight, 4, cooldownPixelHeight, 0xFFFFFF);
+                GL11.glEnable(3553);
+                GL11.glEnable(2896);
+                GL11.glEnable(2929);
+                GL11.glColor4f(1.0f, 1.0f, 1.0f, 1.0f);
+            }
+        }
+
+        boolean lowDurBar = RefamishedConfig.tweakedDurabilityBar;
+
+        if (stack.isItemDamaged()) {
+            boolean isFull = stack.getItemDamageForDisplay() == stack.getMaxDamage();
+            double damageRatio = isFull ? 0 : (double) stack.getItemDamageForDisplay() / (double) stack.getMaxDamage();
+
+            int barWidthIdk = lowDurBar ? 16 : 14;
+            int barWidth = (int) Math.round(barWidthIdk - damageRatio * barWidthIdk);
+            barWidth = Math.max(0, Math.min(barWidthIdk, barWidth));
+
+            GL11.glDisable(2896);
+            GL11.glDisable(2929);
+            GL11.glDisable(3553);
+
+            Tessellator tess = Tessellator.instance;
+
+            this.renderQuad(tess, x + (lowDurBar ? 0 : 1), y + (lowDurBar ? 15 : 13), lowDurBar ? 16 : 14, lowDurBar ? 1 : 2, 0x000000);
+
+            if (barWidth > 0) {
+                float hue = (float) ((1.0 - damageRatio) * 0.33);
+                int baseRGB = java.awt.Color.HSBtoRGB(hue, 1.0f, 1.0f);
+                int baseR = (baseRGB >> 16) & 0xFF;
+                int baseG = (baseRGB >> 8) & 0xFF;
+                int baseB = baseRGB & 0xFF;
+
+                final float maxShadeDrop = 0.5f;
+                float denom = (barWidth > 1) ? (float) (barWidth - 1) : 1f;
+
+                for (int i = 0; i < barWidth; i++) {
+                    float t = (barWidth > 1) ? (float) i / denom : 0f;
+                    float shade = 1.0f - t * maxShadeDrop;
+
+                    int r = clamp(Math.round(baseR * shade), 0, 255);
+                    int g = clamp(Math.round(baseG * shade), 0, 255);
+                    int b = clamp(Math.round(baseB * shade), 0, 255);
+
+                    int color = (r << 16) | (g << 8) | b;
+                    this.renderQuad(tess, x + (lowDurBar ? 0 : 1) + i, y + (lowDurBar ? 15 : 13), 1, 1, color);
+                }
+            }
+
+            GL11.glEnable(3553);
+            GL11.glEnable(2896);
+            GL11.glEnable(2929);
+            GL11.glColor4f(1.0f, 1.0f, 1.0f, 1.0f);
+        }
+
+        if (stack.stackSize > 1 || text != null) {
+            String s = text == null ? String.valueOf(stack.stackSize) : text;
+            GL11.glDisable(2896);
+            GL11.glDisable(2929);
+            fr.drawStringWithShadow(s, x + 19 - 2 - fr.getStringWidth(s), y + 6 + 3, 0xFFFFFF);
+            GL11.glEnable(2896);
+            GL11.glEnable(2929);
+        }
+    }
+
+    private static int clamp(int v, int a, int b) {
+        return v < a ? a : (v > b ? b : v);
+    }
+
 }

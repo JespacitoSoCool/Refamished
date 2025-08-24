@@ -15,7 +15,7 @@ public class metalSheets extends Item {
         setMaxDamage(0);
         setHasSubtypes(true);
     }
-    private static final String[] ingot = new String[]{"copper","iron","gold","gilded","diamond","steel"};
+    private static final String[] ingot = new String[]{"copper","iron","gold","gilded","diamond","steel","blood"};
     private Icon[] iconByMetadataArray = new Icon[9];
 
 

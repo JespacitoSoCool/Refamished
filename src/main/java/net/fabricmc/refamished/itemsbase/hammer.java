@@ -1,6 +1,7 @@
 package net.fabricmc.refamished.itemsbase;
 import btw.block.BTWBlocks;
 import btw.block.tileentity.PlacedToolTileEntity;
+import btw.community.refamished.RefamishedAddon;
 import btw.entity.attribute.AttributeOperation;
 import btw.item.BTWItems;
 import btw.item.PlaceableAsItem;
@@ -64,8 +65,8 @@ public class hammer extends Item implements PlaceableAsItem {
     public Multimap getItemAttributeModifiers() {
         Multimap var1 = super.getItemAttributeModifiers();
         var1.put(SharedMonsterAttributes.attackDamage.getAttributeUnlocalizedName(), new AttributeModifier(field_111210_e, "Weapon modifier", this.m_iWeaponDamage, 0));
-        var1.put(ResharedMonsterAttributes.toolRange.getAttributeUnlocalizedName(), new AttributeModifier(RefamishedMod.toolRangeUUID, "Tool Range", -1, AttributeOperation.ADDITIVE.value));
-        var1.put(ResharedMonsterAttributes.attackRange.getAttributeUnlocalizedName(), new AttributeModifier(RefamishedMod.toolRangeUUID, "Attack Range", -1, AttributeOperation.ADDITIVE.value));
+        var1.put(ResharedMonsterAttributes.toolRange.getAttributeUnlocalizedName(), new AttributeModifier(RefamishedAddon.toolRangeUUID, "Tool Range", -1, AttributeOperation.ADDITIVE.value));
+        var1.put(ResharedMonsterAttributes.attackRange.getAttributeUnlocalizedName(), new AttributeModifier(RefamishedAddon.toolRangeUUID, "Attack Range", -1, AttributeOperation.ADDITIVE.value));
         return var1;
     }
 

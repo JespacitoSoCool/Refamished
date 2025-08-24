@@ -1,5 +1,6 @@
 package net.fabricmc.refamished.mixin.mixin_m;
 
+import btw.community.refamished.RefamishedAddon;
 import btw.item.BTWItems;
 import net.fabricmc.refamished.RefamishedItems;
 import net.fabricmc.refamished.RefamishedMod;
@@ -100,7 +101,7 @@ public class LivingMixin {
     private void givearmor(CallbackInfo ci) {
         EntityLiving the = (EntityLiving)(Object)this;
         LivingInterface inter = (LivingInterface)the;
-        if (the.worldObj.getDifficulty() == RefamishedMod.CRUEL) {
+        if (the.worldObj.getDifficulty() == RefamishedAddon.CRUEL) {
             if (the.rand.nextFloat() < 0.6) {
                 int var1 = the.rand.nextInt(2);
                 float var2 = 0.25f;
@@ -141,7 +142,7 @@ public class LivingMixin {
         if ((Object)this instanceof EntitySpider) {
             EntitySpider the = (EntitySpider)(Object)this;
             LivingInterface Liver = (LivingInterface)(Object)this;
-            if (the.worldObj.getDifficulty() == RefamishedMod.CRUEL) {
+            if (the.worldObj.getDifficulty() == RefamishedAddon.CRUEL) {
                 int hunger = the.worldObj.rand.nextInt(5)+15;
                 int poison = the.worldObj.rand.nextInt(3)+3;
 

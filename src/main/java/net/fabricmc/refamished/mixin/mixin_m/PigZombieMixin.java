@@ -1,5 +1,6 @@
 package net.fabricmc.refamished.mixin.mixin_m;
 
+import btw.community.refamished.RefamishedAddon;
 import com.google.common.collect.Multimap;
 import net.fabricmc.refamished.RefamishedItems;
 import net.fabricmc.refamished.RefamishedMod;
@@ -48,7 +49,7 @@ public class PigZombieMixin {
     private void dropItems(CallbackInfo ci) {
         EntityZombie the = (EntityZombie)(Object)this;
         LivingInterface Liver = (LivingInterface)(Object)this;
-        if (the.worldObj.getDifficulty() == RefamishedMod.CRUEL) {
+        if (the.worldObj.getDifficulty() == RefamishedAddon.CRUEL) {
             if (the.rand.nextFloat() < 0.8f) {
                 ItemStack select = cruelTool();
                 the.setCurrentItemOrArmor(0, select);
@@ -67,7 +68,7 @@ public class PigZombieMixin {
     @Inject(method = "onUpdate",at = @At("TAIL"),cancellable = true)
     private void SpeedThing(CallbackInfo ci) {
         if ((Object)this instanceof EntityPigZombie zombie) {
-            if (zombie.worldObj.getDifficulty() == RefamishedMod.CRUEL) {
+            if (zombie.worldObj.getDifficulty() == RefamishedAddon.CRUEL) {
                 float maxHealth = zombie.getMaxHealth();
                 float currentHealth = zombie.getHealth();
 

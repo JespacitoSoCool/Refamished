@@ -184,7 +184,7 @@ public class stoneAnvilTile extends TileEntity implements IInventory {
                 contain.getSlot(0).putStack(null);
             }
 
-            SmithingRecipes.RecipeEntry recipe = SmithingRecipes.getInstance().getMatchingRecipe(ingot);
+            SmithingRecipes.RecipeEntry recipe = (SmithingRecipes.RecipeEntry) SmithingRecipes.getInstance().getMatchingRecipe(ingot);
             if (recipe == null) return;
             ItemStack[] outputs = recipe.firstOutput;
             if (outputSlots.size() < outputs.length) return;
@@ -252,14 +252,31 @@ public class stoneAnvilTile extends TileEntity implements IInventory {
         this.onInventoryChanged();
     }
 
+    public static NBTTagCompound unpackStringToNBT(String data) {
+        NBTTagCompound tag = new NBTTagCompound();
+        if (data == null || data.isEmpty()) return tag;
+
+        String[] entries = data.split(";");
+        for (String entry : entries) {
+            if (entry == null || entry.isEmpty()) continue;
+            int idx = entry.indexOf('=');
+            if (idx <= 0) continue;
+            String key = entry.substring(0, idx);
+            String val = entry.substring(idx + 1);
+            tag.setString(key, val);
+        }
+        return tag;
+    }
+
+
     public void interactAction(int actionID, int strength, EntityPlayer player, stoneAnvilTile anvil) {
         NBTTagCompound planTags = null;
         int planSlot = getForgingSlot(anvil);
         ItemStack plan = getForgingItemStack(anvil);
         ItemStack hammerStack = anvil.getStackInSlot(0);
         World world = player.worldObj;
-        System.out.println("Tool : "+actionID);
-        System.out.println("Strength : "+strength);
+        //System.out.println("Tool : "+actionID);
+        //System.out.println("Strength : "+strength);
         if (plan != null) {
             world.playSoundAtEntity(player, RefamishedSoundManager.METAL_HIT.sound(), 0.75f, 1.1f + world.rand.nextFloat() * 0.1f);
             hammerStack.damageItem(1,player);
@@ -283,6 +300,7 @@ public class stoneAnvilTile extends TileEntity implements IInventory {
                 //System.out.println("1");
                 if (slot != -1) {
                     //System.out.println("2");
+                    String storedNbt = planTags.getString("NbtStored");
                     ForgingPlansRecipes.RecipeEntry recipe = ForgingPlansRecipes.getInstance().getMatchingRecipes(planTags.getString("PlanOutput"));
                     if (recipe == null) {
                         return;
@@ -292,8 +310,12 @@ public class stoneAnvilTile extends TileEntity implements IInventory {
                     if (plan.stackSize <= 0) {
                         anvil.setInventorySlotContents(planSlot,null);
                     }
-                    ItemStack outputs = recipe.output.copy();
+                    NBTTagCompound tag = unpackStringToNBT(storedNbt);
+                    System.out.println(tag.hasKey("DynamicId"));
+                    ItemStack outputs = tag.hasKey("DynamicId") ? new ItemStack(Item.itemsList[Integer.parseInt(tag.getString("DynamicId"))]) : recipe.output.copy();
                     anvil.setInventorySlotContents(slot,outputs);
+                    tag.removeTag("DynamicId");
+                    outputs.setTagCompound( tag );
                     Item.itemsList[outputs.itemID].onCreated(outputs,world,player);
                 }
             }

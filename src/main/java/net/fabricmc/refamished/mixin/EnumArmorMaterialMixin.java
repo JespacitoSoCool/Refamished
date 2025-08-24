@@ -24,6 +24,8 @@ public class EnumArmorMaterialMixin implements EnumArmorMaterialInterface {
     private static EnumArmorMaterial DULLEDGOLD = addCustomMaterial("DULLEDGOLD", 6, new int[]{1, 4, 3, 1}, 1);
     @Unique
     private static EnumArmorMaterial STEEL = addCustomMaterial("STEEL", 25, new int[]{2, 7, 6, 2}, 10);
+    @Unique
+    private static EnumArmorMaterial COPPERWHOLE = addCustomMaterial("COPPER", 10, new int[]{2, 6, 5, 2}, 10);
 
     @Invoker("<init>")
     public static EnumArmorMaterial theExpansionInit(String internalName, int internalId, int par3, int[] par4ArrayOfInteger, int par5) {
@@ -53,5 +55,9 @@ public class EnumArmorMaterialMixin implements EnumArmorMaterialInterface {
     @Override
     public EnumArmorMaterial getSteelMaterial() {
         return STEEL;
+    }
+    @Override
+    public EnumArmorMaterial getCopperWhole() {
+        return COPPERWHOLE;
     }
 }
