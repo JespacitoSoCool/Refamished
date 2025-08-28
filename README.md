@@ -68,12 +68,22 @@ Mod's IDs (not a list of all of them, It's only to know which IDs are occupied)
 
 Blocks :
 3121 - 3165 (~3300) - Decorative Blocks
+
 3415 - 3458 (~3600) - Misc Blocks (Anvils, Semi-Decorative, Functional)
+
 3857 - 3866 (~3999) - Berries and Upcoming food
+
 4000 - 4010 (~4050) - Materials and alloys
+
 4101 - 4217 (~4250) - Tools, Primatic Heads
+
 4290 - 4503 (~4520) - Items #1 (Starting Items)
+
 5456 - 5475 (~5500) - Items #2 (Materials, Copper Armor, Item Variants)
+
 6860 - 6886 (~6900) - Items #3 (Item Variants for coloring, Hides, Progressive Items)
+
 20000 - 20031 (~20050) - SBTW Items
+
 29943 - 30016 (Estimated to be more around 30300) - Items #4 (Metallurgy, Advanced Materials
+
