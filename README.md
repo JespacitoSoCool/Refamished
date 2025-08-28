@@ -64,6 +64,7 @@ huh...
 
 
 Mod's IDs (not a list of all of them, It's only to know which IDs are occupied)
+
 (~id means the estimated amount of IDs it will occupy for the future updates)
 
 Blocks :
@@ -87,3 +88,4 @@ Blocks :
 
 29943 - 30016 (Estimated to be more around 30300) - Items #4 (Metallurgy, Advanced Materials
 
+Other : [Item IDs List](https://github.com/JespacitoSoCool/Refamished/blob/master/src/main/java/net/fabricmc/refamished/RefamishedItems.java) and [Block IDs List](https://github.com/JespacitoSoCool/Refamished/blob/master/src/main/java/net/fabricmc/refamished/RefamishedBlocks.java) 
