@@ -1,23 +1,17 @@
 package net.fabricmc.refamished.blocks;
 
-import btw.BTWMod;
 import btw.block.BTWBlocks;
-import btw.block.model.AnvilModel;
 import btw.block.model.BlockModel;
-import btw.inventory.BTWContainers;
-import btw.inventory.container.WorkbenchContainer;
 import btw.item.BTWItems;
 import btw.util.MiscUtils;
 import btw.world.util.WorldUtils;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.fabricmc.refamished.RefamishedItems;
 import net.fabricmc.refamished.RefamishedMod;
-import net.fabricmc.refamished.entities.tiles.cokeovenTile;
 import net.fabricmc.refamished.entities.tiles.stoneAnvilContainer;
 import net.fabricmc.refamished.entities.tiles.stoneAnvilTile;
-import net.fabricmc.refamished.gui.StoneAnvilGui;
 import net.fabricmc.refamished.itemsbase.hammer;
+import net.fabricmc.refamished.misc.AchievementsThing.RefAchievements;
 import net.fabricmc.refamished.misc.RefContains;
 import net.fabricmc.refamished.models.block.StoneAnvilModel;
 import net.minecraft.src.*;
@@ -146,6 +140,7 @@ public class stoneAnvil extends BlockContainer {
 
             stoneAnvilContainer container = new stoneAnvilContainer(player.inventory, (stoneAnvilTile) world.getBlockTileEntity(i,j,k));
             RefamishedMod.serverOpenCustomInterface((EntityPlayerMP)player, container, RefContains.stoneAnvil);
+            RefamishedMod.triggerAchievement(RefAchievements.STONE_ANVIL, player);
         }
         return true;
     }

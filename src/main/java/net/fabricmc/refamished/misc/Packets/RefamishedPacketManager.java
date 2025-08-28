@@ -1,4 +1,4 @@
-package net.fabricmc.refamished.misc;
+package net.fabricmc.refamished.misc.Packets;
 
 import btw.AddonHandler;
 import btw.client.network.packet.handler.*;
@@ -6,10 +6,6 @@ import btw.entity.*;
 import btw.network.packet.handler.CustomPacketHandler;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.fabricmc.refamished.misc.Packets.CopperAnvilPacketHandler;
-import net.fabricmc.refamished.misc.Packets.ForgePlanPacketHandler;
-import net.fabricmc.refamished.misc.Packets.SteelAnvilPacketHandler;
-import net.fabricmc.refamished.misc.Packets.StoneAnvilPacketHandler;
 import net.minecraft.server.MinecraftServer;
 
 public class RefamishedPacketManager {

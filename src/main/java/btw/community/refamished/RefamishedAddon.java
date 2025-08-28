@@ -2,7 +2,6 @@ package btw.community.refamished;
 
 import btw.AddonHandler;
 import btw.BTWAddon;
-import btw.achievement.BTWAchievements;
 import btw.world.biome.BiomeDecoratorBase;
 import btw.world.util.difficulty.Difficulty;
 import net.fabricmc.api.EnvType;
@@ -14,10 +13,9 @@ import net.fabricmc.refamished.RefamishedModClient;
 import net.fabricmc.refamished.entities.*;
 import net.fabricmc.refamished.entities.Particles.ParticleFireDot;
 import net.fabricmc.refamished.entities.Particles.ParticleThickCloud;
-import net.fabricmc.refamished.entities.render.*;
 import net.fabricmc.refamished.entities.tiles.*;
+import net.fabricmc.refamished.misc.Commands.PanoramaCmd;
 import net.fabricmc.refamished.misc.DifficultyCruel;
-import net.fabricmc.refamished.misc.RefAchievements;
 import net.fabricmc.refamished.misc.RefamishedConfig;
 import net.fabricmc.refamished.misc.RefamishedSoundManager;
 import net.fabricmc.refamished.world.*;
@@ -39,6 +37,7 @@ public class RefamishedAddon extends BTWAddon {
         RefamishedBlocks.registerBlocks();
         RefamishedItems.registerItems();
         registerEntities();
+        registerAddonCommand(new PanoramaCmd());
 
         //If you are reading this, I didn't put this on initialize because it just crashes thanks to the recipes thing
     }

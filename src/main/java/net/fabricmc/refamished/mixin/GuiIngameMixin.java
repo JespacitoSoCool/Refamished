@@ -206,4 +206,11 @@ public abstract class GuiIngameMixin {
         //drawRect(x, y, x + barWidth, y + 5, backgroundColor);
         //drawRect(x, y, x + filledWidth, y + 5, filledColor);
     }
+
+    @Inject(method = "renderVignette", at = @At("HEAD"), cancellable = true)
+    private void renderOverlayElements(float par1, int par2, int par3, CallbackInfo ci) {
+        if (!RefamishedConfig.vignette) {
+            ci.cancel();
+        }
+    }
 }

@@ -15,12 +15,12 @@ public class copperConductTile extends TileEntity implements TileEntityDataPacke
 
     public void addSteam(int amount) {
         steam = Math.min(maxSteam, steam + amount);
-        syncDataToClient();
+        //syncDataToClient();
     }
 
     public void drainSteam(int amount) {
         steam = Math.max(0, steam - amount);
-        syncDataToClient();
+        //syncDataToClient();
     }
 
     public boolean depositSteam(int amount) {
@@ -44,7 +44,6 @@ public class copperConductTile extends TileEntity implements TileEntityDataPacke
         int y = this.yCoord;
         int z = this.zCoord;
 
-        // 6 directions
         int[][] dirs = {
                 { 1, 0, 0 }, { -1, 0, 0 },
                 { 0, 1, 0 }, { 0, -1, 0 },
@@ -75,11 +74,9 @@ public class copperConductTile extends TileEntity implements TileEntityDataPacke
             this.steam += move;
         }
 
-        this.syncDataToClient();
-        other.syncDataToClient();
+        //this.syncDataToClient();
+        //other.syncDataToClient();
     }
-
-
 
     @Override
     public void readFromNBT(NBTTagCompound tag) {

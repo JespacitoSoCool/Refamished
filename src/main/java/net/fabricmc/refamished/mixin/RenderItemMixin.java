@@ -189,6 +189,7 @@ public class RenderItemMixin {
      * @author
      * @reason
      */
+    @Environment(value = EnvType.CLIENT)
     @Overwrite
     public void renderItemOverlayIntoGUI(FontRenderer fr, TextureManager texMgr, ItemStack stack, int x, int y, String text) {
         if (stack == null) return;
@@ -212,6 +213,8 @@ public class RenderItemMixin {
         }
 
         boolean lowDurBar = RefamishedConfig.tweakedDurabilityBar;
+
+        System.out.println(lowDurBar);
 
         if (stack.isItemDamaged()) {
             boolean isFull = stack.getItemDamageForDisplay() == stack.getMaxDamage();

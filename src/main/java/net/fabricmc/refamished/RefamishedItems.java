@@ -139,6 +139,7 @@ public class RefamishedItems {
 			id_sugarResinMixing= 6883,
 			id_crudeSugar= 6884,
 			id_mudMixing= 6885,
+			id_searedBrick= 6886,
 
 	id_flintIgniter= 5461,
 			id_flintHew= 5462,
@@ -662,6 +663,8 @@ public class RefamishedItems {
 	public static Item gildedTrowel;
 	public static Item qualityBlueprint;
 	public static Item roseGold;
+	public static Item searedBrick;
+	public static Item redstoneBrick;
 
 	public static Item test;
 	public static Item hellfire;
@@ -892,6 +895,8 @@ public class RefamishedItems {
 		steelLeggings = new ArmorItemSteelButReal(id_steelLeggings-256, 2, 9).setUnlocalizedName("steel_leggings").setTextureName("refamished:steel_leggings");
 		steelBoots = new ArmorItemSteelButReal(id_steelBoots-256, 3, 7).setUnlocalizedName("steel_boots").setTextureName("refamished:steel_boots");
 		qualityBlueprint = new qualityBlueprints(id_qualityBlueprint-256);
+		searedBrick = new Item(id_searedBrick-256).setUnlocalizedName("seared_brick").setTextureName("refamished:seared_brick").setCreativeTab(CreativeTabs.tabMaterials);
+		redstoneBrick = new Item(id_redstoneBrick-256).setUnlocalizedName("redstone_brick").setTextureName("refamished:redstone_brick").setCreativeTab(CreativeTabs.tabMaterials);
 
 		test = new TestingStick(id_testingstick-256).setUnlocalizedName("hi").setTextureName("stick").hideFromEMI();
 		hellfire = new hellfireMolotov(id_hellfireMolotov-256);
@@ -947,6 +952,7 @@ public class RefamishedItems {
 			BTWBlocks.diamondIngot.setTextureName(overrideFolder+"diamond_block");
 			Item.ingotIron.setTextureName(overrideFolder+"iron_ingot");
 			Item.ingotGold.setTextureName(overrideFolder+"gold_ingot");
+			BTWItems.nethercoal.setTextureName(overrideFolder+"nether_coke");
 		}
 	}
 

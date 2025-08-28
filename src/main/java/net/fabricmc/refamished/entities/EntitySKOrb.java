@@ -1,12 +1,7 @@
 package net.fabricmc.refamished.entities;
 
 import btw.entity.EntityWithCustomPacket;
-import net.fabricmc.refamished.misc.RefamishedPacketManager;
 import net.minecraft.src.*;
-
-import java.io.ByteArrayOutputStream;
-import java.io.DataOutputStream;
-import java.io.IOException;
 
 public class EntitySKOrb extends EntityXPOrb implements EntityWithCustomPacket {
     public int xpSkill;

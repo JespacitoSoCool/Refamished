@@ -1,7 +1,6 @@
 package net.fabricmc.refamished.blocks;
 
 import btw.block.BTWBlocks;
-import btw.block.tileentity.UnfiredBrickTileEntity;
 import btw.client.render.util.RenderUtils;
 import btw.item.BTWItems;
 import btw.util.MiscUtils;
@@ -10,7 +9,9 @@ import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.fabricmc.refamished.RefamishedBlocks;
 import net.fabricmc.refamished.RefamishedItems;
+import net.fabricmc.refamished.RefamishedMod;
 import net.fabricmc.refamished.items.tools.metalTrowel;
+import net.fabricmc.refamished.misc.AchievementsThing.RefAchievements;
 import net.fabricmc.refamished.misc.Utils.UtilItem;
 import net.minecraft.src.*;
 
@@ -47,7 +48,7 @@ public class placedReadySoftClayBrick extends Block {
 
             UtilItem.GivePlayerStackOrEject( player, new ItemStack(RefamishedItems.clay_mud, 1, 0));
             //this.dropBlockAsItem_do(world, (int)(player.posX-0.5d),(int)(player.posY-0.5d),(int)(player.posZ-0.5d), new ItemStack(RefamishedItems.clay_mud, 1, 0));
-
+            RefamishedMod.triggerAchievement(RefAchievements.TROWEL,player);
             world.setBlockAndMetadataWithNotify( i, j, k, RefamishedBlocks.clayMudBrickGround.blockID, world.getBlockMetadata(i, j, k));
             return true;
         }

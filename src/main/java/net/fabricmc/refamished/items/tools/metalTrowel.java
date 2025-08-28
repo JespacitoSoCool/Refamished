@@ -11,6 +11,7 @@ public class metalTrowel extends Item {
         setCreativeTab(CreativeTabs.tabTools);
         setMaxDamage(durability);
         this.speed = speed;
+        setMaxStackSize(1);
     }
 
     @Override

@@ -16,6 +16,7 @@ public class RefamishedConfig {
     public static boolean tweakedDurabilityBar = false;
     public static String serverName = "";
     public static String serverIp = "";
+    public static boolean vignette = true;
 
     private static final File configDir = new File(System.getProperty("user.dir"), "config");
     private static final File configFile = new File(configDir, "refamished.cfg");
@@ -41,6 +42,7 @@ public class RefamishedConfig {
         serverName = parseString(props.getProperty("quickServerName"),"");
         serverIp = parseString(props.getProperty("quickServer"),"");
         tweakedDurabilityBar = parseBoolean(props.getProperty("tweakedDurabilityBar"), false);
+        vignette = parseBoolean(props.getProperty("vignette"), true);
 
         // Prepare values and their descriptions
         entries.put("# Use of old quality flags", null);
@@ -63,6 +65,9 @@ public class RefamishedConfig {
 
         entries.put("# Toggle Durability on the bottom of the item", null);
         entries.put("tweakedDurabilityBar", String.valueOf(tweakedDurabilityBar));
+
+        entries.put("# Toggle the vignette on Fancy graphics", null);
+        entries.put("vignette", String.valueOf(vignette));
 
         // Write manually
         try {

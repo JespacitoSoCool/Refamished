@@ -1,14 +1,8 @@
 package net.fabricmc.refamished.entities;
 
 import btw.entity.EntityWithCustomPacket;
-import net.fabricmc.refamished.RefamishedBlocks;
 import net.fabricmc.refamished.RefamishedItems;
-import net.fabricmc.refamished.misc.RefamishedPacketManager;
 import net.minecraft.src.*;
-
-import java.io.ByteArrayOutputStream;
-import java.io.DataOutputStream;
-import java.io.IOException;
 
 public class EntityMolotov extends EntityThrowable implements EntityWithCustomPacket {
     public EntityMolotov(World par1World) {

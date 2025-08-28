@@ -1,18 +1,7 @@
-package net.fabricmc.refamished.misc;
+package net.fabricmc.refamished.misc.Packets;
 
-import btw.BTWMod;
-import btw.client.network.packet.handler.CustomEntityPacketHandler;
-import btw.client.network.packet.handler.GuiPacketHandler;
-import btw.entity.CanvasEntity;
-import btw.inventory.BTWContainers;
-import btw.network.packet.HardcoreSpawnPacket;
-import btw.network.packet.PlayerSyncPacket;
-import btw.network.packet.StartBlockHarvestPacket;
-import btw.network.packet.TimerSpeedPacket;
 import btw.network.packet.handler.CustomPacketHandler;
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
-import net.minecraft.server.MinecraftServer;
+import net.fabricmc.refamished.misc.RefContains;
 import net.minecraft.src.*;
 
 import java.io.ByteArrayInputStream;

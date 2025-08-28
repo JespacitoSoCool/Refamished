@@ -6,6 +6,7 @@
    import net.fabricmc.refamished.RefamishedItems;
    import net.fabricmc.refamished.RefamishedMod;
    import net.fabricmc.refamished.RefamishedModClient;
+   import net.fabricmc.refamished.misc.Commands.PanoramaHandler;
    import net.fabricmc.refamished.skill.SkillRecipeStarter;
    import net.minecraft.src.Minecraft;
    import org.spongepowered.asm.mixin.Mixin;
@@ -38,7 +39,8 @@
         */
        @Environment(value = EnvType.CLIENT)
        @Inject(method = "runTick", at = @At("HEAD"))
-       private void runTickInject(CallbackInfo ci) {
+       private void runTickInject(CallbackInfo ci) throws InterruptedException {
            RefamishedModClient.handleKeyPress();
+           PanoramaHandler.tick();
        }
    }

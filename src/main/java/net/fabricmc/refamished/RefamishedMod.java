@@ -1,31 +1,21 @@
 package net.fabricmc.refamished;
 
 import btw.AddonHandler;
-import btw.community.refamished.RefamishedAddon;
-import btw.item.BTWItems;
-import btw.network.packet.BTWPacketManager;
+import btw.achievement.AchievementHandler;
 import btw.world.util.WorldUtils;
-import btw.world.util.difficulty.Difficulty;
 import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.loader.api.FabricLoader;
-import net.fabricmc.refamished.gui.ModelPreviewGui;
-import net.fabricmc.refamished.gui.Models.Test;
-import net.fabricmc.refamished.gui.SkillsGui;
 import net.fabricmc.refamished.interfaces.IGridPotion;
 import net.fabricmc.refamished.misc.*;
-import net.fabricmc.refamished.misc.Commands.SkillCmd;
+import net.fabricmc.refamished.misc.Packets.RefamishedPacketManager;
 import net.fabricmc.refamished.misc.Potion.RePotion;
 import net.fabricmc.refamished.skill.*;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.src.*;
-import org.lwjgl.input.Keyboard;
 
 import java.io.ByteArrayOutputStream;
 import java.io.DataOutputStream;
-import java.lang.reflect.Field;
-import java.util.UUID;
 
 public class RefamishedMod implements ModInitializer {
 	private static SkillPersistentState skillPersistentState;
@@ -79,5 +69,17 @@ public class RefamishedMod implements ModInitializer {
 		} catch (Exception exception) {
 			exception.printStackTrace();
 		}
+	}
+
+	public static void triggerAchievement(Achievement achievement, EntityPlayer player) {
+			player.triggerAchievement(achievement);
+			if (AchievementHandler.hasUnlocked(player, achievement)) return;
+			AchievementHandler.triggerAchievement(player, achievement);
+			String name = achievement.toString();
+			String announce = StatCollector.translateToLocal("achievement.get");
+			String formatCode = achievement.formatCode;
+			String msg = String.format("%s %s %s[%s]", player.username, announce, formatCode, name);
+			if (!achievement.shouldAnnounce || player.worldObj.isRemote) return;
+			MinecraftServer.getServer().getConfigurationManager().sendChatMsg(ChatMessageComponent.createFromTranslationWithSubstitutions(msg, new Object[0]));
 	}
 }

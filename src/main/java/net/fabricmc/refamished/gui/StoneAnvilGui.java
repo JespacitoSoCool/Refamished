@@ -1,17 +1,13 @@
 package net.fabricmc.refamished.gui;
 
-import btw.inventory.container.CookingVesselContainer;
 import btw.item.items.ChiselItem;
 import net.fabricmc.refamished.entities.tiles.*;
 import net.fabricmc.refamished.itemsbase.hammer;
 import net.fabricmc.refamished.itemsbase.tongs;
 import net.fabricmc.refamished.misc.Recipes.ForgingPlansRecipes;
-import net.fabricmc.refamished.misc.RefamishedPacketManager;
+import net.fabricmc.refamished.misc.Packets.RefamishedPacketManager;
 import net.fabricmc.refamished.skill.*;
 import net.minecraft.src.*;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-import org.lwjgl.Sys;
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.opengl.GL11;
 

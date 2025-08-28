@@ -1,11 +1,13 @@
 package net.fabricmc.refamished.mixin;
 
 import btw.block.BTWBlocks;
+import btw.crafting.manager.CauldronCraftingManager;
 import btw.crafting.manager.CauldronStokedCraftingManager;
 import btw.crafting.manager.CrucibleStokedCraftingManager;
 import btw.crafting.manager.MillStoneCraftingManager;
 import btw.crafting.recipe.CraftingRecipeList;
 import btw.crafting.recipe.RecipeManager;
+import btw.crafting.recipe.types.BulkRecipe;
 import btw.crafting.recipe.types.customcrafting.WoolArmorRecipe;
 import btw.item.BTWItems;
 import btw.item.tag.Tag;
@@ -120,12 +122,12 @@ public abstract class CraftingManagerMixin {
 				Character.valueOf( 'P' ), Block.planks,
 				Character.valueOf( 'I' ), Item.ingotIron,
 		} );
-		RecipeManager.addRecipe( new ItemStack( RefamishedBlocks.workbench ), new Object[] {
-				"PPP",
-				"PIP",
-				"PPP",
-				Character.valueOf( 'P' ), new ItemStack(BTWItems.woodMouldingStubID, 1, Short.MAX_VALUE),
-				Character.valueOf( 'I' ), Item.ingotIron,
+		RecipeManager.addRecipe( new ItemStack( Block.blockRedstone ), new Object[] {
+				"RRR",
+				"RHR",
+				"RRR",
+				Character.valueOf( 'R' ), Item.redstone,
+				Character.valueOf( 'H' ), BTWItems.hellfireDust,
 		} );
 
 		RecipeManager.addRecipe(new ItemStack(BTWBlocks.lens), new Object[]{"GDG", "G G", "G#G", Character.valueOf('#'), Block.glass, Character.valueOf('G'), RefamishedItems.gildedIngot, Character.valueOf('D'), RefamishedItems.diamondFoil});
@@ -1323,7 +1325,9 @@ public abstract class CraftingManagerMixin {
 						new ItemStack(RefamishedItems.wet_clay),
 				});
 
-		RecipeManager.addCauldronRecipe(new ItemStack(RefamishedItems.sugar_resin), new ItemStack[]{new ItemStack(RefamishedItems.crude_sugar),new ItemStack(Item.sugar)});
+		RecipeManager.addCauldronRecipe(new ItemStack(RefamishedItems.sugar_resin), new ItemStack[]{new ItemStack(Item.slimeBall),new ItemStack(Item.sugar)});
+
+		RecipeManager.addCauldronRecipe(new ItemStack(RefamishedItems.redstoneBrick), new ItemStack[]{new ItemStack(Item.redstone,6)});
 
 		RecipeManager.addShapelessRecipe(new ItemStack(BTWItems.pointyStick),
 				new Object[]{
@@ -1442,6 +1446,8 @@ public abstract class CraftingManagerMixin {
 			RecipeManager.addStokedCrucibleRecipe(new ItemStack(BTWItems.ironNugget, 7), new ItemStack[]{new ItemStack(Item.itemsList[Item.record13.itemID+ih])});
 		}
 		addBuildingBlocksRecipe(RefamishedItems.soft_brick,RefamishedBlocks.softBrickLoose,RefamishedBlocks.softBrickLooseSlab,RefamishedBlocks.softBrickLooseStairs);
+		addBuildingBlocksRecipe(RefamishedItems.searedBrick,RefamishedBlocks.searedBrickLoose,RefamishedBlocks.searedBrickLooseSlab,RefamishedBlocks.searedBrickLooseStair);
+		addBuildingBlocksRecipe(RefamishedItems.redstoneBrick,RefamishedBlocks.redstoneBricks,RefamishedBlocks.redstoneBricksSlab,RefamishedBlocks.redstoneBricksStairs);
 
 		RecipeManager.addShapedRecipeWithCustomClass(WoolArmorRecipe.class, new ItemStack(BTWItems.woolHelmet), new Object[]{"#", Character.valueOf('#'), new ItemStack(BTWItems.woolKnit, 1, Short.MAX_VALUE)});
 		RecipeManager.addShapedRecipeWithCustomClass(WoolArmorRecipe.class, new ItemStack(BTWItems.woolChest), new Object[]{"##", "##", Character.valueOf('#'), new ItemStack(BTWItems.woolKnit, 1, Short.MAX_VALUE)});
@@ -1521,6 +1527,7 @@ public abstract class CraftingManagerMixin {
 //		}
 		RecipeManager.removeVanillaRecipe(new ItemStack(BTWBlocks.lens), new Object[]{"GDG", "G G", "G#G", Character.valueOf('#'), Block.glass, Character.valueOf('G'), Item.ingotGold, Character.valueOf('D'), Item.diamond});
 		RecipeManager.removeVanillaRecipe(new ItemStack(BTWBlocks.lens), new Object[]{"G#G", "G G", "GDG", Character.valueOf('#'), Block.glass, Character.valueOf('G'), Item.ingotGold, Character.valueOf('D'), Item.diamond});
+		RecipeManager.removeVanillaRecipe(new ItemStack(Block.blockRedstone), new Object[]{"###", "###", "###", Character.valueOf('#'), Item.redstone});
 		Set<Item> targets = new HashSet<Item>(Arrays.asList(
 				Item.swordDiamond,
 				Item.pickaxeDiamond,
@@ -1542,11 +1549,9 @@ public abstract class CraftingManagerMixin {
 				it.remove();
 			}
 		}
-
-
-		CraftingManager.getInstance().getRecipeList().add(new TestArmorCombination(Arrays.asList(
-				new ItemStack(RefamishedItems.metallurgyArmor,1,Short.MAX_VALUE),
-				new ItemStack(RefamishedItems.metallurgyArmor,1,Short.MAX_VALUE))));
+//		CraftingManager.getInstance().getRecipeList().add(new TestArmorCombination(Arrays.asList(
+//				new ItemStack(RefamishedItems.metallurgyArmor,1,Short.MAX_VALUE),
+//				new ItemStack(RefamishedItems.metallurgyArmor,1,Short.MAX_VALUE))));
 	}
 
 	private static void removeVanillaRecipe2(ItemStack output, String[] pattern, Object... recipeComponents) {
@@ -1577,6 +1582,11 @@ public abstract class CraftingManagerMixin {
 	@Unique
 	private static void removeStokedCauldron(ItemStack item, ItemStack[] list) {
 		CauldronStokedCraftingManager.getInstance().removeRecipe(item,list);
+	}
+
+	@Unique
+	private static void removeCauldron(ItemStack item, TagOrStack[] list) {
+		CauldronCraftingManager.getInstance().removeRecipe(item,list);
 	}
 
 	@Unique

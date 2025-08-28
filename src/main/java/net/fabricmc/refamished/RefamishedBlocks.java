@@ -113,6 +113,12 @@ public class RefamishedBlocks {
             id_paintStoneRough2= 3157,
             id_paintStoneRough3= 3158,
             id_paintBrickStoneLoose= 3159,
+            id_looseSearedBricks= 3160,
+            id_looseSearedBricksSlab= 3161,
+            id_looseSearedBricksStairs= 3162,
+            id_searedBricks= 3163,
+            id_searedBricksSlab= 3164,
+            id_searedBricksStairs= 3165,
             id_log= 3405,
             id_logWorkbench= 3406,
             id_planks= 3407,
@@ -218,6 +224,12 @@ public class RefamishedBlocks {
     public static Block SteelAnvil;
     public static Block workbench;
     public static Block gildedIronBlock;
+    public static Block searedBrickLoose;
+    public static Block searedBrickLooseSlab;
+    public static Block searedBrickLooseStair;
+    public static Block searedBrick;
+    public static Block searedBrickSlab;
+    public static Block searedBrickStair;
 
     public static Block blueberryBush;
     public static Block sweetberryBush;
@@ -336,6 +348,15 @@ public class RefamishedBlocks {
         burntPlanksSlab = new woodBurntSlab(id_burntPlanksSlab);
         copperConduct = new copperConduct(id_copperConduct);
         steamKiln = new steamKiln(id_steamKiln);
+        searedBrickLoose = new seared_brick_loose(id_looseSearedBricks).setCreativeTab(CreativeTabs.tabBlock);
+        searedBrickLooseSlab = new seared_brick_loose_slab(id_looseSearedBricksSlab).setCreativeTab(CreativeTabs.tabBlock);
+        searedBrickLooseStair = new seared_brick_loose_stair(id_looseSearedBricksStairs);
+        searedBrick = new seared_brick(id_searedBricks).setCreativeTab(CreativeTabs.tabBlock);
+        searedBrickSlab = new seared_brick_slab(id_searedBricksSlab).setCreativeTab(CreativeTabs.tabBlock);
+        searedBrickStair = new seared_brick_stair(id_searedBricksStairs);
+        redstoneBricks = new redstone_bricks(id_redstoneBricks).setCreativeTab(CreativeTabs.tabBlock);
+        redstoneBricksSlab = new redstone_bricks_slab(id_redstoneBricksSlab).setCreativeTab(CreativeTabs.tabBlock);
+        redstoneBricksStairs = new redstone_bricks_stair(id_redstoneBricksStairs);
         //burntChest = new burntChest(id_burntChest);
 
         cokeOven = new CokeOven(id_cokeOven,false);

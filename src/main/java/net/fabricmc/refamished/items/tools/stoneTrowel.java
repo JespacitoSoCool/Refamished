@@ -12,6 +12,7 @@ public class stoneTrowel extends Item {
         setTextureName("refamished:stone_trowel");
         setCreativeTab(CreativeTabs.tabTools);
         setMaxDamage(32);
+        setMaxStackSize(1);
     }
 
     @Override

@@ -8,7 +8,7 @@ import java.util.Map;
 import java.util.Set;
 
 public class PlayerSkillData {
-	private final Map<String, SkillProgress> skills = new HashMap<>();
+	public final Map<String, SkillProgress> skills = new HashMap<>();
 	public final Set<String> pinnedSkills = new HashSet<>();
 
 	public Map<String, SkillProgress> getAllSkills() {

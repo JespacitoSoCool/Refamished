@@ -1,5 +1,9 @@
 package net.fabricmc.refamished.skill;
 
+import btw.achievement.event.AchievementEventDispatcher;
+import net.fabricmc.refamished.RefamishedMod;
+import net.fabricmc.refamished.misc.AchievementsThing.RefAchievements;
+import net.fabricmc.refamished.misc.AchievementsThing.RefAchievementsEvents;
 import net.minecraft.src.EntityPlayer;
 import net.minecraft.src.EntityPlayerMP;
 import net.minecraft.src.NBTTagCompound;
@@ -75,6 +79,8 @@ public class SkillManager {
 		}
 	}
 
+	private final static String[] skills = new String[]{"Artisanry","Weaving","Chipping"};
+
 	public static void addExperience(EntityPlayer player, String skillName, int amount) {
 		if (player.worldObj.isRemote) {
 			// Local-only update
@@ -134,6 +140,12 @@ public class SkillManager {
 		//System.out.println("Updated global skill - Level: " + currentLevel + " | EXP: " + newExperience);
 
 		// Sync with the client
+		AchievementEventDispatcher.triggerEvent(RefAchievementsEvents.Skill.class,player, new RefAchievementsEvents.SkillEventData(skillName, currentLevel));
 		SkillUtils.syncSkillToClient((EntityPlayerMP) player, skillName, newExperience, currentLevel);
+
+		for (String curSkill : skills) {
+			if (skillData.getSkillProgress(curSkill).getLevel() != SkillData.getLevelCap(curSkill)) break;
+			RefamishedMod.triggerAchievement(RefAchievements.MASTER_SKILL,player);
+		}
 	}
 }

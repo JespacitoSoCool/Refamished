@@ -1,6 +1,7 @@
 package net.fabricmc.refamished.blocks;
 
 import btw.block.BTWBlocks;
+import btw.block.model.BlockModel;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.fabricmc.refamished.RefamishedItems;
@@ -31,11 +32,6 @@ public class copperConduct extends steamContainer {
     @Override
     public boolean isOpaqueCube() {
         return false;
-    }
-
-    @Override
-    public int getRenderType() {
-        return -1;
     }
 
     @Override
@@ -96,4 +92,15 @@ public class copperConduct extends steamContainer {
         this.setBlockBounds(minX, minY, minZ, maxX, maxY, maxZ);
     }
 
+    @Override
+    @Environment(value=EnvType.CLIENT)
+    public boolean shouldSideBeRendered(IBlockAccess blockAccess, int iNeighborI, int iNeighborJ, int iNeighborK, int iSide) {
+        return true;
+    }
+
+    @Override
+    @Environment(value=EnvType.CLIENT)
+    public void renderBlockAsItem(RenderBlocks renderBlocks, int iItemDamage, float fBrightness) {
+        renderBlocks.renderBlockAsItemVanilla(this, iItemDamage, fBrightness);
+    }
 }
